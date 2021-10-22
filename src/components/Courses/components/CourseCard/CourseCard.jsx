@@ -11,6 +11,7 @@ const cutLongString = (str) => {
 
 const CourseCard = ({ course }) => {
   const { title, description, creationDate, duration, authors } = course;
+
   return (
     <article className='card mb-3 shadow'>
       <div className='row card-body p-4'>

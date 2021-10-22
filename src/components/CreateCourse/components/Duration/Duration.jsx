@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@common/Input';
 import { GridTitle } from '@common/GridTitle';
+import { convertMinutesToTime } from '@helpers';
 
 const Duration = () => {
+  // const [minutesOriginal, setMinutesOriginal] = useState('');
+  const [hours, setHours] = useState('00:00 hours');
+
+  const changeHandler = (e) => {
+    const { value } = e.target;
+    // setMinutesOriginal(value);
+
+    setHours(convertMinutesToTime(value));
+  };
+
   return (
     <div className='d-flex flex-column'>
       <GridTitle title='Duration' />
@@ -10,15 +21,12 @@ const Duration = () => {
         htmlId={'addDuration'}
         labelText={'Duration'}
         placeholdetText={'Enter duration in minutes…'}
-        onChange={console.log}
+        onChange={changeHandler}
         className={'input-form fs-5 mt-3'}
       />
       <p className='fs-2'>
         <span>Duration: </span>
-        <span className='fs-1'>
-          <span>00</span>:<span>00</span>
-        </span>
-        <span> hours</span>
+        <span className='fs-2'>{hours}</span>
       </p>
     </div>
   );

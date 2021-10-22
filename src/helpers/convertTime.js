@@ -7,7 +7,5 @@ export const convertMinutesToTime = (givenMinutes) => {
 
   const resHours = formatWithZero(hours);
   const resMinutes = formatWithZero(minutes);
-  return hours > 0
-    ? `${resHours}:${resMinutes} hours`
-    : `${resMinutes} minutes`;
+  return `${resHours}:${resMinutes} hours`;
 };
