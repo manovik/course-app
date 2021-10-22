@@ -9,6 +9,7 @@ module.exports = {
       '@common': resolvePath('./src/common'),
       '@helpers': resolvePath('./src/helpers'),
       '@mock': resolvePath('./src/mock'),
+      '@services': resolvePath('./src/services'),
     },
   },
 };

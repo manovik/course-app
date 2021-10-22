@@ -4,7 +4,7 @@ import { Button } from '@common/Button';
 import { TextArea } from '@common/TextArea';
 import { InfoWrapper } from './components/InfoWrapper';
 
-const CreateCourse = () => {
+const CreateCourse = ({ createModeHandler }) => {
   return (
     <section className='fs-4'>
       <div className='d-flex justify-content-between'>
@@ -18,11 +18,18 @@ const CreateCourse = () => {
             type='text'
           />
         </div>
-        <Button
-          buttonText='Create course'
-          btnClassName='btn-outline-success btn-wide fs-3'
-          onClick={console.log}
-        />
+        <div className='btn-group'>
+          <Button
+            buttonText='Create course'
+            btnClassName='btn-outline-success btn-wide fs-4'
+            onClick={console.log}
+          />
+          <Button
+            buttonText='Back'
+            btnClassName='btn-outline-danger btn-wide fs-4'
+            onClick={createModeHandler}
+          />
+        </div>
       </div>
       <div className='mb-2 mt-4'>
         <TextArea

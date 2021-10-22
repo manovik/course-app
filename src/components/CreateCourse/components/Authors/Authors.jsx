@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GridTitle } from '@common/GridTitle';
 import { Button } from '@common/Button';
 import { Author } from '@common/Author';
-import { mockedAuthorsList } from '@mock/mockedAuthorsList';
 
-const Authors = () => {
+const Authors = ({ authors }) => {
+  useEffect(() => {
+    if (authors.length) {
+      return authors;
+    }
+  }, [authors]);
+
   return (
     <>
       <GridTitle title='Authors list' />
 
       <div className='mx-auto w-75'>
-        {mockedAuthorsList.map((author) => (
+        {authors.map((author) => (
           <Author key={author.id} authorName={author.name} className='m-2'>
             <Button
               buttonText='Add author'

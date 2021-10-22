@@ -41,14 +41,14 @@ const Courses = () => {
   const creatingPageHandler = () => setIsCreateMode(!isCreateMode);
 
   return isCreateMode ? (
-    <CreateCourse />
+    <CreateCourse createModeHandler={creatingPageHandler} />
   ) : (
     <section>
       <div className='d-flex justify-content-between mb-4'>
         <SearchBar searchHandler={onSearch} clearInputHandler={onClearInput} />
         <Button
           buttonText='Add new course'
-          btnClassName='btn-outline-success btn-wide'
+          btnClassName='btn-outline-success btn-wide fs-4'
           onClick={creatingPageHandler}
         />
       </div>
