@@ -17,7 +17,7 @@ class AuthorService {
     this.authorService.push(author);
   };
 
-  getAll = () => this.authorService;
+  getAll = () => [...this.authorService];
 }
 
 export default AuthorService;
