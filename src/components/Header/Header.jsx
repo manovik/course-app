@@ -13,7 +13,7 @@ const Header = () => {
             <Logo />
           </div>
 
-          <div div className='col-auto p-4'>
+          <div className='col-auto p-4'>
             <User name='Maxim' />
           </div>
           <div className='col-auto'>
