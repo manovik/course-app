@@ -1,15 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { GridTitle } from '@common/GridTitle';
 import { Button } from '@common/Button';
 import { Author } from '@common/Author';
 
 const Authors = ({ authors }) => {
-  useEffect(() => {
-    if (authors.length) {
-      return authors;
-    }
-  }, [authors]);
-
   return (
     <>
       <GridTitle title='Authors list' />
