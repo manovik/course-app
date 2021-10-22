@@ -17,14 +17,16 @@ const InfoWrapper = () => {
     setAuthors(authorService.getAll());
   }, []);
 
-  const addAuthor = (author) => {
+  const addNewAuthor = (author) => {
+    if (!author) return;
+
     authorService.add(author);
     setAuthors(authorService.getAll());
   };
 
   return (
     <GridTemplate>
-      <AddAuthor clickHandler={addAuthor} />
+      <AddAuthor clickHandler={addNewAuthor} />
       <Authors authors={authors} />
       <Duration />
       <CourseAuthors authors={selectedAuthors} />
