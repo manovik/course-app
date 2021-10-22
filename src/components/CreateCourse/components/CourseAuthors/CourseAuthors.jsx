@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { GridTitle } from '@common/GridTitle';
 import { Author } from '@common/Author';
 import { Button } from '@common/Button';
 
 const CourseAuthors = ({ authors }) => {
-  const [currentAuthors, setCurrentAuthors] = useState([]);
-  useEffect(() => {
-    setCurrentAuthors(authors);
-    return () => {
-      setCurrentAuthors([]);
-    };
-  }, [authors]);
-
-  const getAuthors = (aut) => {
+  const getAuthor = (aut) => {
     return (
       <Author key={aut.id} authorName={aut.name} className='m-2'>
         <Button
@@ -24,10 +16,18 @@ const CourseAuthors = ({ authors }) => {
     );
   };
 
+  const renderAuthors = () => {
+    return authors.length ? (
+      authors.map(getAuthor)
+    ) : (
+      <span>No selected authors</span>
+    );
+  };
+
   return (
     <>
       <GridTitle title='Course authors' />
-      <div className='w-75 mx-auto'>{currentAuthors.map(getAuthors)}</div>
+      <div className='w-75 mx-auto'>{renderAuthors()}</div>
     </>
   );
 };
