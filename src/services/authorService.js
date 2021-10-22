@@ -1,5 +1,7 @@
 import { v4 } from 'uuid';
 
+// imitation of some user service
+
 class AuthorService {
   constructor(authorService) {
     this.authorService = authorService;
@@ -14,6 +16,10 @@ class AuthorService {
 
   add = (newAuthor) => {
     const author = this.createNewAuthor(newAuthor);
+    this.addCompletedAuthor(author);
+  };
+
+  addCompletedAuthor = (author) => {
     this.authorService.push(author);
   };
 
