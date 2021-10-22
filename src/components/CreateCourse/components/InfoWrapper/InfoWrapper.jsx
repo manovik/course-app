@@ -9,6 +9,16 @@ import { AuthorService } from '@services';
 
 const authorService = new AuthorService(mockedAuthorsList);
 
+const switchElementsInStates =
+  (stateFrom, setStateFrom, stateTo, setStateTo) => (entity) => {
+    const newList = [...stateTo];
+    newList.push(entity);
+    setStateTo(newList);
+
+    const filteredList = stateFrom.filter((a) => a.id !== entity.id);
+    setStateFrom(filteredList);
+  };
+
 const InfoWrapper = () => {
   const [authors, setAuthors] = useState([]);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
@@ -20,16 +30,38 @@ const InfoWrapper = () => {
   const addNewAuthor = (author) => {
     if (!author) return;
 
-    authorService.add(author);
-    setAuthors(authorService.getAll());
+    const newAuthor = authorService.createNewAuthor(author);
+    authorService.addCompletedAuthor(newAuthor);
+
+    const newList = [...authors, newAuthor];
+    setAuthors(newList);
   };
+
+  switchElementsInStates();
+
+  const addAuthorToCourse = switchElementsInStates(
+    authors,
+    setAuthors,
+    selectedAuthors,
+    setSelectedAuthors
+  );
+
+  const removeAuthorFromCourse = switchElementsInStates(
+    selectedAuthors,
+    setSelectedAuthors,
+    authors,
+    setAuthors
+  );
 
   return (
     <GridTemplate>
       <AddAuthor clickHandler={addNewAuthor} />
-      <Authors authors={authors} />
+      <Authors authors={authors} clickHandler={addAuthorToCourse} />
       <Duration />
-      <CourseAuthors authors={selectedAuthors} />
+      <CourseAuthors
+        authors={selectedAuthors}
+        clickHandler={removeAuthorFromCourse}
+      />
     </GridTemplate>
   );
 };

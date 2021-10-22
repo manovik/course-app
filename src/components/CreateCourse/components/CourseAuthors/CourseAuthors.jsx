@@ -3,14 +3,14 @@ import { GridTitle } from '@common/GridTitle';
 import { Author } from '@common/Author';
 import { Button } from '@common/Button';
 
-const CourseAuthors = ({ authors }) => {
+const CourseAuthors = ({ authors, clickHandler }) => {
   const getAuthor = (aut) => {
     return (
       <Author key={aut.id} authorName={aut.name} className='m-2'>
         <Button
           buttonText='Delete author'
           btnClassName='btn-outline-danger fs-5'
-          onClick={console.log}
+          onClick={() => clickHandler(aut)}
         />
       </Author>
     );
