@@ -14,12 +14,7 @@ class AuthorService {
 
   generatUUID = () => v4();
 
-  add = (newAuthor) => {
-    const author = this.createNewAuthor(newAuthor);
-    this.addCompletedAuthor(author);
-  };
-
-  addCompletedAuthor = (author) => {
+  add = (author) => {
     this.authorService.push(author);
   };
 
