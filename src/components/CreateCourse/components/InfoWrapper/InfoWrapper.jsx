@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
+
+import { ACTIONS } from '@components/Courses/store/actions';
+
 import { AddAuthor } from '../AddAuthor';
 import { Authors } from '../Authors';
 import { Duration } from '../Duration';
 import { CourseAuthors } from '../CourseAuthors';
+
 import { GridTemplate } from '@common/GridTemplate';
+
 import { mockedAuthorsList } from '@mock/mockedAuthorsList';
+
 import { AuthorService } from '@services';
 
 const authorService = new AuthorService(mockedAuthorsList);
+
+const getIDs = (entity) => entity.map((a) => a.id);
 
 const switchElementsInStates =
   (stateFrom, setStateFrom, stateTo, setStateTo) => (entity) => {
@@ -19,7 +27,7 @@ const switchElementsInStates =
     setStateFrom(filteredList);
   };
 
-const InfoWrapper = () => {
+const InfoWrapper = ({ dispatch }) => {
   const [authors, setAuthors] = useState([]);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
 
@@ -27,17 +35,24 @@ const InfoWrapper = () => {
     setAuthors(authorService.getAll());
   }, []);
 
+  useEffect(() => {
+    const authorsIdArray = getIDs(selectedAuthors);
+    dispatch({ type: ACTIONS.SET_AUTHORS, payload: authorsIdArray });
+    return () => {
+      dispatch({ type: ACTIONS.SET_AUTHORS, payload: [] });
+    };
+    // eslint-disable-next-line
+  }, [selectedAuthors]);
+
   const addNewAuthor = (author) => {
     if (!author) return;
 
     const newAuthor = authorService.createNewAuthor(author);
-    authorService.addCompletedAuthor(newAuthor);
+    authorService.add(newAuthor);
 
     const newList = [...authors, newAuthor];
     setAuthors(newList);
   };
-
-  switchElementsInStates();
 
   const addAuthorToCourse = switchElementsInStates(
     authors,
@@ -57,7 +72,7 @@ const InfoWrapper = () => {
     <GridTemplate>
       <AddAuthor clickHandler={addNewAuthor} />
       <Authors authors={authors} clickHandler={addAuthorToCourse} />
-      <Duration />
+      <Duration dispatch={dispatch} />
       <CourseAuthors
         authors={selectedAuthors}
         clickHandler={removeAuthorFromCourse}
