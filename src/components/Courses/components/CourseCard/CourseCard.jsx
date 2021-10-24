@@ -4,13 +4,9 @@ import { Record } from '@common/Record';
 import { convertMinutesToTime, convertDate } from '@helpers';
 import './course-card.scss';
 
-const cutLongString = (str) => {
-  const maxLength = 25;
-  return str.length > maxLength ? str.slice(0, maxLength) + '...' : str;
-};
-
 const CourseCard = ({ course }) => {
   const { title, description, creationDate, duration, authors } = course;
+  const authorsString = authors.join(', ');
 
   return (
     <article className='card mb-3 shadow'>
@@ -22,8 +18,8 @@ const CourseCard = ({ course }) => {
         <div className='col-3 fs-4' style={{ paddingLeft: '1rem' }}>
           <Record
             caption='Authors'
-            text={cutLongString(authors.join(', '))}
-            title={authors.join(', ')}
+            text={authorsString}
+            title={authorsString}
           />
           <Record caption='Duration' text={convertMinutesToTime(duration)} />
           <Record caption='Created' text={convertDate(creationDate)} />
