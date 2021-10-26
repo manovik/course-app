@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useCallback } from 'react';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
@@ -24,6 +24,8 @@ const Courses = ({ isLoadingHandler }) => {
   const [isCreateMode, setIsCreateMode] = useState(false);
   const [courses, setCourses] = useState([]);
   const [coursesToShow, setCoursesToShow] = useState([]);
+
+  const memoDispatch = useCallback(dispatch, [dispatch]);
 
   useEffect(() => {
     setCourses(courseService.getAll());
@@ -74,14 +76,14 @@ const Courses = ({ isLoadingHandler }) => {
     }, 1500);
 
     setIsCreateMode(!isCreateMode);
-    dispatch({ type: ACTIONS.RESET });
+    memoDispatch({ type: ACTIONS.RESET });
   };
 
   return isCreateMode ? (
     <CreateCourse
       createModeSwitcher={switchPage}
       createNewCourse={createNewCourse}
-      dispatch={dispatch}
+      dispatch={memoDispatch}
     />
   ) : (
     <section>

@@ -41,8 +41,7 @@ const InfoWrapper = ({ dispatch }) => {
     return () => {
       dispatch({ type: ACTIONS.SET_AUTHORS, payload: [] });
     };
-    // eslint-disable-next-line
-  }, [selectedAuthors]);
+  }, [selectedAuthors, dispatch]);
 
   const addNewAuthor = (author) => {
     if (!author) return;
