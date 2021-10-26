@@ -93,8 +93,7 @@ const Courses = ({ isLoadingHandler }) => {
           onClick={switchPage}
         />
       </div>
-      {(coursesToShow &&
-        coursesToShow.length &&
+      {(coursesToShow?.length &&
         coursesToShow.map((course) => (
           <CourseCard key={course.id} course={course} />
         ))) || <NothingToShow />}
