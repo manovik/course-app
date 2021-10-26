@@ -35,7 +35,7 @@ const Courses = ({ isLoadingHandler }) => {
   }, [courses]);
 
   const searchCourses = (str) => {
-    const rgx = RegExp(`${str}`, 'g');
+    const rgx = RegExp(`${str}`, 'gi');
     return courses.filter((course) => {
       return rgx.test(course.id) || rgx.test(course.title);
     });
