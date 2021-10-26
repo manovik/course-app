@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
-import { reducer, reset } from './store/reducer';
+import { reducer, reset, initCourse } from './store/reducer';
 import { ACTIONS } from './store/actions';
 
 import { CreateCourse } from 'components/CreateCourse';
@@ -17,13 +17,6 @@ import { CourseService } from 'services';
 import { validateCourseFields, callAlert } from 'helpers';
 
 const courseService = new CourseService(mockedCoursesList);
-
-const initCourse = {
-  title: '',
-  description: '',
-  duration: 0,
-  authors: [],
-};
 
 const Courses = ({ isLoadingHandler }) => {
   const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);

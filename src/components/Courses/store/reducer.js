@@ -1,12 +1,14 @@
 import { ACTIONS } from './actions';
 
+export const initCourse = {
+  title: '',
+  description: '',
+  duration: 0,
+  authors: [],
+};
+
 export const reset = () => {
-  return {
-    title: '',
-    description: '',
-    duration: 0,
-    authors: [],
-  };
+  return initCourse;
 };
 
 export const reducer = (state, { type, payload }) => {
