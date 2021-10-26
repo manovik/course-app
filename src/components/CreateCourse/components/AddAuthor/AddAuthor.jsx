@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { Input } from '@common/Input';
-import { Button } from '@common/Button';
-import { GridTitle } from '@common/GridTitle';
+import { Input } from 'common/Input';
+import { Button } from 'common/Button';
+import { GridTitle } from 'common/GridTitle';
 
 const AddAuthor = ({ clickHandler }) => {
   const inputRef = useRef(null);

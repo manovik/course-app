@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@common/Button';
+import { Button } from 'common/Button';
 import { Logo } from './components/Logo';
 import { User } from './components/User';
 import './header.scss';

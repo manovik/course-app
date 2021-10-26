@@ -5,16 +5,16 @@ import { SearchBar } from './components/SearchBar';
 import { reducer, reset } from './store/reducer';
 import { ACTIONS } from './store/actions';
 
-import { CreateCourse } from '@components/CreateCourse';
+import { CreateCourse } from 'components/CreateCourse';
 
-import { NothingToShow } from '@common/NothingToShow';
-import { Button } from '@common/Button';
+import { NothingToShow } from 'common/NothingToShow';
+import { Button } from 'common/Button';
 
-import { mockedCoursesList } from '@mock/mockedCoursesList';
+import { mockedCoursesList } from 'mock/mockedCoursesList';
 
-import { CourseService } from '@services';
+import { CourseService } from 'services';
 
-import { validateCourseFields, callAlert } from '@helpers';
+import { validateCourseFields, callAlert } from 'helpers';
 
 const courseService = new CourseService(mockedCoursesList);
 

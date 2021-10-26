@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ACTIONS } from '@components/Courses/store/actions';
+import { ACTIONS } from 'components/Courses/store/actions';
 
-import { Input } from '@common/Input';
-import { Button } from '@common/Button';
-import { TextArea } from '@common/TextArea';
+import { Input } from 'common/Input';
+import { Button } from 'common/Button';
+import { TextArea } from 'common/TextArea';
 
 import { InfoWrapper } from './components/InfoWrapper';
 

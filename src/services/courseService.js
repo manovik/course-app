@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
-import { AuthorService } from '@services';
-import { mockedAuthorsList } from '@mock/mockedAuthorsList';
+import { AuthorService } from 'services';
+import { mockedAuthorsList } from 'mock/mockedAuthorsList';
 
 // imitation of some user service
 

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-import { ACTIONS } from '@components/Courses/store/actions';
+import { ACTIONS } from 'components/Courses/store/actions';
 
 import { AddAuthor } from '../AddAuthor';
 import { Authors } from '../Authors';
 import { Duration } from '../Duration';
 import { CourseAuthors } from '../CourseAuthors';
 
-import { GridTemplate } from '@common/GridTemplate';
+import { GridTemplate } from 'common/GridTemplate';
 
-import { mockedAuthorsList } from '@mock/mockedAuthorsList';
+import { mockedAuthorsList } from 'mock/mockedAuthorsList';
 
-import { AuthorService } from '@services';
+import { AuthorService } from 'services';
 
 const authorService = new AuthorService(mockedAuthorsList);
 

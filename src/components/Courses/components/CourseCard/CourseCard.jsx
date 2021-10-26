@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from '@common/Button';
-import { Record } from '@common/Record';
-import { convertMinutesToTime, convertDate } from '@helpers';
+import { Button } from 'common/Button';
+import { Record } from 'common/Record';
+import { convertMinutesToTime, convertDate } from 'helpers';
 import './course-card.scss';
 
 const CourseCard = ({ course }) => {

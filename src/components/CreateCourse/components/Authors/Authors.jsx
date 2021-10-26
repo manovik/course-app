@@ -1,7 +1,7 @@
 import React from 'react';
-import { GridTitle } from '@common/GridTitle';
-import { Button } from '@common/Button';
-import { Author } from '@common/Author';
+import { GridTitle } from 'common/GridTitle';
+import { Button } from 'common/Button';
+import { Author } from 'common/Author';
 
 const Authors = ({ authors, clickHandler }) => {
   return (
