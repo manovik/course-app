@@ -3,6 +3,7 @@ import { Courses } from './components/Courses';
 import { Header } from './components/Header';
 import { Login } from 'components/Login';
 import { Registration } from 'components/Registration';
+import { CourseInfo } from 'components/CourseInfo';
 
 import {
   BrowserRouter as Router,
@@ -34,8 +35,11 @@ function App() {
             <Route path='/registration'>
               <Registration />
             </Route>
-            <Route path='/courses'>
+            <Route exact path='/courses'>
               <Courses isLoadingHandler={false} />
+            </Route>
+            <Route exact path='/courses/:courseId'>
+              <CourseInfo />
             </Route>
           </Switch>
         </div>
