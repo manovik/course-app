@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import Button from 'common/Button/Button';
 import { Input } from 'common/Input';
 
-import './login.scss';
-
 export const Login = () => {
   const emailRef = useRef(null);
   const passRef = useRef(null);
@@ -18,7 +16,7 @@ export const Login = () => {
 
   return (
     <div className='d-flex align-items-center justify-content-center h-100'>
-      <div className='login'>
+      <div className='login-signup'>
         <h2 className='text-center fs-1'>Login</h2>
         <form className='mt-5 fs-4' onSubmit={handleSubmit}>
           <Input
@@ -45,7 +43,7 @@ export const Login = () => {
               type='submit'
             />
           </div>
-          <p className='mt-4'>
+          <p className='mt-4 text-center'>
             If you don't have an account you can{' '}
             <Link to={'/registration'}>Register it</Link>
           </p>
