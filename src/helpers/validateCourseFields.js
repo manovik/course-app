@@ -1,6 +1,6 @@
 export const validateCourseFields = (course) => {
   const mappedEntries = Object.entries(course).map(([key, val]) => {
-    if (typeof val === 'string' && val.length > 2) {
+    if (typeof val === 'string' && val.trim().length > 2) {
       return true;
     } else if (typeof +val === 'number' && val > 0) {
       return true;
