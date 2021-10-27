@@ -1,11 +1,17 @@
 import React from 'react';
+
+import { useHistory } from 'react-router-dom';
+
 import { Button } from 'common/Button';
 import { Record } from 'common/Record';
+
 import { convertMinutesToTime, convertDate } from 'helpers';
+
 import './course-card.scss';
 
 const CourseCard = ({ course }) => {
-  const { title, description, creationDate, duration, authors } = course;
+  const history = useHistory();
+  const { id, title, description, creationDate, duration, authors } = course;
   const authorsString = authors.join(', ');
 
   return (
@@ -27,6 +33,7 @@ const CourseCard = ({ course }) => {
             <Button
               buttonText='Show Course'
               btnClassName='btn-outline-primary btn-wide fs-5'
+              onClick={() => history.push(`/courses/${id}`)}
             />
           </div>
         </div>
