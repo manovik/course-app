@@ -1,13 +1,28 @@
 import React, { useRef } from 'react';
+
 import { Input } from 'common/Input';
 import { Button } from 'common/Button';
 import { GridTitle } from 'common/GridTitle';
+
+import { validateString } from 'helpers';
 
 const AddAuthor = ({ clickHandler }) => {
   const inputRef = useRef(null);
 
   const clickBtnHandler = () => {
-    clickHandler(inputRef.current.value);
+    const { value } = inputRef.current;
+    const { error } = validateString(value);
+    if (error) {
+      inputRef.current.classList.add('error');
+      inputRef.current.value = error.message;
+      setTimeout(() => {
+        inputRef.current.classList.remove('error');
+        inputRef.current.value = value;
+        inputRef.current.focus();
+      }, 2000);
+      return;
+    }
+    clickHandler(value);
     inputRef.current.value = '';
   };
 

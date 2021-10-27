@@ -1,11 +1,11 @@
 export const callAlert = (fields) => {
   const fieldNotes = {
     title: {
-      warn: 'Should have more then 2 characters.',
+      warn: 'Should have more than 2 characters.',
       name: 'Title',
     },
     description: {
-      warn: 'Should be more then 2 characters.',
+      warn: 'Should be more than 2 characters.',
       name: 'Description',
     },
     duration: {
