@@ -11,7 +11,7 @@ html {
 *::before,
 *::after {
   box-sizing: inherit;
-  transition: all .2s ease-out;
+  transition: box-shadow .2s ease-out;
 }
 
 body {
@@ -42,6 +42,10 @@ body {
   flex: 1 0 auto;
   width: 100%;
   margin: 0 auto;
+}
+
+#root {
+  height: 100%;
 }
 
 main {
