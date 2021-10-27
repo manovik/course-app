@@ -1,6 +1,10 @@
+import React, { useRef } from 'react';
+
+import { Link } from 'react-router-dom';
+
 import Button from 'common/Button/Button';
 import { Input } from 'common/Input';
-import React, { useRef } from 'react';
+
 import './login.scss';
 
 export const Login = () => {
@@ -41,6 +45,10 @@ export const Login = () => {
               type='submit'
             />
           </div>
+          <p className='mt-4'>
+            If you don't have an account you can{' '}
+            <Link to={'/registration'}>Register it</Link>
+          </p>
         </form>
       </div>
     </div>
