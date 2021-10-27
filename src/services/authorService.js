@@ -5,14 +5,13 @@ import { v4 } from 'uuid';
 class AuthorService {
   constructor(authorService) {
     this.authorService = authorService;
+    this.generateUUID = v4;
   }
 
   createNewAuthor = (name) => ({
-    id: this.generatUUID(),
+    id: this.generateUUID(),
     name,
   });
-
-  generatUUID = () => v4();
 
   add = (author) => {
     this.authorService.push(author);

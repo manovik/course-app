@@ -7,15 +7,14 @@ import { mockedAuthorsList } from 'mock/mockedAuthorsList';
 class CourseService {
   constructor(courseService) {
     this.courseService = courseService;
+    this.generateUUID = v4;
   }
 
   createNewCourse = (courseInfo) => ({
     ...courseInfo,
-    id: this.generatUUID(),
+    id: this.generateUUID(),
     creationDate: new Date().toLocaleDateString('en-US'),
   });
-
-  generatUUID = () => v4();
 
   add = (newCourse) => {
     this.courseService.push(newCourse);
