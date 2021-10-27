@@ -86,20 +86,25 @@ const Courses = ({ isLoadingHandler }) => {
       dispatch={memoDispatch}
     />
   ) : (
-    <section>
-      <div className='d-flex justify-content-between mb-4'>
-        <SearchBar searchHandler={onSearch} clearInputHandler={onClearInput} />
-        <Button
-          buttonText='Add new course'
-          btnClassName='btn-outline-success btn-wide fs-4'
-          onClick={switchPage}
-        />
-      </div>
-      {(coursesToShow?.length &&
-        coursesToShow.map((course) => (
-          <CourseCard key={course.id} course={course} />
-        ))) || <NothingToShow />}
-    </section>
+    <div className='container'>
+      <section>
+        <div className='d-flex justify-content-between mb-4'>
+          <SearchBar
+            searchHandler={onSearch}
+            clearInputHandler={onClearInput}
+          />
+          <Button
+            buttonText='Add new course'
+            btnClassName='btn-outline-success btn-wide fs-4'
+            onClick={switchPage}
+          />
+        </div>
+        {(coursesToShow?.length &&
+          coursesToShow.map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))) || <NothingToShow />}
+      </section>
+    </div>
   );
 };
 
