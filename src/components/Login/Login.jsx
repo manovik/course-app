@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import Button from 'common/Button/Button';
+import { Button } from 'common/Button';
 import { Input } from 'common/Input';
 
 export const Login = () => {

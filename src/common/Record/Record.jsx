@@ -1,6 +1,6 @@
 import './record.scss';
 
-const Record = ({ caption, text, title }) => (
+const Record = ({ caption, text, title, children }) => (
   <p className='d-flex'>
     <span className='fw-bold'>{caption}:</span>&nbsp;
     <span
@@ -13,6 +13,9 @@ const Record = ({ caption, text, title }) => (
       title={title}
     >
       {text}
+      {children?.map((ch, i) => (
+        <p key={ch.replace(/\s/g, i)}>{ch}</p>
+      ))}
     </span>
   </p>
 );
