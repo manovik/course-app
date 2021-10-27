@@ -1,12 +1,11 @@
 import './record.scss';
 
 const Record = ({ caption, text, title }) => (
-  <p>
-    <span className='fw-bold'>{caption}:</span>{' '}
+  <p className='d-flex'>
+    <span className='fw-bold'>{caption}:</span>&nbsp;
     <span
       className={title ? 'tip' : ''}
       style={{
-        display: 'block',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
