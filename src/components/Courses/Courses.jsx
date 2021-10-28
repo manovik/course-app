@@ -2,7 +2,8 @@ import React, { useState, useEffect, useReducer, useCallback } from 'react';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
-import { reducer, reset, initCourse } from './store/reducer';
+
+import { reducer, reset } from './store/reducer';
 import { ACTIONS } from './store/actions';
 
 import { CreateCourse } from 'components/CreateCourse';
@@ -13,6 +14,8 @@ import { Button } from 'common/Button';
 import { CourseService } from 'services';
 
 import { validateCourseFields, callAlert } from 'helpers';
+
+import { initCourse } from 'utils/courseStructure';
 
 const courseService = new CourseService();
 
