@@ -9,6 +9,7 @@ import { CourseService } from 'services';
 import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { initCourseInfo } from 'utils/courseStructure';
+import { APP } from 'utils/appRoutes';
 
 const courseService = new CourseService();
 
@@ -24,7 +25,7 @@ export const CourseInfo = () => {
   return (
     <div className='container'>
       <article className='fs-4'>
-        <Link to='/courses' className='btn fs-3'>
+        <Link to={APP.COURSES} className='btn fs-3'>
           &#8592; Back to courses
         </Link>
         <h2 className='text-center mb-5 fs-1'>{courseInfo?.title}</h2>

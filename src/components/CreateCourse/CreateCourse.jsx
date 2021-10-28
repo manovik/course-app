@@ -18,6 +18,8 @@ import { initCourse } from 'utils/courseStructure';
 
 import { CourseService } from 'services';
 
+import { APP } from 'utils/appRoutes';
+
 const courseService = new CourseService();
 
 const CreateCourse = ({ setIsLoading }) => {
@@ -34,12 +36,12 @@ const CreateCourse = ({ setIsLoading }) => {
   const memoDispatch = useCallback(dispatch, [dispatch]);
 
   const createNewCourse = useCallback(() => {
-    setIsLoading(true);
     const checkFields = validateCourseFields(courseToCreate);
     if (checkFields.length) {
       callAlert(checkFields);
       return;
     }
+    setIsLoading(true);
 
     const newCourseWithFullInfo = courseService.createNewCourse(courseToCreate);
     courseService.add(newCourseWithFullInfo);
@@ -47,7 +49,7 @@ const CreateCourse = ({ setIsLoading }) => {
     dispatch({ type: ACTIONS.RESET });
     setTimeout(() => {
       setIsLoading(false);
-      history.push('/courses');
+      history.push(APP.COURSES);
     }, 1500);
   }, [courseToCreate, history, setIsLoading]);
 
@@ -74,7 +76,7 @@ const CreateCourse = ({ setIsLoading }) => {
             <Button
               buttonText='Back'
               btnClassName='btn-outline-danger btn-wide fs-4'
-              onClick={() => history.push('/courses')}
+              onClick={() => history.push(APP.COURSES)}
             />
           </div>
         </div>

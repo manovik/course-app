@@ -10,6 +10,8 @@ import { Button } from 'common/Button';
 
 import { CourseService } from 'services';
 
+import { APP } from 'utils/appRoutes';
+
 const courseService = new CourseService();
 
 const Courses = ({ isLoadingHandler }) => {
@@ -57,7 +59,7 @@ const Courses = ({ isLoadingHandler }) => {
           <Button
             buttonText='Add new course'
             btnClassName='btn-outline-success btn-wide fs-4'
-            onClick={() => history.push('/courses/add')}
+            onClick={() => history.push(APP.COURSES_ADD)}
           />
         </div>
         {(coursesToShow?.length &&

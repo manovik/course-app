@@ -7,6 +7,8 @@ import { Record } from 'common/Record';
 
 import { convertMinutesToTime, convertDate } from 'helpers';
 
+import { APP } from 'utils/appRoutes';
+
 import './course-card.scss';
 
 const CourseCard = ({ course }) => {
@@ -33,7 +35,7 @@ const CourseCard = ({ course }) => {
             <Button
               buttonText='Show Course'
               btnClassName='btn-outline-primary btn-wide fs-5'
-              onClick={() => history.push(`/courses/${id}`)}
+              onClick={() => history.push(`${APP.COURSES}/${id}`)}
             />
           </div>
         </div>
