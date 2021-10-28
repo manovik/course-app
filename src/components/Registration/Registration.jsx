@@ -1,18 +1,49 @@
 import React, { useRef } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Button from 'common/Button/Button';
 import { Input } from 'common/Input';
 
-export const Registration = () => {
+import { courseAPI, ENDPOINTS } from 'services';
+
+import { APP } from 'utils/appRoutes';
+
+export const Registration = ({
+  setIsLoading,
+  setIsError,
+  setErrorMessages,
+}) => {
+  const history = useHistory();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ emailRef, passRef });
+
+    setIsLoading(true);
+
+    await courseAPI
+      .post(`/${ENDPOINTS.REGISTER}`, {
+        name: nameRef.current.value,
+        email: emailRef.current.value,
+        password: passRef.current.value,
+      })
+      .then(() => {
+        history.push(APP.LOGIN);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessages(err?.response?.data?.errors);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsError(false);
+        }, 6000);
+      });
   };
 
   return (
@@ -53,7 +84,7 @@ export const Registration = () => {
             />
           </div>
           <p className='mt-4 text-center'>
-            If you have an account you can <Link to={'/login'}>Log in</Link>
+            If you have an account you can <Link to={APP.LOGIN}>Log in</Link>
           </p>
         </form>
       </div>
