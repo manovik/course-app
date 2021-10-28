@@ -20,7 +20,7 @@ import { CourseService } from 'services';
 
 const courseService = new CourseService();
 
-const CreateCourse = () => {
+const CreateCourse = ({ setIsLoading }) => {
   const history = useHistory();
 
   const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);
@@ -34,6 +34,7 @@ const CreateCourse = () => {
   const memoDispatch = useCallback(dispatch, [dispatch]);
 
   const createNewCourse = useCallback(() => {
+    setIsLoading(true);
     const checkFields = validateCourseFields(courseToCreate);
     if (checkFields.length) {
       callAlert(checkFields);
@@ -44,8 +45,11 @@ const CreateCourse = () => {
     courseService.add(newCourseWithFullInfo);
 
     dispatch({ type: ACTIONS.RESET });
-    history.push('/courses');
-  }, [courseToCreate, history]);
+    setTimeout(() => {
+      setIsLoading(false);
+      history.push('/courses');
+    }, 1500);
+  }, [courseToCreate, history, setIsLoading]);
 
   return (
     <div className='container'>
