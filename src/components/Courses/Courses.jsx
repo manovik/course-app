@@ -1,32 +1,21 @@
-import React, { useState, useEffect, useReducer, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
 
-import { reducer, reset } from './store/reducer';
-import { ACTIONS } from './store/actions';
-
-import { CreateCourse } from 'components/CreateCourse';
+import { useHistory } from 'react-router-dom';
 
 import { NothingToShow } from 'common/NothingToShow';
 import { Button } from 'common/Button';
 
 import { CourseService } from 'services';
 
-import { validateCourseFields, callAlert } from 'helpers';
-
-import { initCourse } from 'utils/courseStructure';
-
 const courseService = new CourseService();
 
 const Courses = ({ isLoadingHandler }) => {
-  const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);
-
-  const [isCreateMode, setIsCreateMode] = useState(false);
+  const history = useHistory();
   const [courses, setCourses] = useState([]);
   const [coursesToShow, setCoursesToShow] = useState([]);
-
-  const memoDispatch = useCallback(dispatch, [dispatch]);
 
   useEffect(() => {
     setCourses(courseService.getAll());
@@ -57,36 +46,7 @@ const Courses = ({ isLoadingHandler }) => {
     setCoursesToShow(courses);
   };
 
-  const switchPage = () => setIsCreateMode(!isCreateMode);
-
-  const createNewCourse = () => {
-    const checkFields = validateCourseFields(courseToCreate);
-    if (checkFields.length) {
-      callAlert(checkFields);
-      return;
-    }
-
-    const newCourseWithFullInfo = courseService.createNewCourse(courseToCreate);
-    courseService.add(newCourseWithFullInfo);
-
-    setCourses(courseService.getAll());
-
-    // isLoadingHandler(true);
-    // setTimeout(() => {
-    //   isLoadingHandler(false);
-    // }, 1500);
-
-    setIsCreateMode(!isCreateMode);
-    memoDispatch({ type: ACTIONS.RESET });
-  };
-
-  return isCreateMode ? (
-    <CreateCourse
-      createModeSwitcher={switchPage}
-      createNewCourse={createNewCourse}
-      dispatch={memoDispatch}
-    />
-  ) : (
+  return (
     <div className='container'>
       <section>
         <div className='d-flex justify-content-between mb-4'>
@@ -97,7 +57,7 @@ const Courses = ({ isLoadingHandler }) => {
           <Button
             buttonText='Add new course'
             btnClassName='btn-outline-success btn-wide fs-4'
-            onClick={switchPage}
+            onClick={() => history.push('/courses/add')}
           />
         </div>
         {(coursesToShow?.length &&

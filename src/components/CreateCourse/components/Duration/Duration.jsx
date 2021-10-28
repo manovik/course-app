@@ -4,7 +4,7 @@ import { Input } from 'common/Input';
 import { GridTitle } from 'common/GridTitle';
 
 import { convertMinutesToTime } from 'helpers';
-import { ACTIONS } from 'components/Courses/store/actions';
+import { ACTIONS } from '../../store/actions';
 
 const containsLetters = (value) => /[a-zA-Zа-яА-Я]/g.test(value);
 

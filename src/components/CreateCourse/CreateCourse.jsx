@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useReducer, useCallback } from 'react';
 
-import { ACTIONS } from 'components/Courses/store/actions';
+import { useHistory } from 'react-router-dom';
+
+import { ACTIONS } from './store/actions';
 
 import { Input } from 'common/Input';
 import { Button } from 'common/Button';
@@ -8,9 +10,42 @@ import { TextArea } from 'common/TextArea';
 
 import { InfoWrapper } from './components/InfoWrapper';
 
-const CreateCourse = ({ createModeSwitcher, createNewCourse, dispatch }) => {
-  const onChangeHandler = (actionType) => (e) =>
-    dispatch({ type: actionType, payload: e.target.value });
+import { reducer, reset } from './store/reducer';
+
+import { validateCourseFields, callAlert } from 'helpers';
+
+import { initCourse } from 'utils/courseStructure';
+
+import { CourseService } from 'services';
+
+const courseService = new CourseService();
+
+const CreateCourse = () => {
+  const history = useHistory();
+
+  const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);
+
+  const onChangeHandler = useCallback(
+    (actionType) => (e) =>
+      dispatch({ type: actionType, payload: e.target.value }),
+    [dispatch]
+  );
+
+  const memoDispatch = useCallback(dispatch, [dispatch]);
+
+  const createNewCourse = useCallback(() => {
+    const checkFields = validateCourseFields(courseToCreate);
+    if (checkFields.length) {
+      callAlert(checkFields);
+      return;
+    }
+
+    const newCourseWithFullInfo = courseService.createNewCourse(courseToCreate);
+    courseService.add(newCourseWithFullInfo);
+
+    dispatch({ type: ACTIONS.RESET });
+    history.push('/courses');
+  }, [courseToCreate, history]);
 
   return (
     <div className='container'>
@@ -35,7 +70,7 @@ const CreateCourse = ({ createModeSwitcher, createNewCourse, dispatch }) => {
             <Button
               buttonText='Back'
               btnClassName='btn-outline-danger btn-wide fs-4'
-              onClick={createModeSwitcher}
+              onClick={() => history.push('/courses')}
             />
           </div>
         </div>
@@ -48,7 +83,7 @@ const CreateCourse = ({ createModeSwitcher, createNewCourse, dispatch }) => {
             className='form-control mt-2 mb-2 fs-4'
           />
         </div>
-        <InfoWrapper dispatch={dispatch} />
+        <InfoWrapper dispatch={memoDispatch} />
       </section>
     </div>
   );
