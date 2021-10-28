@@ -15,35 +15,51 @@ import { CourseInfo } from 'components/CourseInfo';
 import CreateCourse from 'components/CreateCourse/CreateCourse';
 
 import { Loader } from 'common/Loader';
+import { ErrorTip } from 'common/ErrorTip';
+
+import { APP } from 'utils/appRoutes';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [isError, setIsError] = useState(false);
+  const [errorMessages, setErrorMessages] = useState([]);
+
   return (
     <Router>
       <div className='wrapper'>
-        <Header isLoggedIn={isLoggedIn} />
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         {isLoading && <Loader />}
         <div className='content-wrapper'>
+          {isError && <ErrorTip errorMessages={errorMessages} />}
           <Switch>
-            <Route exact path='/'>
-              <Redirect to='/login' />
+            <Route exact path={APP.ROOT}>
+              <Redirect to={APP.LOGIN} />
             </Route>
-            <Route path='/login'>
-              <Login />
+            <Route path={APP.LOGIN}>
+              <Login
+                setIsLoggedIn={setIsLoggedIn}
+                setIsError={setIsError}
+                setIsLoading={setIsLoading}
+                setErrorMessages={setErrorMessages}
+              />
             </Route>
-            <Route path='/registration'>
-              <Registration />
+            <Route path={APP.REGISTRATION}>
+              <Registration
+                setIsLoading={setIsLoading}
+                setIsError={setIsError}
+                setErrorMessages={setErrorMessages}
+              />
             </Route>
-            <Route exact path='/courses'>
+            <Route exact path={APP.COURSES}>
               <Courses isLoadingHandler={false} />
             </Route>
-            <Route exact path='/courses/add'>
+            <Route exact path={APP.COURSES_ADD}>
               <CreateCourse setIsLoading={setIsLoading} />
             </Route>
-            <Route exact path='/courses/:courseId'>
+            <Route exact path={`${APP.COURSES_ID}`}>
               <CourseInfo />
             </Route>
           </Switch>
