@@ -9,11 +9,9 @@ import { CourseAuthors } from '../CourseAuthors';
 
 import { GridTemplate } from 'common/GridTemplate';
 
-import { mockedAuthorsList } from 'mock/mockedAuthorsList';
-
 import { AuthorService } from 'services';
 
-const authorService = new AuthorService(mockedAuthorsList);
+const authorService = new AuthorService();
 
 const getIDs = (entity) => entity.map((a) => a.id);
 

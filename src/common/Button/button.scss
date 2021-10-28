@@ -6,8 +6,7 @@
 .btn-wide {
   min-width: 14rem;
   height: 3.5rem;
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     min-width: 9rem;
-    height: 3rem;
   }
 }

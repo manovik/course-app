@@ -1,10 +1,12 @@
 import { v4 } from 'uuid';
 
+import { mockedAuthorsList } from 'mock/mockedAuthorsList';
+
 // imitation of some user service
 
 class AuthorService {
-  constructor(authorService) {
-    this.authorService = authorService;
+  constructor() {
+    this.authorService = mockedAuthorsList;
     this.generateUUID = v4;
   }
 

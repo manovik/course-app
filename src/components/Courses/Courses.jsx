@@ -10,13 +10,11 @@ import { CreateCourse } from 'components/CreateCourse';
 import { NothingToShow } from 'common/NothingToShow';
 import { Button } from 'common/Button';
 
-import { mockedCoursesList } from 'mock/mockedCoursesList';
-
 import { CourseService } from 'services';
 
 import { validateCourseFields, callAlert } from 'helpers';
 
-const courseService = new CourseService(mockedCoursesList);
+const courseService = new CourseService();
 
 const Courses = ({ isLoadingHandler }) => {
   const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);
@@ -70,10 +68,10 @@ const Courses = ({ isLoadingHandler }) => {
 
     setCourses(courseService.getAll());
 
-    isLoadingHandler(true);
-    setTimeout(() => {
-      isLoadingHandler(false);
-    }, 1500);
+    // isLoadingHandler(true);
+    // setTimeout(() => {
+    //   isLoadingHandler(false);
+    // }, 1500);
 
     setIsCreateMode(!isCreateMode);
     memoDispatch({ type: ACTIONS.RESET });

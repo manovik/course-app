@@ -1,12 +1,12 @@
 import { v4 } from 'uuid';
 import { AuthorService } from 'services';
-import { mockedAuthorsList } from 'mock/mockedAuthorsList';
+import { mockedCoursesList } from 'mock/mockedCoursesList';
 
 // imitation of some user service
 
 class CourseService {
-  constructor(courseService) {
-    this.courseService = courseService;
+  constructor() {
+    this.courseService = mockedCoursesList;
     this.generateUUID = v4;
   }
 
@@ -22,8 +22,10 @@ class CourseService {
 
   getAll = () => [...this.courseService];
 
+  getById = (id) => this.courseService.find((c) => c.id === id);
+
   getMappedCoursesOnAuthors = () => {
-    const authorService = new AuthorService(mockedAuthorsList);
+    const authorService = new AuthorService();
     const authorsList = authorService.getAll();
     return this.courseService.map((course) => {
       const authors = [];
