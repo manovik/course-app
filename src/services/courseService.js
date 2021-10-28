@@ -8,6 +8,7 @@ class CourseService {
   constructor() {
     this.courseService = mockedCoursesList;
     this.generateUUID = v4;
+    this.authorService = new AuthorService();
   }
 
   createNewCourse = (courseInfo) => ({
@@ -24,19 +25,24 @@ class CourseService {
 
   getById = (id) => this.courseService.find((c) => c.id === id);
 
-  getMappedCoursesOnAuthors = () => {
-    const authorService = new AuthorService();
-    const authorsList = authorService.getAll();
-    return this.courseService.map((course) => {
-      const authors = [];
-      for (const id of course.authors) {
-        const author =
-          authorsList.find((a) => {
-            return a.id === id;
-          }).name || 'Unknown';
-        authors.push(author);
-      }
+  getAuthorsByIds = (authorsIdArray) => {
+    const authorsList = this.authorService.getAll();
+    const authors = [];
 
+    for (const id of authorsIdArray) {
+      const author =
+        authorsList.find((a) => {
+          return a.id === id;
+        })?.name || 'Unknown';
+      authors.push(author);
+    }
+
+    return authors;
+  };
+
+  getMappedCoursesOnAuthors = () => {
+    return this.courseService.map((course) => {
+      const authors = this.getAuthorsByIds(course.authors);
       return {
         ...course,
         authors,

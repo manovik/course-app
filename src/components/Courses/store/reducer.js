@@ -1,11 +1,6 @@
 import { ACTIONS } from './actions';
 
-export const initCourse = {
-  title: '',
-  description: '',
-  duration: 0,
-  authors: [],
-};
+import { initCourse } from 'utils/courseStructure';
 
 export const reset = () => {
   return initCourse;
