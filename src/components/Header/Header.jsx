@@ -11,7 +11,7 @@ import { APP } from 'utils/appRoutes';
 
 import './header.scss';
 
-const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
   const history = useHistory();
 
   const handleLogout = () => {
@@ -32,7 +32,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           {isLoggedIn && (
             <>
               <div className='col-auto p-4'>
-                <User name='Maxim' />
+                <User name={userName} />
               </div>
               <div className='col-auto'>
                 <Button

@@ -27,10 +27,16 @@ function App() {
   const [isError, setIsError] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
 
+  const [user, setUser] = useState('');
+
   return (
     <Router>
       <div className='wrapper'>
-        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Header
+          isLoggedIn={isLoggedIn}
+          userName={user}
+          setIsLoggedIn={setIsLoggedIn}
+        />
         {isLoading && <Loader />}
         <div className='content-wrapper'>
           {isError && <ErrorTip errorMessages={errorMessages} />}
@@ -44,6 +50,7 @@ function App() {
                 setIsError={setIsError}
                 setIsLoading={setIsLoading}
                 setErrorMessages={setErrorMessages}
+                setUser={setUser}
               />
             </Route>
             <Route path={APP.REGISTRATION}>

@@ -14,6 +14,7 @@ export const Login = ({
   setIsLoading,
   setIsError,
   setErrorMessages,
+  setUser,
 }) => {
   const history = useHistory();
   const emailRef = useRef(null);
@@ -38,9 +39,9 @@ export const Login = ({
       })
       .then(({ data }) => {
         localStorage.setItem('u-token', data.result);
+        setUser(data.user.name);
         setIsLoading(false);
         setIsLoggedIn(true);
-        console.log({ data });
         history.push(APP.COURSES);
       })
       .catch((err) => {
@@ -53,8 +54,7 @@ export const Login = ({
         setErrorMessages([
           'Invalid email or password. Please, check your credentials!',
         ]);
-      })
-      .finally(() => {
+
         setTimeout(() => {
           setIsError(false);
         }, 6000);
