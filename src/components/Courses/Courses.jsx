@@ -48,7 +48,7 @@ const Courses = ({ isLoggedIn }) => {
   };
 
   const onClearInput = () => {
-    setCoursesToShow(courses);
+    setCourses(courseService.getAll());
   };
 
   return (
