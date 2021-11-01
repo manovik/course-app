@@ -11,6 +11,8 @@ import { GridTemplate } from 'common/GridTemplate';
 
 import { AuthorService } from 'services';
 
+import { PropTypes } from 'prop-types';
+
 const authorService = new AuthorService();
 
 const getIDs = (entity) => entity.map((a) => a.id);
@@ -25,7 +27,7 @@ const switchElementsInStates =
     setStateFrom(filteredList);
   };
 
-const InfoWrapper = ({ dispatch }) => {
+export const InfoWrapper = ({ dispatch }) => {
   const [authors, setAuthors] = useState([]);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
 
@@ -78,4 +80,6 @@ const InfoWrapper = ({ dispatch }) => {
   );
 };
 
-export default InfoWrapper;
+InfoWrapper.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};

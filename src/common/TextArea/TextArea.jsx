@@ -1,6 +1,7 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
-const TextArea = ({
+export const TextArea = ({
   htmlId,
   labelText,
   placeholdetText,
@@ -20,4 +21,10 @@ const TextArea = ({
   );
 };
 
-export default TextArea;
+TextArea.propTypes = {
+  htmlId: PropTypes.string.isRequired,
+  labelText: PropTypes.string.isRequired,
+  placeholdetText: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  className: PropTypes.string.isRequired,
+};

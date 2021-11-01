@@ -1,1 +1,1 @@
-export { default as CourseAuthors } from './CourseAuthors';
+export { CourseAuthors } from './CourseAuthors';

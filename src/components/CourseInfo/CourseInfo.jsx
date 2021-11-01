@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { useParams, Link } from 'react-router-dom';
 
@@ -46,7 +47,7 @@ export const CourseInfo = ({ isLoggedIn }) => {
               caption={'Created'}
               text={convertDate(courseInfo?.creationDate)}
             />
-            <Record caption={'Authors'} title={courseInfo?.authors}>
+            <Record caption={'Authors'} title={courseInfo?.authors.join(', ')}>
               {courseService.getAuthorsByIds(courseInfo?.authors)}
             </Record>
           </div>
@@ -54,4 +55,8 @@ export const CourseInfo = ({ isLoggedIn }) => {
       </article>
     </div>
   );
+};
+
+CourseInfo.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
 };

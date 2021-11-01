@@ -1,15 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ErrorTip = ({ errorMessages }) => {
+export const ErrorTip = React.memo(({ errorMessages }) => {
   return (
     <div className='alert alert-danger error-tip fs-4' role='alert'>
       {errorMessages?.map((err, i) => (
-        <p>
+        <p key={i}>
           Error #{i + 1}: {err}
         </p>
       )) || <p>Something went wrong!</p>}
     </div>
   );
-};
+});
 
-export default React.memo(ErrorTip);
+ErrorTip.propTypes = {
+  errorMessages: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

@@ -11,7 +11,9 @@ import { APP } from 'utils/appRoutes';
 
 import './header.scss';
 
-const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
+import { PropTypes } from 'prop-types';
+
+export const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
   const history = useHistory();
 
   const handleLogout = () => {
@@ -49,4 +51,12 @@ const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  setIsLoggedIn: PropTypes.func.isRequired,
+  userName: PropTypes.string.isRequired,
+};
+
+Header.defaultProps = {
+  userName: 'Super User',
+};

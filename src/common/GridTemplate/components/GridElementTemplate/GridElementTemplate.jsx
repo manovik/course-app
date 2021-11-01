@@ -1,7 +1,10 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
-const GridElementTemplate = ({ children }) => {
+export const GridElementTemplate = ({ children }) => {
   return <div className='d-flex flex-column pb-3'>{children}</div>;
 };
 
-export default GridElementTemplate;
+GridElementTemplate.propTypes = {
+  children: PropTypes.node.isRequired,
+};

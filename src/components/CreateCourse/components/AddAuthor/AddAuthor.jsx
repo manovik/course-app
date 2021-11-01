@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { Input } from 'common/Input';
 import { Button } from 'common/Button';
@@ -6,7 +7,7 @@ import { GridTitle } from 'common/GridTitle';
 
 import { validateString } from 'helpers';
 
-const AddAuthor = ({ clickHandler }) => {
+export const AddAuthor = ({ clickHandler }) => {
   const inputRef = useRef(null);
 
   const clickBtnHandler = () => {
@@ -47,4 +48,6 @@ const AddAuthor = ({ clickHandler }) => {
   );
 };
 
-export default AddAuthor;
+AddAuthor.propTypes = {
+  clickHandler: PropTypes.func.isRequired,
+};

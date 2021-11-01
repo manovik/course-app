@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { GridTitle } from 'common/GridTitle';
 import { Button } from 'common/Button';
 import { Author } from 'common/Author';
 
-const Authors = ({ authors, clickHandler }) => {
+import { PropTypes } from 'prop-types';
+
+export const Authors = ({ authors, clickHandler }) => {
   return (
     <>
       <GridTitle title='Authors list' />
@@ -26,4 +29,12 @@ const Authors = ({ authors, clickHandler }) => {
   );
 };
 
-export default Authors;
+Authors.propTypes = {
+  authors: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      id: PropTypes.string,
+    })
+  ).isRequired,
+  clickHandler: PropTypes.func.isRequired,
+};

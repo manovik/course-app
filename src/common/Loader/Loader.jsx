@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <div
       style={{ backgroundColor: 'rgba(0,0,100,0.1)', zIndex: '999' }}
@@ -16,5 +16,3 @@ const Loader = () => {
     </div>
   );
 };
-
-export default Loader;

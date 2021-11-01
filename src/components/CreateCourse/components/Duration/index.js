@@ -1,1 +1,1 @@
-export { default as Duration } from './Duration';
+export { Duration } from './Duration';

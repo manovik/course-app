@@ -1,5 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 
+import { PropTypes } from 'prop-types';
+
 import { useHistory } from 'react-router-dom';
 
 import { ACTIONS } from './store/actions';
@@ -24,7 +26,7 @@ import { useCheckIfUserLoggedIn } from 'hooks';
 
 const courseService = new CourseService();
 
-const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
+export const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
   useCheckIfUserLoggedIn(isLoggedIn);
 
   const history = useHistory();
@@ -99,4 +101,7 @@ const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
   );
 };
 
-export default CreateCourse;
+CreateCourse.propTypes = {
+  setIsLoading: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};

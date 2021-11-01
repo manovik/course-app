@@ -1,6 +1,7 @@
 import './record.scss';
+import { PropTypes } from 'prop-types';
 
-const Record = ({ caption, text, title, children }) => (
+export const Record = ({ caption, text, title, children }) => (
   <>
     <p className='d-flex'>
       <span className='fw-bold'>{caption}:</span>&nbsp;
@@ -24,4 +25,9 @@ const Record = ({ caption, text, title, children }) => (
   </>
 );
 
-export default Record;
+Record.propTypes = {
+  caption: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  title: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+};

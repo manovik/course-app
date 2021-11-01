@@ -1,1 +1,1 @@
-export { default as InfoWrapper } from './InfoWrapper';
+export { InfoWrapper } from './InfoWrapper';

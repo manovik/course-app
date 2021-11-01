@@ -6,9 +6,11 @@ import { GridTitle } from 'common/GridTitle';
 import { convertMinutesToTime } from 'helpers';
 import { ACTIONS } from '../../store/actions';
 
+import { PropTypes } from 'prop-types';
+
 const containsLetters = (value) => /[a-zA-Zа-яА-Я]/g.test(value);
 
-const Duration = ({ dispatch }) => {
+export const Duration = ({ dispatch }) => {
   const [hours, setHours] = useState('00:00 hours');
   const [isError, setIsError] = useState(false);
 
@@ -51,4 +53,6 @@ const Duration = ({ dispatch }) => {
   );
 };
 
-export default Duration;
+Duration.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};

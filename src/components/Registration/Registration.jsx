@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
+import { PropTypes } from 'prop-types';
+
 import { Link, useHistory } from 'react-router-dom';
 
-import Button from 'common/Button/Button';
+import { Button } from 'common/Button';
 import { Input } from 'common/Input';
 
 import { courseAPI, ENDPOINTS } from 'services';
@@ -95,4 +97,11 @@ export const Registration = ({
       </div>
     </div>
   );
+};
+
+Registration.propTypes = {
+  setIsLoading: PropTypes.func.isRequired,
+  setIsError: PropTypes.func.isRequired,
+  setErrorMessages: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };

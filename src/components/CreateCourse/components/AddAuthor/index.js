@@ -1,1 +1,1 @@
-export { default as AddAuthor } from './AddAuthor';
+export { AddAuthor } from './AddAuthor';

@@ -1,1 +1,1 @@
-export { default as ErrorTip } from './ErrorTip';
+export { ErrorTip } from './ErrorTip';

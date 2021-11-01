@@ -1,1 +1,1 @@
-export { default as NothingToShow } from './NothingToShow';
+export { NothingToShow } from './NothingToShow';

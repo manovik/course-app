@@ -1,1 +1,1 @@
-export { default as GridTitle } from './GridTitle';
+export { GridTitle } from './GridTitle';

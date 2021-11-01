@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 
+import { PropTypes } from 'prop-types';
+
 import { Link, useHistory } from 'react-router-dom';
 
 import { Button } from 'common/Button';
@@ -97,4 +99,12 @@ export const Login = ({
       </div>
     </div>
   );
+};
+
+Login.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
+  setIsLoading: PropTypes.func.isRequired,
+  setIsError: PropTypes.func.isRequired,
+  setErrorMessages: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 };

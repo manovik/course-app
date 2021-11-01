@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
@@ -15,7 +16,7 @@ import { useCheckIfUserLoggedIn } from 'hooks';
 
 const courseService = new CourseService();
 
-const Courses = ({ isLoggedIn }) => {
+export const Courses = ({ isLoggedIn }) => {
   const history = useHistory();
   const [courses, setCourses] = useState([]);
   const [coursesToShow, setCoursesToShow] = useState([]);
@@ -74,4 +75,6 @@ const Courses = ({ isLoggedIn }) => {
   );
 };
 
-export default Courses;
+Courses.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+};

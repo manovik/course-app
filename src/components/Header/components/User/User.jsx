@@ -1,8 +1,11 @@
 import React from 'react';
 import './user.scss';
+import { PropTypes } from 'prop-types';
 
-const User = ({ name }) => {
+export const User = ({ name }) => {
   return <div className='user'>{name}</div>;
 };
 
-export default User;
+User.propTypes = {
+  name: PropTypes.string.isRequired,
+};

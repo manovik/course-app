@@ -3,7 +3,9 @@ import { GridTitle } from 'common/GridTitle';
 import { Author } from 'common/Author';
 import { Button } from 'common/Button';
 
-const CourseAuthors = ({ authors, clickHandler }) => {
+import { PropTypes } from 'prop-types';
+
+export const CourseAuthors = ({ authors, clickHandler }) => {
   const getAuthor = (aut) => {
     return (
       <Author key={aut.id} authorName={aut.name} className='m-2'>
@@ -32,4 +34,12 @@ const CourseAuthors = ({ authors, clickHandler }) => {
   );
 };
 
-export default CourseAuthors;
+CourseAuthors.propTypes = {
+  authors: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      id: PropTypes.string,
+    })
+  ).isRequired,
+  clickHandler: PropTypes.func.isRequired,
+};
