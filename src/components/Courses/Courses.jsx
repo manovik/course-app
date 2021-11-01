@@ -11,13 +11,16 @@ import { Button } from 'common/Button';
 import { CourseService } from 'services';
 
 import { APP } from 'utils/appRoutes';
+import { useCheckIfUserLoggedIn } from 'hooks';
 
 const courseService = new CourseService();
 
-const Courses = ({ isLoadingHandler }) => {
+const Courses = ({ isLoggedIn }) => {
   const history = useHistory();
   const [courses, setCourses] = useState([]);
   const [coursesToShow, setCoursesToShow] = useState([]);
+
+  useCheckIfUserLoggedIn(isLoggedIn);
 
   useEffect(() => {
     setCourses(courseService.getAll());

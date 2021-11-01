@@ -9,11 +9,16 @@ import { CourseService } from 'services';
 import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { initCourseInfo } from 'utils/courseStructure';
+
 import { APP } from 'utils/appRoutes';
+
+import { useCheckIfUserLoggedIn } from 'hooks';
 
 const courseService = new CourseService();
 
-export const CourseInfo = () => {
+export const CourseInfo = ({ isLoggedIn }) => {
+  useCheckIfUserLoggedIn(isLoggedIn);
+
   const [courseInfo, setCourseInfo] = useState(initCourseInfo);
 
   const { courseId } = useParams();

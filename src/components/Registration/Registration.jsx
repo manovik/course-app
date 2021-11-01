@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 
@@ -13,11 +13,16 @@ export const Registration = ({
   setIsLoading,
   setIsError,
   setErrorMessages,
+  isLoggedIn,
 }) => {
   const history = useHistory();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
+
+  useEffect(() => {
+    isLoggedIn && history.goBack();
+  }, [isLoggedIn, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

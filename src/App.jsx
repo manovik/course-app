@@ -12,7 +12,7 @@ import { Header } from 'components/Header';
 import { Login } from 'components/Login';
 import { Registration } from 'components/Registration';
 import { CourseInfo } from 'components/CourseInfo';
-import CreateCourse from 'components/CreateCourse/CreateCourse';
+import { CreateCourse } from 'components/CreateCourse';
 
 import { Loader } from 'common/Loader';
 import { ErrorTip } from 'common/ErrorTip';
@@ -48,19 +48,23 @@ function App() {
             </Route>
             <Route path={APP.REGISTRATION}>
               <Registration
+                isLoggedIn={isLoggedIn}
                 setIsLoading={setIsLoading}
                 setIsError={setIsError}
                 setErrorMessages={setErrorMessages}
               />
             </Route>
             <Route exact path={APP.COURSES}>
-              <Courses isLoadingHandler={false} />
+              <Courses isLoggedIn={isLoggedIn} />
             </Route>
             <Route exact path={APP.COURSES_ADD}>
-              <CreateCourse setIsLoading={setIsLoading} />
+              <CreateCourse
+                isLoggedIn={isLoggedIn}
+                setIsLoading={setIsLoading}
+              />
             </Route>
             <Route exact path={`${APP.COURSES_ID}`}>
-              <CourseInfo />
+              <CourseInfo isLoggedIn={isLoggedIn} />
             </Route>
           </Switch>
         </div>

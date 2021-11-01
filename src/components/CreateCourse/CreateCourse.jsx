@@ -20,9 +20,13 @@ import { CourseService } from 'services';
 
 import { APP } from 'utils/appRoutes';
 
+import { useCheckIfUserLoggedIn } from 'hooks';
+
 const courseService = new CourseService();
 
-const CreateCourse = ({ setIsLoading }) => {
+const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
+  useCheckIfUserLoggedIn(isLoggedIn);
+
   const history = useHistory();
 
   const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);

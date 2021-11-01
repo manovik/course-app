@@ -37,11 +37,11 @@ export const Login = ({
         password: passRef.current.value,
       })
       .then(({ data }) => {
-        history.push(APP.COURSES);
+        localStorage.setItem('u-token', data.result);
         setIsLoading(false);
         setIsLoggedIn(true);
         console.log({ data });
-        localStorage.setItem('u-token', data.result);
+        history.push(APP.COURSES);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -86,7 +86,6 @@ export const Login = ({
             <Button
               buttonText='Login'
               btnClassName='btn-primary btn-wide fs-4'
-              onClick={handleSubmit}
               type='submit'
             />
           </div>
