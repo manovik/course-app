@@ -16,3 +16,7 @@ export const ErrorTip = React.memo(({ errorMessages }) => {
 ErrorTip.propTypes = {
   errorMessages: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
+
+ErrorTip.defaultProps = {
+  errorMessages: ['something happened with application'],
+};

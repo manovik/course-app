@@ -14,10 +14,10 @@ export const Author = ({ authorName, children, className }) => {
 };
 
 Author.propTypes = {
-  authorName: PropTypes.string.isRequired,
+  authorName: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
-  ]).isRequired,
-  className: PropTypes.string.isRequired,
+  ]),
+  className: PropTypes.string,
 };

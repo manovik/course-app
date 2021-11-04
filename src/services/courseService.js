@@ -4,7 +4,7 @@ import { mockedCoursesList } from 'mock/mockedCoursesList';
 
 // imitation of some user service
 
-class CourseService {
+export class CourseService {
   constructor() {
     this.courseService = mockedCoursesList;
     this.generateUUID = v4;
@@ -50,5 +50,3 @@ class CourseService {
     });
   };
 }
-
-export default CourseService;

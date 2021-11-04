@@ -8,3 +8,11 @@ export const GridElementTemplate = ({ children }) => {
 GridElementTemplate.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+GridElementTemplate.defaultProps = {
+  children: (
+    <div class='spinner-grow text-secondary border' role='status'>
+      <span class='visually-hidden'>Loading...</span>
+    </div>
+  ),
+};

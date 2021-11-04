@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { PropTypes } from 'prop-types';
+
+import { v4 } from 'uuid';
 
 export const Input = ({
   htmlId,
   labelText,
-  placeholdetText,
+  placeholderText,
   onChange,
   className,
   type,
@@ -19,7 +22,7 @@ export const Input = ({
         type={type ? type : 'text'}
         id={htmlId}
         autoComplete={type === 'password' ? 'new-password' : ''}
-        placeholder={placeholdetText}
+        placeholder={placeholderText}
         onChange={onChange}
       />
     </>
@@ -29,9 +32,16 @@ export const Input = ({
 Input.propTypes = {
   htmlId: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
-  placeholdetText: PropTypes.string.isRequired,
+  placeholderText: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   className: PropTypes.string.isRequired,
   type: PropTypes.string,
   reference: PropTypes.object,
+};
+
+Input.defaultProps = {
+  htmlId: `${v4().slice(-4)}-input`,
+  labelText: 'Input text',
+  placeholderText: 'Enter text',
+  className: '',
 };

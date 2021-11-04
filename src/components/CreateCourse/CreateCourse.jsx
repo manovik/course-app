@@ -67,7 +67,7 @@ export const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
             <Input
               htmlId='createTitle'
               labelText='Title'
-              placeholdetText='Enter title'
+              placeholderText='Enter title'
               onChange={onChangeHandler(ACTIONS.SET_TITLE)}
               className='form-control mt-2 fs-4'
               type='text'
@@ -90,7 +90,7 @@ export const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
           <TextArea
             htmlId='createDescription'
             labelText='Description'
-            placeholdetText='Enter description'
+            placeholderText='Enter description'
             onChange={onChangeHandler(ACTIONS.SET_DESCR)}
             className='form-control mt-2 mb-2 fs-4'
           />
@@ -104,4 +104,9 @@ export const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
 CreateCourse.propTypes = {
   setIsLoading: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+};
+
+CreateCourse.defaultProps = {
+  setIsLoading: () => console.log('Dispatch is not set'),
+  isLoggedIn: false,
 };

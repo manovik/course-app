@@ -15,3 +15,11 @@ export const GridTemplate = ({ children }) => {
 GridTemplate.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
+
+GridTemplate.defaultProps = {
+  children: [
+    <div class='spinner-grow text-secondary border' role='status'>
+      <span class='visually-hidden'>Loading...</span>
+    </div>,
+  ],
+};

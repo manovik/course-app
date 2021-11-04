@@ -78,3 +78,7 @@ export const Courses = ({ isLoggedIn }) => {
 Courses.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
 };
+
+Courses.defaultProps = {
+  isLoggedIn: false,
+};

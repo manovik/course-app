@@ -83,3 +83,7 @@ export const InfoWrapper = ({ dispatch }) => {
 InfoWrapper.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
+
+InfoWrapper.defaultProps = {
+  dispatch: () => console.log('Dispatch is not set'),
+};

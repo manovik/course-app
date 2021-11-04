@@ -31,3 +31,7 @@ Record.propTypes = {
   title: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
+
+Record.defaultProps = {
+  caption: 'Caption',
+};

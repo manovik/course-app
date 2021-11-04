@@ -20,3 +20,8 @@ Button.propTypes = {
   type: PropTypes.string,
   onClick: PropTypes.func,
 };
+
+Button.defaultProps = {
+  buttonText: 'Button',
+  btnClassName: 'btn-outline-secondary',
+};

@@ -34,7 +34,7 @@ export const AddAuthor = ({ clickHandler }) => {
         reference={inputRef}
         htmlId={'addAuthor'}
         labelText={'Author name'}
-        placeholdetText={'Enter author name…'}
+        placeholderText={'Enter author name…'}
         className={'input-form fs-5 mt-3'}
       />
       <Button
@@ -50,4 +50,8 @@ export const AddAuthor = ({ clickHandler }) => {
 
 AddAuthor.propTypes = {
   clickHandler: PropTypes.func.isRequired,
+};
+
+AddAuthor.defaultProps = {
+  clickHandler: () => console.log('ClickHandler is not set'),
 };

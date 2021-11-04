@@ -71,7 +71,7 @@ export const Login = ({
           <Input
             htmlId={'email'}
             labelText={'Email'}
-            placeholdetText={'Enter email'}
+            placeholderText={'Enter email'}
             className={'form-control mt-3 mb-5 fs-4'}
             type={'email'}
             reference={emailRef}
@@ -79,7 +79,7 @@ export const Login = ({
           <Input
             htmlId={'password'}
             labelText={'Password'}
-            placeholdetText={'Enter password'}
+            placeholderText={'Enter password'}
             className={'form-control mt-3 fs-4'}
             type={'password'}
             reference={passRef}
@@ -107,4 +107,12 @@ Login.propTypes = {
   setIsError: PropTypes.func.isRequired,
   setErrorMessages: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
+};
+
+Login.defaultProps = {
+  setIsLoggedIn: () => console.log('SetIsLoggedIn function is not set'),
+  setIsLoading: () => console.log('SetIsLoading function is not set'),
+  setIsError: () => console.log('SetIsError function is not set'),
+  setErrorMessages: () => console.log('SetErrorMessages function is not set'),
+  setUser: () => console.log('SetUser function is not set'),
 };

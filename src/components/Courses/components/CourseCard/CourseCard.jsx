@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { useHistory } from 'react-router-dom';
 
 import { Button } from 'common/Button';
@@ -9,9 +11,11 @@ import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { APP } from 'utils/appRoutes';
 
+import { v4 } from 'uuid';
+
 import './course-card.scss';
 
-const CourseCard = ({ course }) => {
+export const CourseCard = ({ course }) => {
   const history = useHistory();
   const { id, title, description, creationDate, duration, authors } = course;
   const authorsString = authors.join(', ');
@@ -44,4 +48,24 @@ const CourseCard = ({ course }) => {
   );
 };
 
-export default CourseCard;
+CourseCard.propTypes = {
+  course: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    creationDate: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+};
+
+CourseCard.defaultProps = {
+  course: {
+    id: `${v4().slice(-4)}-courseId`,
+    title: 'Course Title',
+    description: 'Course description',
+    creationDate: '01/01/1970',
+    duration: 60,
+    authors: ['Unknown Author'],
+  },
+};

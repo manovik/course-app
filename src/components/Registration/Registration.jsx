@@ -61,7 +61,7 @@ export const Registration = ({
           <Input
             htmlId={'name'}
             labelText={'Name'}
-            placeholdetText={'Enter name'}
+            placeholderText={'Enter name'}
             className={'form-control mt-3 mb-5 fs-4'}
             type={'text'}
             reference={nameRef}
@@ -69,7 +69,7 @@ export const Registration = ({
           <Input
             htmlId={'email'}
             labelText={'Email'}
-            placeholdetText={'Enter email'}
+            placeholderText={'Enter email'}
             className={'form-control mt-3 mb-5 fs-4'}
             type={'email'}
             reference={emailRef}
@@ -77,7 +77,7 @@ export const Registration = ({
           <Input
             htmlId={'password'}
             labelText={'Password'}
-            placeholdetText={'Enter password'}
+            placeholderText={'Enter password'}
             className={'form-control mt-3 fs-4'}
             type={'password'}
             reference={passRef}
@@ -104,4 +104,11 @@ Registration.propTypes = {
   setIsError: PropTypes.func.isRequired,
   setErrorMessages: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+};
+
+Registration.defaultProps = {
+  setIsLoading: () => console.log('SetIsLoading function is not set'),
+  setIsError: () => console.log('SetIsError function is not set'),
+  setErrorMessages: () => console.log('SetErrorMessages function is not set'),
+  isLoggedIn: false,
 };

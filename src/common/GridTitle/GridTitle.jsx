@@ -12,3 +12,7 @@ GridTitle.propTypes = {
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
+
+GridTitle.defaultProps = {
+  title: '',
+};

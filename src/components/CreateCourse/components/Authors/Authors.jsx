@@ -38,3 +38,8 @@ Authors.propTypes = {
   ).isRequired,
   clickHandler: PropTypes.func.isRequired,
 };
+
+Authors.defaultProps = {
+  authors: [{ id: '1', name: 'Unknown Author' }],
+  clickHandler: () => console.log('ClickHandler is not set'),
+};

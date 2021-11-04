@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+
+import { PropTypes } from 'prop-types';
+
 import { Input } from 'common/Input';
 import { Button } from 'common/Button';
 
-const SearchBar = ({ searchHandler, clearInputHandler }) => {
+export const SearchBar = ({ searchHandler, clearInputHandler }) => {
   const [inputValue, setInputValue] = useState('');
 
   const onChangeHandler = (e) => {
@@ -17,7 +20,7 @@ const SearchBar = ({ searchHandler, clearInputHandler }) => {
         className='form-control fs-4'
         htmlId='searchCourse'
         labelText=''
-        placeholdetText='Enter Course name'
+        placeholderText='Enter Course name'
         onChange={onChangeHandler}
       />
       <Button
@@ -35,4 +38,12 @@ const SearchBar = ({ searchHandler, clearInputHandler }) => {
   );
 };
 
-export default SearchBar;
+SearchBar.propTypes = {
+  searchHandler: PropTypes.func.isRequired,
+  clearInputHandler: PropTypes.func.isRequired,
+};
+
+SearchBar.defaultProps = {
+  searchHandler: () => console.log('SearchHandler is not set'),
+  clearInputHandler: () => console.log('ClearInputHandler is not set'),
+};

@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { PropTypes } from 'prop-types';
+
+import { v4 } from 'uuid';
 
 export const TextArea = ({
   htmlId,
   labelText,
-  placeholdetText,
+  placeholderText,
   onChange,
   className,
 }) => {
@@ -14,7 +17,7 @@ export const TextArea = ({
       <textarea
         className={className}
         id={htmlId}
-        placeholder={placeholdetText}
+        placeholder={placeholderText}
         onChange={onChange}
       ></textarea>
     </>
@@ -24,7 +27,14 @@ export const TextArea = ({
 TextArea.propTypes = {
   htmlId: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
-  placeholdetText: PropTypes.string.isRequired,
+  placeholderText: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   className: PropTypes.string.isRequired,
+};
+
+TextArea.defaultProps = {
+  htmlId: `${v4().slice(-4)}-text`,
+  labelText: 'Input text',
+  placeholderText: 'Enter text',
+  className: '',
 };

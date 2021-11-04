@@ -35,7 +35,7 @@ export const Duration = ({ dispatch }) => {
       <Input
         htmlId={'addDuration'}
         labelText={'Duration'}
-        placeholdetText={'Enter duration in minutes…'}
+        placeholderText={'Enter duration in minutes…'}
         onChange={changeHandler}
         className={'input-form fs-5 mt-3'}
       />
@@ -55,4 +55,8 @@ export const Duration = ({ dispatch }) => {
 
 Duration.propTypes = {
   dispatch: PropTypes.func.isRequired,
+};
+
+Duration.defaultProps = {
+  dispatch: () => console.log('Dispatch is not set'),
 };
