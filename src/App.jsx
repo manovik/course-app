@@ -70,7 +70,7 @@ function App() {
                 setIsLoading={setIsLoading}
               />
             </Route>
-            <Route exact path={`${APP.COURSES_ID}`}>
+            <Route exact path={APP.COURSES_ID}>
               <CourseInfo isLoggedIn={isLoggedIn} />
             </Route>
           </Switch>

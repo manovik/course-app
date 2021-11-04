@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ACTIONS } from '../../store/actions';
+import { ACTIONS } from 'components/CreateCourse/store/actions';
 
 import { AddAuthor } from '../AddAuthor';
 import { Authors } from '../Authors';

@@ -4,7 +4,7 @@ import { Input } from 'common/Input';
 import { GridTitle } from 'common/GridTitle';
 
 import { convertMinutesToTime } from 'helpers';
-import { ACTIONS } from '../../store/actions';
+import { ACTIONS } from 'components/CreateCourse/store/actions';
 
 import { PropTypes } from 'prop-types';
 
