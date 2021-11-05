@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { PropTypes } from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
 
-import { useHistory } from 'react-router-dom';
-
 import { NothingToShow } from 'common/NothingToShow';
 import { Button } from 'common/Button';
 
-import { CourseService } from 'services';
+import { courseService } from 'services';
 
 import { APP } from 'utils/appRoutes';
-import { useCheckIfUserLoggedIn } from 'hooks';
 
-const courseService = new CourseService();
-
-export const Courses = ({ isLoggedIn }) => {
+export const Courses = () => {
   const history = useHistory();
   const [courses, setCourses] = useState([]);
   const [coursesToShow, setCoursesToShow] = useState([]);
-
-  useCheckIfUserLoggedIn(isLoggedIn);
 
   useEffect(() => {
     setCourses(courseService.getAll());
@@ -73,12 +66,4 @@ export const Courses = ({ isLoggedIn }) => {
       </section>
     </div>
   );
-};
-
-Courses.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
-};
-
-Courses.defaultProps = {
-  isLoggedIn: false,
 };

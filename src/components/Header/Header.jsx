@@ -1,26 +1,20 @@
 import React from 'react';
-
-import { Link, useHistory } from 'react-router-dom';
-
-import { Button } from 'common/Button';
+import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 import { Logo } from './components/Logo';
 import { User } from './components/User';
 
+import { Button } from 'common/Button';
+
 import { APP } from 'utils/appRoutes';
+
+import { useAuth } from 'context/authContext';
 
 import './header.scss';
 
-import { PropTypes } from 'prop-types';
-
-export const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
-  const history = useHistory();
-
-  const handleLogout = () => {
-    localStorage.removeItem('u-token');
-    setIsLoggedIn(false);
-    history.push(APP.LOGIN);
-  };
+export const Header = () => {
+  const { user, signOut } = useAuth();
 
   return (
     <header className='header shadow p-3 mb-5'>
@@ -31,16 +25,16 @@ export const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
               <Logo />
             </Link>
           </div>
-          {isLoggedIn && (
+          {user && (
             <>
               <div className='col-auto p-4'>
-                <User name={userName} />
+                <User name={user} />
               </div>
               <div className='col-auto'>
                 <Button
                   btnClassName='btn-outline-secondary btn-md fs-5 c-dark'
                   buttonText={'Logout'}
-                  onClick={handleLogout}
+                  onClick={signOut}
                 />
               </div>
             </>
@@ -54,11 +48,10 @@ export const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
 Header.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   setIsLoggedIn: PropTypes.func.isRequired,
-  userName: PropTypes.string.isRequired,
+  userName: PropTypes.string,
 };
 
 Header.defaultProps = {
   isLoggedIn: false,
   setIsLoggedIn: () => console.log('SetIsLoggedIn is not set'),
-  userName: 'Super User',
 };

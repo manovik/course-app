@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-
 import { useParams, Link } from 'react-router-dom';
 
 import { Record } from 'common/Record';
 
-import { CourseService } from 'services';
+import { courseService } from 'services';
 
 import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { initCourseInfo } from 'utils/courseStructure';
-
 import { APP } from 'utils/appRoutes';
 
-import { useCheckIfUserLoggedIn } from 'hooks';
-
-const courseService = new CourseService();
-
-export const CourseInfo = ({ isLoggedIn }) => {
-  useCheckIfUserLoggedIn(isLoggedIn);
-
+export const CourseInfo = () => {
   const [courseInfo, setCourseInfo] = useState(initCourseInfo);
 
   const { courseId } = useParams();
@@ -55,12 +46,4 @@ export const CourseInfo = ({ isLoggedIn }) => {
       </article>
     </div>
   );
-};
-
-CourseInfo.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
-};
-
-CourseInfo.defaultProps = {
-  isLoggedIn: false,
 };

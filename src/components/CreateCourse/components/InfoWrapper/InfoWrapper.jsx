@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { ACTIONS } from 'components/CreateCourse/store/actions';
 
@@ -9,11 +10,7 @@ import { CourseAuthors } from '../CourseAuthors';
 
 import { GridTemplate } from 'common/GridTemplate';
 
-import { AuthorService } from 'services';
-
-import { PropTypes } from 'prop-types';
-
-const authorService = new AuthorService();
+import { authorService } from 'services';
 
 const getIDs = (entity) => entity.map((a) => a.id);
 
@@ -49,8 +46,7 @@ export const InfoWrapper = ({ dispatch }) => {
     const newAuthor = authorService.createNewAuthor(author);
     authorService.add(newAuthor);
 
-    const newList = [...authors, newAuthor];
-    setAuthors(newList);
+    setAuthors((prevList) => [...prevList, newAuthor]);
   };
 
   const addAuthorToCourse = switchElementsInStates(

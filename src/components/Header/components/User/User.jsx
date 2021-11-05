@@ -7,9 +7,5 @@ export const User = ({ name }) => {
 };
 
 User.propTypes = {
-  name: PropTypes.string.isRequired,
-};
-
-User.defaultProps = {
-  name: 'Big Bad Wolf',
+  name: PropTypes.string,
 };
