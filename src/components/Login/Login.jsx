@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 import { Button } from 'common/Button';
@@ -10,16 +10,9 @@ import { APP } from 'utils/appRoutes';
 import { useAuth } from 'context/authContext';
 
 export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
-  const history = useHistory();
   const emailRef = useRef(null);
   const passRef = useRef(null);
   const { login } = useAuth();
-
-  useEffect(() => {
-    if (localStorage.getItem('u-token')) {
-      history.push(APP.COURSES);
-    }
-  }, [history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

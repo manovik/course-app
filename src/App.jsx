@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   BrowserRouter as Router,
@@ -27,6 +27,10 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
+
+  useEffect(() => {
+    localStorage.getItem('u-token') && <Redirect to={APP.COURSES} />;
+  }, []);
 
   return (
     <ProvideAuth>
