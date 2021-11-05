@@ -13,6 +13,7 @@ export const AddAuthor = ({ clickHandler }) => {
   const clickBtnHandler = () => {
     const { value } = inputRef.current;
     const { error } = validateString(value);
+
     if (error) {
       inputRef.current.classList.add('error');
       inputRef.current.value = error.message;

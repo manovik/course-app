@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { PropTypes } from 'prop-types';
 
@@ -15,16 +15,11 @@ export const Registration = ({
   setIsLoading,
   setIsError,
   setErrorMessages,
-  isLoggedIn,
 }) => {
   const history = useHistory();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
-
-  useEffect(() => {
-    isLoggedIn && history.goBack();
-  }, [isLoggedIn, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,8 +40,7 @@ export const Registration = ({
         setIsLoading(false);
         setIsError(true);
         setErrorMessages(err?.response?.data?.errors);
-      })
-      .finally(() => {
+
         setTimeout(() => {
           setIsError(false);
         }, 6000);
@@ -103,12 +97,10 @@ Registration.propTypes = {
   setIsLoading: PropTypes.func.isRequired,
   setIsError: PropTypes.func.isRequired,
   setErrorMessages: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 Registration.defaultProps = {
   setIsLoading: () => console.log('SetIsLoading function is not set'),
   setIsError: () => console.log('SetIsError function is not set'),
   setErrorMessages: () => console.log('SetErrorMessages function is not set'),
-  isLoggedIn: false,
 };

@@ -4,7 +4,7 @@ import { mockedAuthorsList } from 'mock/mockedAuthorsList';
 
 // imitation of some user service
 
-export class AuthorService {
+class AuthorService {
   constructor() {
     this.authorService = mockedAuthorsList;
     this.generateUUID = v4;
@@ -21,3 +21,5 @@ export class AuthorService {
 
   getAll = () => [...this.authorService];
 }
+
+export const authorService = new AuthorService();

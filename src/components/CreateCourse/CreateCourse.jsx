@@ -1,34 +1,24 @@
 import React, { useReducer, useCallback } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
-import { useHistory } from 'react-router-dom';
-
-import { ACTIONS } from './store/actions';
+import { InfoWrapper } from './components/InfoWrapper';
 
 import { Input } from 'common/Input';
 import { Button } from 'common/Button';
 import { TextArea } from 'common/TextArea';
 
-import { InfoWrapper } from './components/InfoWrapper';
-
+import { ACTIONS } from './store/actions';
 import { reducer, reset } from './store/reducer';
 
 import { validateCourseFields, callAlert } from 'helpers';
 
 import { initCourse } from 'utils/courseStructure';
-
-import { CourseService } from 'services';
-
 import { APP } from 'utils/appRoutes';
 
-import { useCheckIfUserLoggedIn } from 'hooks';
+import { courseService } from 'services';
 
-const courseService = new CourseService();
-
-export const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
-  useCheckIfUserLoggedIn(isLoggedIn);
-
+export const CreateCourse = ({ setIsLoading }) => {
   const history = useHistory();
 
   const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);
@@ -103,10 +93,8 @@ export const CreateCourse = ({ setIsLoading, isLoggedIn }) => {
 
 CreateCourse.propTypes = {
   setIsLoading: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 CreateCourse.defaultProps = {
   setIsLoading: () => console.log('Dispatch is not set'),
-  isLoggedIn: false,
 };

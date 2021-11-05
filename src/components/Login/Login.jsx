@@ -1,50 +1,37 @@
 import React, { useRef, useEffect } from 'react';
-
-import { PropTypes } from 'prop-types';
-
 import { Link, useHistory } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 import { Button } from 'common/Button';
 import { Input } from 'common/Input';
 
-import { courseAPI, ENDPOINTS } from 'services';
-
 import { APP } from 'utils/appRoutes';
 
-export const Login = ({
-  setIsLoggedIn,
-  setIsLoading,
-  setIsError,
-  setErrorMessages,
-  setUser,
-}) => {
+import { useAuth } from 'context/authContext';
+
+export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
   const history = useHistory();
   const emailRef = useRef(null);
   const passRef = useRef(null);
+  const { login } = useAuth();
 
   useEffect(() => {
     if (localStorage.getItem('u-token')) {
       history.push(APP.COURSES);
-      setIsLoggedIn(true);
     }
-  }, [history, setIsLoggedIn]);
+  }, [history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
 
-    await courseAPI
-      .post(`/${ENDPOINTS.LOGIN}`, {
-        email: emailRef.current.value,
-        password: passRef.current.value,
-      })
-      .then(({ data }) => {
-        localStorage.setItem('u-token', data.result);
-        setUser(data.user.name);
+    await login({
+      email: emailRef.current.value,
+      password: passRef.current.value,
+    })
+      .then(() => {
         setIsLoading(false);
-        setIsLoggedIn(true);
-        history.push(APP.COURSES);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -102,17 +89,13 @@ export const Login = ({
 };
 
 Login.propTypes = {
-  setIsLoggedIn: PropTypes.func.isRequired,
   setIsLoading: PropTypes.func.isRequired,
   setIsError: PropTypes.func.isRequired,
   setErrorMessages: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
-  setIsLoggedIn: () => console.log('SetIsLoggedIn function is not set'),
   setIsLoading: () => console.log('SetIsLoading function is not set'),
   setIsError: () => console.log('SetIsError function is not set'),
   setErrorMessages: () => console.log('SetErrorMessages function is not set'),
-  setUser: () => console.log('SetUser function is not set'),
 };

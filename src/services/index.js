@@ -1,4 +1,4 @@
-export { AuthorService } from './authorService';
-export { CourseService } from './courseService';
+export { authorService } from './authorService';
+export { courseService } from './courseService';
 export { courseAPI } from './courseAPI';
 export { ENDPOINTS } from './apiEndpoints';
