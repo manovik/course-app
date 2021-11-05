@@ -1,0 +1,1 @@
+export { ErrorTip } from './ErrorTip';

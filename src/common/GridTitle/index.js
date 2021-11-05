@@ -1,0 +1,1 @@
+export { GridTitle } from './GridTitle';
