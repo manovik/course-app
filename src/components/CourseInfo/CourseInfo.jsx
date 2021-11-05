@@ -16,7 +16,10 @@ export const CourseInfo = () => {
   const { courseId } = useParams();
 
   useEffect(() => {
-    setCourseInfo(courseService.getById(courseId));
+    const course = courseService.getById(courseId);
+    if (course) {
+      setCourseInfo(course);
+    }
   }, [courseId]);
 
   return (
