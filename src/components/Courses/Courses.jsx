@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
@@ -10,24 +12,35 @@ import { Button } from 'common/Button';
 import { courseService } from 'services';
 
 import { APP } from 'utils/appRoutes';
+import { addCourseList } from 'store/courses/actionCreators';
 
 export const Courses = () => {
   const history = useHistory();
-  const [courses, setCourses] = useState([]);
   const [coursesToShow, setCoursesToShow] = useState([]);
 
-  useEffect(() => {
-    setCourses(courseService.getAll());
-  }, []);
+  const courses = useSelector((store) => store.courses);
+  const dispatch = useDispatch();
+
+  const getCourses = useCallback(async () => {
+    await courseService.getAll().then((data) => {
+      dispatch(addCourseList(data));
+    });
+  }, [dispatch]);
 
   useEffect(() => {
-    const mappedCourses = courseService.getMappedCoursesOnAuthors();
+    if (courses.length) return;
+
+    getCourses();
+  }, [getCourses, courses]);
+
+  useEffect(() => {
+    const mappedCourses = courseService.getMappedCoursesOnAuthors(courses);
     setCoursesToShow(mappedCourses);
   }, [courses]);
 
   const searchCourses = (str) => {
     const rgx = RegExp(`${str}`, 'gi');
-    return courses.filter((course) => {
+    return coursesToShow.filter((course) => {
       return rgx.test(course.id) || rgx.test(course.title);
     });
   };
@@ -42,7 +55,7 @@ export const Courses = () => {
   };
 
   const onClearInput = () => {
-    setCourses(courseService.getAll());
+    setCoursesToShow(courses);
   };
 
   return (

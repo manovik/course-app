@@ -1,6 +1,9 @@
 import React, { useReducer, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import { useDispatch } from 'react-redux';
+
+import { addCourse } from 'store/courses/actionCreators';
 
 import { InfoWrapper } from './components/InfoWrapper';
 
@@ -31,7 +34,9 @@ export const CreateCourse = ({ setIsLoading }) => {
 
   const memoDispatch = useCallback(dispatch, [dispatch]);
 
-  const createNewCourse = useCallback(() => {
+  const addCourseToStore = useDispatch();
+
+  const createNewCourse = useCallback(async () => {
     const checkFields = validateCourseFields(courseToCreate);
     if (checkFields.length) {
       callAlert(checkFields);
@@ -40,14 +45,13 @@ export const CreateCourse = ({ setIsLoading }) => {
     setIsLoading(true);
 
     const newCourseWithFullInfo = courseService.createNewCourse(courseToCreate);
-    courseService.add(newCourseWithFullInfo);
-
-    dispatch({ type: ACTIONS.RESET });
+    addCourseToStore(addCourse(newCourseWithFullInfo));
     setTimeout(() => {
       setIsLoading(false);
+      dispatch({ type: ACTIONS.RESET });
       history.push(APP.COURSES);
-    }, 1500);
-  }, [courseToCreate, history, setIsLoading]);
+    }, 150);
+  }, [courseToCreate, setIsLoading, addCourseToStore, history]);
 
   return (
     <div className='container'>

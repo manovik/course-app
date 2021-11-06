@@ -1,12 +1,11 @@
 import { v4 } from 'uuid';
 import { authorService } from 'services';
-import { mockedCoursesList } from 'mock/mockedCoursesList';
-
-// imitation of some user service
+import { courseAPI } from './courseAPI';
+import { ENDPOINTS } from './apiEndpoints';
 
 class CourseService {
   constructor() {
-    this.courseService = mockedCoursesList;
+    this.courseService = [];
     this.generateUUID = v4;
     this.authorService = authorService;
   }
@@ -17,11 +16,28 @@ class CourseService {
     creationDate: new Date().toLocaleDateString('en-US'),
   });
 
-  add = (newCourse) => {
-    this.courseService.push(newCourse);
+  add = async (newCourse) => {
+    try {
+      const { data } = await courseAPI.post(ENDPOINTS.ADD_COURSE, newCourse);
+      const { successful } = data;
+      return successful;
+    } catch (err) {
+      throw new Error('Failed to fetch courses!\n' + err);
+    }
   };
 
-  getAll = () => [...this.courseService];
+  getAll = async () => {
+    try {
+      const { data } = await courseAPI.get(ENDPOINTS.GET_COURSES);
+      const { successful, result } = data;
+      if (successful) {
+        this.courseService = result;
+      }
+      return this.courseService;
+    } catch (err) {
+      throw new Error('Failed to fetch courses');
+    }
+  };
 
   getById = (id) => this.courseService.find((c) => c.id === id);
 
@@ -40,14 +56,17 @@ class CourseService {
     return authors;
   };
 
-  getMappedCoursesOnAuthors = () => {
-    return this.courseService.map((course) => {
-      const authors = this.getAuthorsByIds(course.authors);
-      return {
-        ...course,
-        authors,
-      };
-    });
+  getMappedCoursesOnAuthors = (courses) => {
+    if (courses?.length) {
+      return courses.map((course) => {
+        const authors = this.getAuthorsByIds(course.authors);
+        return {
+          ...course,
+          authors,
+        };
+      });
+    }
+    return [];
   };
 }
 
