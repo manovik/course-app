@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import { Record } from 'common/Record';
 
 import { courseService } from 'services';
@@ -15,12 +17,14 @@ export const CourseInfo = () => {
 
   const { courseId } = useParams();
 
+  const courses = useSelector((store) => store.courses);
   useEffect(() => {
-    const course = courseService.getById(courseId);
+    const course = courses.find((c) => c.id === courseId);
     if (course) {
-      setCourseInfo(course);
+      const [mappedCourse] = courseService.getMappedCoursesOnAuthors([course]);
+      setCourseInfo(mappedCourse);
     }
-  }, [courseId]);
+  }, [courseId, courses]);
 
   return (
     <div className='container'>
@@ -42,7 +46,7 @@ export const CourseInfo = () => {
               text={convertDate(courseInfo?.creationDate)}
             />
             <Record caption={'Authors'} title={courseInfo?.authors.join(', ')}>
-              {courseService.getAuthorsByIds(courseInfo?.authors)}
+              {courseInfo?.authors}
             </Record>
           </div>
         </div>

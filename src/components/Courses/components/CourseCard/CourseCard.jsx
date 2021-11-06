@@ -1,8 +1,7 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
-
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { Button } from 'common/Button';
 import { Record } from 'common/Record';
@@ -13,10 +12,13 @@ import { APP } from 'utils/appRoutes';
 
 import { v4 } from 'uuid';
 
+import { removeCourse } from 'store/courses/actionCreators';
+
 import './course-card.scss';
 
 export const CourseCard = ({ course }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { id, title, description, creationDate, duration, authors } = course;
   const authorsString = authors.join(', ');
 
@@ -49,7 +51,7 @@ export const CourseCard = ({ course }) => {
             <Button
               buttonText='trash'
               btnClassName='btn-outline-danger btn--common m-1'
-              onClick={() => console.log('delete')}
+              onClick={() => dispatch(removeCourse(id))}
             />
           </div>
         </div>

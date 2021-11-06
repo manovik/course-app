@@ -31,7 +31,8 @@ export const Courses = () => {
     if (courses.length) return;
 
     getCourses();
-  }, [getCourses, courses]);
+    // help???
+  }, [getCourses]);
 
   useEffect(() => {
     const mappedCourses = courseService.getMappedCoursesOnAuthors(courses);

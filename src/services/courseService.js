@@ -39,7 +39,11 @@ class CourseService {
     }
   };
 
-  getById = (id) => this.courseService.find((c) => c.id === id);
+  getById = async (id) => {
+    const result = await this.getAll().find((c) => c.id === id);
+
+    return result;
+  };
 
   getAuthorsByIds = (authorsIdArray) => {
     const authorsList = this.authorService.getAll();
@@ -60,6 +64,7 @@ class CourseService {
     if (courses?.length) {
       return courses.map((course) => {
         const authors = this.getAuthorsByIds(course.authors);
+
         return {
           ...course,
           authors,
