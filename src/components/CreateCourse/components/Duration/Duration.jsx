@@ -14,7 +14,7 @@ export const Duration = ({ dispatch }) => {
   const changeHandler = (e) => {
     const { value } = e.target;
 
-    dispatch({ type: ACTIONS.SET_DURATION, payload: value });
+    dispatch({ type: ACTIONS.SET_DURATION, payload: +value });
     setHours(convertMinutesToTime(value));
   };
 

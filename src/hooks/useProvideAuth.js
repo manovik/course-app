@@ -9,7 +9,7 @@ export const useProvideAuth = () => {
 
   const login = async (params) => {
     return await courseAPI
-      .post(`/${ENDPOINTS.LOGIN}`, params)
+      .post(`${ENDPOINTS.LOGIN}`, params)
       .then(({ data }) => {
         localStorageApi.setLocalStorage(data);
 
@@ -20,18 +20,12 @@ export const useProvideAuth = () => {
 
   const register = async (params) => {
     return await courseAPI
-      .post(`/${ENDPOINTS.REGISTER}`, params)
-      .then(({ data }) => {
-        if (data.successful) {
-          return data;
-        }
+      .post(`${ENDPOINTS.REGISTER}`, params)
+      .catch((err) => {
         throw new Error(
-          `Error occurred while trying to register user!\n${data.errors.join(
-            '\n'
-          )}`
+          `Error occurred while trying to register user!\n${err}`
         );
-      })
-      .catch(console.error);
+      });
   };
 
   const signOut = () => {

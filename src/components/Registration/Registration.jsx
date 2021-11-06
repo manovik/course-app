@@ -7,9 +7,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { Button } from 'common/Button';
 import { Input } from 'common/Input';
 
-import { courseAPI, ENDPOINTS } from 'services';
-
 import { APP } from 'utils/appRoutes';
+
+import { useAuth } from 'context/authContext';
 
 export const Registration = ({
   setIsLoading,
@@ -20,18 +20,18 @@ export const Registration = ({
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
+  const { register } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
 
-    await courseAPI
-      .post(`/${ENDPOINTS.REGISTER}`, {
-        name: nameRef.current.value,
-        email: emailRef.current.value,
-        password: passRef.current.value,
-      })
+    await register({
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      password: passRef.current.value,
+    })
       .then(() => {
         history.push(APP.LOGIN);
         setIsLoading(false);
@@ -39,7 +39,7 @@ export const Registration = ({
       .catch((err) => {
         setIsLoading(false);
         setIsError(true);
-        setErrorMessages(err?.response?.data?.errors);
+        setErrorMessages(err?.response?.data?.errors || [err?.message]);
 
         setTimeout(() => {
           setIsError(false);
