@@ -35,11 +35,21 @@ export const CourseCard = ({ course }) => {
           />
           <Record caption='Duration' text={convertMinutesToTime(duration)} />
           <Record caption='Created' text={convertDate(creationDate)} />
-          <div className='d-flex justify-content-center'>
+          <div className='d-flex flex-wrap'>
             <Button
               buttonText='Show Course'
-              btnClassName='btn-outline-primary btn-wide fs-5'
+              btnClassName='btn-outline-primary btn-wide fs-5 m-1'
               onClick={() => history.push(`${APP.COURSES}/${id}`)}
+            />
+            <Button
+              buttonText='edit'
+              btnClassName='btn-outline-warning btn--common m-1'
+              onClick={() => console.log('edit')}
+            />
+            <Button
+              buttonText='trash'
+              btnClassName='btn-outline-danger btn--common m-1'
+              onClick={() => console.log('delete')}
             />
           </div>
         </div>

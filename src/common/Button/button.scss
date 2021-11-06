@@ -1,12 +1,19 @@
-.btn-md {
-  min-width: 10rem;
-  min-height: 3rem;
-}
 
-.btn-wide {
-  min-width: 14rem;
-  height: 3.5rem;
-  @media (max-width: 768px) {
-    min-width: 9rem;
+
+.btn{
+  &-md {
+    min-width: 10rem;
+    min-height: 3rem;
+  }
+  &--common {
+    height: 3.5rem;
+  }
+
+  &-wide {
+    min-width: 14rem;
+    height: 3.5rem;
+    @media (max-width: 768px) {
+      min-width: 9rem;
+    }
   }
 }
