@@ -7,7 +7,7 @@ export const PrivateRoute = ({ children, ...props }) => {
   const auth = useAuth();
   return (
     <Route {...props}>
-      {auth.user ? children : <Redirect to={APP.ROOT} />}
+      {auth.user ? children : <Redirect to={APP.LOGIN} />}
     </Route>
   );
 };

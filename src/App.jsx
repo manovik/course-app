@@ -52,7 +52,7 @@ const App = () => {
               </PrivateRoute>
 
               <Route exact path={APP.ROOT}>
-                <Redirect to={APP.LOGIN} />
+                <Redirect to={APP.COURSES} />
               </Route>
               <EnterRoute path={APP.LOGIN}>
                 <Login
