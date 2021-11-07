@@ -9,35 +9,43 @@ import { SearchBar } from './components/SearchBar';
 import { NothingToShow } from 'common/NothingToShow';
 import { Button } from 'common/Button';
 
-import { courseService } from 'services';
+import { authorService, courseService } from 'services';
 
 import { APP } from 'utils/appRoutes';
 import { addCourseList } from 'store/courses/actionCreators';
+import { addAuthors } from 'store/authors/actionCreators';
 
 export const Courses = () => {
   const history = useHistory();
   const [coursesToShow, setCoursesToShow] = useState([]);
 
   const courses = useSelector((store) => store.courses);
+  const authors = useSelector((store) => store.authors);
   const dispatch = useDispatch();
 
   const getCourses = useCallback(async () => {
+    await authorService.getAll().then((data) => {
+      dispatch(addAuthors(data));
+    });
     await courseService.getAll().then((data) => {
       dispatch(addCourseList(data));
     });
   }, [dispatch]);
 
+  const mapAuthors = useCallback(() => {
+    const a = courseService.getMappedCoursesOnAuthors(courses, authors);
+    setCoursesToShow(a);
+  }, [courses, authors]);
+
   useEffect(() => {
-    if (courses.length) return;
+    if (courses.length) return; // remove after implementing sending new course to api
 
     getCourses();
-    // help???
-  }, [getCourses]);
+  }, [getCourses, courses.length]);
 
   useEffect(() => {
-    const mappedCourses = courseService.getMappedCoursesOnAuthors(courses);
-    setCoursesToShow(mappedCourses);
-  }, [courses]);
+    mapAuthors();
+  }, [mapAuthors]);
 
   const searchCourses = (str) => {
     const rgx = RegExp(`${str}`, 'gi');

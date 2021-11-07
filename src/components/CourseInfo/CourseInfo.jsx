@@ -18,13 +18,18 @@ export const CourseInfo = () => {
   const { courseId } = useParams();
 
   const courses = useSelector((store) => store.courses);
+  const authors = useSelector((store) => store.authors);
+
   useEffect(() => {
     const course = courses.find((c) => c.id === courseId);
     if (course) {
-      const [mappedCourse] = courseService.getMappedCoursesOnAuthors([course]);
+      const [mappedCourse] = courseService.getMappedCoursesOnAuthors(
+        [course],
+        authors
+      );
       setCourseInfo(mappedCourse);
     }
-  }, [courseId, courses]);
+  }, [courseId, courses, authors]);
 
   return (
     <div className='container'>

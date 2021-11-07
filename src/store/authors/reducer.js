@@ -1,10 +1,12 @@
-import { AUTHORS_ADD } from './actionTypes';
+import * as actions from './actionTypes';
 
 export const authorsReducer = (state = [], action) => {
   const { payload, type } = action;
   switch (type) {
-    case AUTHORS_ADD:
+    case actions.AUTHORS_ADD:
       return [...state, payload];
+    case actions.AUTHORS_ADD_LIST:
+      return payload;
     default:
       return state;
   }

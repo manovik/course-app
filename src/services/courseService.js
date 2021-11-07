@@ -8,6 +8,7 @@ class CourseService {
     this.courseService = [];
     this.generateUUID = v4;
     this.authorService = authorService;
+    this.authors = [];
   }
 
   createNewCourse = (courseInfo) => ({
@@ -39,31 +40,19 @@ class CourseService {
     }
   };
 
-  getById = async (id) => {
-    const result = await this.getAll().find((c) => c.id === id);
-
-    return result;
-  };
-
-  getAuthorsByIds = (authorsIdArray) => {
-    const authorsList = this.authorService.getAll();
+  getAuthorsByIds = (authorsIdArray, allAuthors) => {
     const authors = [];
-
     for (const id of authorsIdArray) {
-      const author =
-        authorsList.find((a) => {
-          return a.id === id;
-        })?.name || 'Unknown';
-      authors.push(author);
+      authors.push(allAuthors.find((a) => a.id === id).name || 'Unknown');
     }
 
     return authors;
   };
 
-  getMappedCoursesOnAuthors = (courses) => {
+  getMappedCoursesOnAuthors = (courses, allAuthors) => {
     if (courses?.length) {
       return courses.map((course) => {
-        const authors = this.getAuthorsByIds(course.authors);
+        const authors = this.getAuthorsByIds(course.authors, allAuthors);
 
         return {
           ...course,

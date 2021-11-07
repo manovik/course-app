@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import { ACTIONS } from 'components/CreateCourse/store/actions';
 
@@ -11,25 +12,24 @@ import { CourseAuthors } from '../CourseAuthors';
 import { GridTemplate } from 'common/GridTemplate';
 
 import { authorService } from 'services';
+import { addAuthor } from 'store/authors/actionCreators';
 
-const getIDs = (entity) => entity.map((a) => a.id);
-
-const switchElementsInStates =
-  (stateFrom, setStateFrom, stateTo, setStateTo) => (entity) => {
-    const newList = [...stateTo];
-    newList.push(entity);
-    setStateTo(newList);
-
-    const filteredList = stateFrom.filter((a) => a.id !== entity.id);
-    setStateFrom(filteredList);
-  };
+import { getIDs, switchElementsInStates } from 'helpers';
 
 export const InfoWrapper = ({ dispatch }) => {
   const [authors, setAuthors] = useState([]);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
 
+  const authorsDispatch = useDispatch();
+
+  const getAuthors = async () => {
+    await authorService.getAll().then((a) => {
+      setAuthors(a);
+    });
+  };
+
   useEffect(() => {
-    setAuthors(authorService.getAll());
+    getAuthors();
   }, []);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export const InfoWrapper = ({ dispatch }) => {
     if (!author) return;
 
     const newAuthor = authorService.createNewAuthor(author);
-    authorService.add(newAuthor);
-
+    // TODO: author service add new author
+    authorsDispatch(addAuthor(newAuthor));
     setAuthors((prevList) => [...prevList, newAuthor]);
   };
 
@@ -81,5 +81,5 @@ InfoWrapper.propTypes = {
 };
 
 InfoWrapper.defaultProps = {
-  dispatch: () => console.log('Dispatch is not set'),
+  dispatch: () => console.warn('Dispatch is not set'),
 };
