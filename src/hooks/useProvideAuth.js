@@ -23,16 +23,16 @@ export const useProvideAuth = () => {
       .then(({ data }) => {
         saveData(data);
       })
-      .catch(console.error);
+      .catch((err) => {
+        throw err;
+      });
   };
 
   const register = async (params) => {
     return await courseAPI
       .post(`${ENDPOINTS.REGISTER}`, params)
       .catch((err) => {
-        throw new Error(
-          `Error occurred while trying to register user!\n${err}`
-        );
+        throw err;
       });
   };
 

@@ -22,6 +22,12 @@ const App = () => {
   const [errorMessages, setErrorMessages] = useState([]);
 
   useEffect(() => {
+    setTimeout(() => {
+      setIsError(false);
+    }, 6000);
+  }, [isError]);
+
+  useEffect(() => {
     localStorage.getItem('u-token') && <Redirect to={APP.COURSES} />;
   }, []);
 

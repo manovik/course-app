@@ -40,10 +40,6 @@ export const Registration = ({
         setIsLoading(false);
         setIsError(true);
         setErrorMessages(err?.response?.data?.errors || [err?.message]);
-
-        setTimeout(() => {
-          setIsError(false);
-        }, 6000);
       });
   };
 

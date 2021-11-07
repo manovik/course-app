@@ -29,17 +29,14 @@ export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
       .catch((err) => {
         setIsLoading(false);
         setIsError(true);
-        if (err?.response?.data?.errors) {
-          setErrorMessages(err?.response?.data?.errors);
+        const { result } = err?.response?.data;
+        if (result) {
+          setErrorMessages([result]);
           return;
         }
         setErrorMessages([
           'Invalid email or password. Please, check your credentials!',
         ]);
-
-        setTimeout(() => {
-          setIsError(false);
-        }, 6000);
       });
   };
 
