@@ -14,16 +14,17 @@ import { authorService, courseService } from 'services';
 import { APP } from 'utils/appRoutes';
 import { addCourseList } from 'store/courses/actionCreators';
 import { addAuthors } from 'store/authors/actionCreators';
+import { getAuthors, getCourses } from 'selectors';
 
 export const Courses = () => {
   const history = useHistory();
   const [coursesToShow, setCoursesToShow] = useState([]);
 
-  const courses = useSelector((store) => store.courses);
-  const authors = useSelector((store) => store.authors);
+  const courses = useSelector(getCourses);
+  const authors = useSelector(getAuthors);
   const dispatch = useDispatch();
 
-  const getCourses = useCallback(async () => {
+  const fetchCourses = useCallback(async () => {
     await authorService.getAll().then((data) => {
       dispatch(addAuthors(data));
     });
@@ -40,8 +41,8 @@ export const Courses = () => {
   useEffect(() => {
     if (courses.length) return; // remove after implementing sending new course to api
 
-    getCourses();
-  }, [getCourses, courses.length]);
+    fetchCourses();
+  }, [fetchCourses, courses.length]);
 
   useEffect(() => {
     mapAuthors();

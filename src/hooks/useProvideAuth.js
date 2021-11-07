@@ -6,10 +6,11 @@ import { courseAPI, ENDPOINTS } from 'services';
 import { localStorageApi } from 'helpers/localStorageApi';
 
 import { logUserIn, logUserOut, setUserToken } from 'store/user/actionCreators';
+import { getUser } from 'selectors';
 
 export const useProvideAuth = () => {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.user);
+  const userState = useSelector(getUser);
 
   const saveData = (data) => {
     localStorageApi.setLocalStorage(data.result);

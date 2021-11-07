@@ -11,14 +11,15 @@ import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { initCourseInfo } from 'utils/courseStructure';
 import { APP } from 'utils/appRoutes';
+import { getAuthors, getCourses } from 'selectors';
 
 export const CourseInfo = () => {
   const [courseInfo, setCourseInfo] = useState(initCourseInfo);
 
   const { courseId } = useParams();
 
-  const courses = useSelector((store) => store.courses);
-  const authors = useSelector((store) => store.authors);
+  const courses = useSelector(getCourses);
+  const authors = useSelector(getAuthors);
 
   useEffect(() => {
     const course = courses.find((c) => c.id === courseId);
