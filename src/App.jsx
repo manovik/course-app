@@ -27,10 +27,6 @@ const App = () => {
     }, 6000);
   }, [isError]);
 
-  useEffect(() => {
-    localStorage.getItem('u-token') && <Redirect to={APP.COURSES} />;
-  }, []);
-
   return (
     <div className='wrapper'>
       <Header />
