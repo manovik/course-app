@@ -12,4 +12,7 @@ export const addCourseList = (payload) => ({
   payload,
 });
 
-export const getCourses = () => ({ type: actions.COURSES_GET });
+export const updateCourses = (payload) => ({
+  type: actions.COURSES_UPDATE,
+  payload,
+});
