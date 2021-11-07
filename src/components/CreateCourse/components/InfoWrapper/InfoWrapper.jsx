@@ -28,18 +28,6 @@ export const InfoWrapper = ({ dispatch }) => {
     });
   };
 
-  useEffect(() => {
-    getAuthors();
-  }, []);
-
-  useEffect(() => {
-    const authorsIdArray = getIDs(selectedAuthors);
-    dispatch({ type: ACTIONS.SET_AUTHORS, payload: authorsIdArray });
-    return () => {
-      dispatch({ type: ACTIONS.SET_AUTHORS, payload: [] });
-    };
-  }, [selectedAuthors, dispatch]);
-
   const addNewAuthor = (author) => {
     if (!author) return;
 
@@ -62,6 +50,18 @@ export const InfoWrapper = ({ dispatch }) => {
     authors,
     setAuthors
   );
+
+  useEffect(() => {
+    getAuthors();
+  }, []);
+
+  useEffect(() => {
+    const authorsIdArray = getIDs(selectedAuthors);
+    dispatch({ type: ACTIONS.SET_AUTHORS, payload: authorsIdArray });
+    return () => {
+      dispatch({ type: ACTIONS.SET_AUTHORS, payload: [] });
+    };
+  }, [selectedAuthors, dispatch]);
 
   return (
     <GridTemplate>

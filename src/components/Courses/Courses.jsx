@@ -38,16 +38,6 @@ export const Courses = () => {
     setCoursesToShow(a);
   }, [courses, authors]);
 
-  useEffect(() => {
-    if (courses.length) return; // remove after implementing sending new course to api
-
-    fetchCourses();
-  }, [fetchCourses, courses.length]);
-
-  useEffect(() => {
-    mapAuthors();
-  }, [mapAuthors]);
-
   const searchCourses = (str) => {
     const rgx = RegExp(`${str}`, 'gi');
     return coursesToShow.filter((course) => {
@@ -67,6 +57,16 @@ export const Courses = () => {
   const onClearInput = () => {
     setCoursesToShow(courses);
   };
+
+  useEffect(() => {
+    if (courses.length) return; // remove after implementing sending new course to api
+
+    fetchCourses();
+  }, [fetchCourses, courses.length]);
+
+  useEffect(() => {
+    mapAuthors();
+  }, [mapAuthors]);
 
   return (
     <div className='container'>
