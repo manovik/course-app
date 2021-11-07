@@ -43,5 +43,5 @@ Duration.propTypes = {
 };
 
 Duration.defaultProps = {
-  dispatch: () => console.log('Dispatch is not set'),
+  dispatch: () => console.warn('Dispatch is not set'),
 };

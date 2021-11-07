@@ -54,5 +54,5 @@ AddAuthor.propTypes = {
 };
 
 AddAuthor.defaultProps = {
-  clickHandler: () => console.log('ClickHandler is not set'),
+  clickHandler: () => console.warn('ClickHandler is not set'),
 };

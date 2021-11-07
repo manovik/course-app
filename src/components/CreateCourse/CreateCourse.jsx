@@ -100,5 +100,5 @@ CreateCourse.propTypes = {
 };
 
 CreateCourse.defaultProps = {
-  setIsLoading: () => console.log('Dispatch is not set'),
+  setIsLoading: () => console.warn('Dispatch is not set'),
 };

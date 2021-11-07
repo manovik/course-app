@@ -100,7 +100,7 @@ Registration.propTypes = {
 };
 
 Registration.defaultProps = {
-  setIsLoading: () => console.log('SetIsLoading function is not set'),
-  setIsError: () => console.log('SetIsError function is not set'),
-  setErrorMessages: () => console.log('SetErrorMessages function is not set'),
+  setIsLoading: () => console.warn('SetIsLoading function is not set'),
+  setIsError: () => console.warn('SetIsError function is not set'),
+  setErrorMessages: () => console.warn('SetErrorMessages function is not set'),
 };

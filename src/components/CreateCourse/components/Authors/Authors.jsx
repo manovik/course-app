@@ -41,5 +41,5 @@ Authors.propTypes = {
 
 Authors.defaultProps = {
   authors: [{ id: '1', name: 'Unknown Author' }],
-  clickHandler: () => console.log('ClickHandler is not set'),
+  clickHandler: () => console.warn('ClickHandler is not set'),
 };

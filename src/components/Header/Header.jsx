@@ -53,5 +53,5 @@ Header.propTypes = {
 
 Header.defaultProps = {
   isLoggedIn: false,
-  setIsLoggedIn: () => console.log('SetIsLoggedIn is not set'),
+  setIsLoggedIn: () => console.warn('SetIsLoggedIn is not set'),
 };
