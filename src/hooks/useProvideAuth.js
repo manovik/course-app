@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import { courseAPI, ENDPOINTS } from 'services';
 
@@ -9,6 +10,9 @@ import { logUserIn, logUserOut, setUserToken } from 'store/user/actionCreators';
 import { getUser } from 'selectors';
 
 export const useProvideAuth = () => {
+  const pageLocation = useLocation();
+
+  const history = useHistory();
   const dispatch = useDispatch();
   const userState = useSelector(getUser);
 
@@ -51,15 +55,18 @@ export const useProvideAuth = () => {
   }, []);
 
   useEffect(() => {
+    console.log('render');
     const { storageToken } = localStorageApi.getFromLocalStorage();
     if (storageToken) {
       getMyName(storageToken).then(({ data }) => {
+        console.log(data);
         const { email, name } = data.result;
         dispatch(logUserIn({ email, name }));
+        history.push(pageLocation.pathname);
       });
     }
     return signOut;
-  }, [getMyName, dispatch, signOut]);
+  }, [getMyName, dispatch, signOut, history]);
 
   return {
     user: userState.name,
