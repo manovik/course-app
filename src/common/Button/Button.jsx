@@ -28,7 +28,7 @@ const edit = (
   </svg>
 );
 
-const setButtonText = (text) => {
+const getButtonCaption = (text) => {
   switch (text) {
     case 'trash':
       return trash;
@@ -46,7 +46,7 @@ export const Button = ({ buttonText, btnClassName, type, onClick }) => {
       type={type ? type : 'button'}
       onClick={onClick}
     >
-      {setButtonText(buttonText)}
+      {getButtonCaption(buttonText)}
     </button>
   );
 };
