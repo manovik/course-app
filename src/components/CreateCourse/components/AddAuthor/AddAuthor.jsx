@@ -52,7 +52,3 @@ export const AddAuthor = ({ clickHandler }) => {
 AddAuthor.propTypes = {
   clickHandler: PropTypes.func.isRequired,
 };
-
-AddAuthor.defaultProps = {
-  clickHandler: () => console.warn('ClickHandler is not set'),
-};

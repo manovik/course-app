@@ -18,20 +18,20 @@ export const Record = ({ caption, text, title, children }) => (
       </span>
     </p>
     {children?.map((ch, i) => (
-      <span style={{ display: 'block' }} key={ch.replace(/\s/g, i)}>
-        {ch}
-      </span>
+      <p key={ch.replace(/\s/g, i)}>{ch}</p>
     ))}
   </>
 );
 
 Record.propTypes = {
   caption: PropTypes.string.isRequired,
-  text: PropTypes.string,
   title: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  text: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.node]),
 };
 
 Record.defaultProps = {
-  caption: 'Caption',
+  title: 'Title',
+  text: '',
+  children: [],
 };

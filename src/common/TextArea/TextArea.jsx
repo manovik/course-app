@@ -2,8 +2,6 @@ import React from 'react';
 
 import { PropTypes } from 'prop-types';
 
-import { v4 } from 'uuid';
-
 export const TextArea = ({
   htmlId,
   labelText,
@@ -28,13 +26,10 @@ TextArea.propTypes = {
   htmlId: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
   placeholderText: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
   className: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
 };
 
 TextArea.defaultProps = {
-  htmlId: `${v4().slice(-4)}-text`,
-  labelText: 'Input text',
-  placeholderText: 'Enter text',
-  className: '',
+  onChange: () => undefined,
 };

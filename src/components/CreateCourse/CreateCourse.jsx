@@ -98,7 +98,3 @@ export const CreateCourse = ({ setIsLoading }) => {
 CreateCourse.propTypes = {
   setIsLoading: PropTypes.func.isRequired,
 };
-
-CreateCourse.defaultProps = {
-  setIsLoading: () => console.warn('Dispatch is not set'),
-};

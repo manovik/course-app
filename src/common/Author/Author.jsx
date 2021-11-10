@@ -1,5 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { Button } from '../Button';
 
 export const Author = ({ authorName, children, className }) => {
   const initClass = 'd-flex justify-content-between ';
@@ -20,4 +21,10 @@ Author.propTypes = {
     PropTypes.node,
   ]),
   className: PropTypes.string,
+};
+
+Author.defaultProps = {
+  authorName: 'No author',
+  children: <Button />,
+  className: '',
 };

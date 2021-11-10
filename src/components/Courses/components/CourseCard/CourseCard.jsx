@@ -10,8 +10,6 @@ import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { APP } from 'utils/appRoutes';
 
-import { v4 } from 'uuid';
-
 import { removeCourse } from 'store/courses/actionCreators';
 
 import './course-card.scss';
@@ -69,15 +67,4 @@ CourseCard.propTypes = {
     duration: PropTypes.number.isRequired,
     authors: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
-};
-
-CourseCard.defaultProps = {
-  course: {
-    id: `${v4().slice(-4)}-courseId`,
-    title: 'Course Title',
-    description: 'Course description',
-    creationDate: '01/01/1970',
-    duration: 60,
-    authors: ['Unknown Author'],
-  },
 };

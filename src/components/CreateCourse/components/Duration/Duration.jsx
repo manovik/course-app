@@ -41,7 +41,3 @@ export const Duration = ({ dispatch }) => {
 Duration.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
-
-Duration.defaultProps = {
-  dispatch: () => console.warn('Dispatch is not set'),
-};

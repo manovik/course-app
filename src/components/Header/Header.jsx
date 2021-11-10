@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
 
 import { Logo } from './components/Logo';
 import { User } from './components/User';
@@ -43,15 +42,4 @@ export const Header = () => {
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
-  setIsLoggedIn: PropTypes.func.isRequired,
-  userName: PropTypes.string,
-};
-
-Header.defaultProps = {
-  isLoggedIn: false,
-  setIsLoggedIn: () => console.warn('SetIsLoggedIn is not set'),
 };

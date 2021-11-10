@@ -1,6 +1,8 @@
 import React from 'react';
-import { useAuth } from 'context/authContext';
+import { PropTypes } from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+
+import { useAuth } from 'context/authContext';
 import { APP } from 'utils/appRoutes';
 
 export const PublicRoute = ({ children, ...props }) => {
@@ -10,4 +12,11 @@ export const PublicRoute = ({ children, ...props }) => {
       {auth.isAuth ? <Redirect to={APP.COURSES} /> : children}
     </Route>
   );
+};
+
+PublicRoute.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
 };

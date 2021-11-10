@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const NothingToShow = () => {
-  return <p>Nothing was found. Try again with another parameters.</p>;
+  return <p className='fs-1'>Nothing to show here...</p>;
 };

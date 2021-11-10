@@ -14,5 +14,5 @@ GridTitle.propTypes = {
 };
 
 GridTitle.defaultProps = {
-  title: '',
+  className: '',
 };

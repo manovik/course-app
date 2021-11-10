@@ -42,8 +42,3 @@ SearchBar.propTypes = {
   searchHandler: PropTypes.func.isRequired,
   clearInputHandler: PropTypes.func.isRequired,
 };
-
-SearchBar.defaultProps = {
-  searchHandler: () => console.warn('SearchHandler is not set'),
-  clearInputHandler: () => console.warn('ClearInputHandler is not set'),
-};

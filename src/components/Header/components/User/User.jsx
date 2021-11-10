@@ -9,3 +9,7 @@ export const User = ({ name }) => {
 User.propTypes = {
   name: PropTypes.string,
 };
+
+User.defaultProps = {
+  name: 'John Doe',
+};

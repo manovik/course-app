@@ -83,9 +83,3 @@ Login.propTypes = {
   setIsError: PropTypes.func.isRequired,
   setErrorMessages: PropTypes.func.isRequired,
 };
-
-Login.defaultProps = {
-  setIsLoading: () => console.warn('SetIsLoading function is not set'),
-  setIsError: () => console.warn('SetIsError function is not set'),
-  setErrorMessages: () => console.warn('SetErrorMessages function is not set'),
-};

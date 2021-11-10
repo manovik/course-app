@@ -43,8 +43,3 @@ CourseAuthors.propTypes = {
   ).isRequired,
   clickHandler: PropTypes.func.isRequired,
 };
-
-CourseAuthors.defaultProps = {
-  authors: [{ id: '1', name: 'Unknown Author' }],
-  clickHandler: () => console.warn('ClickHandler is not set'),
-};
