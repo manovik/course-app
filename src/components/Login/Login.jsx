@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 import { Button } from 'common/Button';
@@ -9,10 +9,13 @@ import { APP } from 'utils/appRoutes';
 
 import { useAuth } from 'context/authContext';
 
+import { useAuthRedirect } from 'hooks/useAuthRedirect';
+
 export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
   const emailRef = useRef(null);
   const passRef = useRef(null);
   const { login } = useAuth();
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
     })
       .then(() => {
         setIsLoading(false);
+        history.push(APP.COURSES);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -39,6 +43,8 @@ export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
         ]);
       });
   };
+
+  useAuthRedirect();
 
   return (
     <div className='d-flex align-items-center justify-content-center h-100'>

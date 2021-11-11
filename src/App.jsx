@@ -9,7 +9,6 @@ import { Registration } from 'components/Registration';
 import { CourseInfo } from 'components/CourseInfo';
 import { CreateCourse } from 'components/CreateCourse';
 import { PrivateRoute } from 'components/PrivateRoute';
-import { PublicRoute } from 'components/PublicRoute';
 
 import { Loader } from 'common/Loader';
 import { ErrorTip } from 'common/ErrorTip';
@@ -40,6 +39,25 @@ const App = () => {
       <div className='content-wrapper'>
         {isError && <ErrorTip errorMessages={errorMessages} />}
         <Switch>
+          <Route exact path={APP.ROOT}>
+            <Redirect to={APP.COURSES} />
+          </Route>
+
+          <Route path={APP.LOGIN}>
+            <Login
+              setIsError={setIsError}
+              setIsLoading={setIsLoading}
+              setErrorMessages={setErrorMessages}
+            />
+          </Route>
+          <Route path={APP.REGISTRATION}>
+            <Registration
+              setIsLoading={setIsLoading}
+              setIsError={setIsError}
+              setErrorMessages={setErrorMessages}
+            />
+          </Route>
+
           <PrivateRoute exact path={APP.COURSES}>
             <Courses />
           </PrivateRoute>
@@ -49,24 +67,6 @@ const App = () => {
           <PrivateRoute exact path={APP.COURSES_ID}>
             <CourseInfo />
           </PrivateRoute>
-
-          <Route exact path={APP.ROOT}>
-            <Redirect to={APP.COURSES} />
-          </Route>
-          <PublicRoute path={APP.LOGIN}>
-            <Login
-              setIsError={setIsError}
-              setIsLoading={setIsLoading}
-              setErrorMessages={setErrorMessages}
-            />
-          </PublicRoute>
-          <PublicRoute path={APP.REGISTRATION}>
-            <Registration
-              setIsLoading={setIsLoading}
-              setIsError={setIsError}
-              setErrorMessages={setErrorMessages}
-            />
-          </PublicRoute>
         </Switch>
       </div>
     </div>

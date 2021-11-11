@@ -1,7 +1,5 @@
 import React, { useRef } from 'react';
-
 import { PropTypes } from 'prop-types';
-
 import { Link, useHistory } from 'react-router-dom';
 
 import { Button } from 'common/Button';
@@ -10,6 +8,8 @@ import { Input } from 'common/Input';
 import { APP } from 'utils/appRoutes';
 
 import { useAuth } from 'context/authContext';
+
+import { useAuthRedirect } from 'hooks/useAuthRedirect';
 
 export const Registration = ({
   setIsLoading,
@@ -42,6 +42,8 @@ export const Registration = ({
         setErrorMessages(err?.response?.data?.errors || [err?.message]);
       });
   };
+
+  useAuthRedirect();
 
   return (
     <div className='d-flex align-items-center justify-content-center h-100'>
