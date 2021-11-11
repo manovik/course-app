@@ -7,7 +7,7 @@ import { Header } from 'components/Header';
 import { Login } from 'components/Login';
 import { Registration } from 'components/Registration';
 import { CourseInfo } from 'components/CourseInfo';
-import { CreateCourse } from 'components/CreateCourse';
+import { CourseForm } from 'components/CourseForm';
 import { PrivateRoute } from 'components/PrivateRoute';
 
 import { Loader } from 'common/Loader';
@@ -62,7 +62,7 @@ const App = () => {
             <Courses />
           </PrivateRoute>
           <PrivateRoute exact path={APP.COURSES_ADD}>
-            <CreateCourse setIsLoading={setIsLoading} />
+            <CourseForm setIsLoading={setIsLoading} />
           </PrivateRoute>
           <PrivateRoute exact path={APP.COURSES_ID}>
             <CourseInfo />

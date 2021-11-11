@@ -21,7 +21,7 @@ import { APP } from 'utils/appRoutes';
 
 import { courseService } from 'services';
 
-export const CreateCourse = ({ setIsLoading }) => {
+export const CourseForm = ({ setIsLoading }) => {
   const history = useHistory();
 
   const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);
@@ -95,6 +95,6 @@ export const CreateCourse = ({ setIsLoading }) => {
   );
 };
 
-CreateCourse.propTypes = {
+CourseForm.propTypes = {
   setIsLoading: PropTypes.func.isRequired,
 };

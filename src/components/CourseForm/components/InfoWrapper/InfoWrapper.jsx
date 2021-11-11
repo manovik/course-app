@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import { ACTIONS } from 'components/CreateCourse/store/actions';
+import { ACTIONS } from 'components/CourseForm/store/actions';
 
 import { AddAuthor } from '../AddAuthor';
 import { Authors } from '../Authors';

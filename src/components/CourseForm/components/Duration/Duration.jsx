@@ -6,7 +6,7 @@ import { GridTitle } from 'common/GridTitle';
 
 import { convertMinutesToTime } from 'helpers';
 
-import { ACTIONS } from 'components/CreateCourse/store/actions';
+import { ACTIONS } from 'components/CourseForm/store/actions';
 
 export const Duration = ({ dispatch }) => {
   const [hours, setHours] = useState('00:00 hours');
