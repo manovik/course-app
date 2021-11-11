@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { courseAPI, ENDPOINTS } from 'services';
+import { userService } from 'services';
 
 import { localStorageApi } from 'helpers/localStorageApi';
 
@@ -22,23 +22,20 @@ export const useProvideAuth = () => {
     dispatch(setUserToken(data.result));
   };
 
-  const login = async (params) => {
-    return await courseAPI
-      .post(`${ENDPOINTS.LOGIN}`, params)
+  const login = async (params) =>
+    await userService
+      .loginUser(params)
       .then(({ data }) => {
         saveData(data);
       })
       .catch((err) => {
         throw err;
       });
-  };
 
   const register = async (params) => {
-    return await courseAPI
-      .post(`${ENDPOINTS.REGISTER}`, params)
-      .catch((err) => {
-        throw err;
-      });
+    return await userService.register(params).catch((err) => {
+      throw err;
+    });
   };
 
   const signOut = useCallback(() => {
@@ -47,19 +44,13 @@ export const useProvideAuth = () => {
   }, [dispatch]);
 
   const getMyName = useCallback(async (token) => {
-    return await courseAPI.get(ENDPOINTS.GET_ME, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    return await userService.getCurrentUser(token);
   }, []);
 
   useEffect(() => {
-    console.log('render');
     const { storageToken } = localStorageApi.getFromLocalStorage();
     if (storageToken) {
       getMyName(storageToken).then(({ data }) => {
-        console.log(data);
         const { email, name } = data.result;
         dispatch(logUserIn({ email, name }));
         history.push(pageLocation.pathname);

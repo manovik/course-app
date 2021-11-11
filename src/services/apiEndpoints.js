@@ -4,4 +4,5 @@ export const ENDPOINTS = {
   GET_COURSES: 'courses/all',
   GET_AUTHORS: 'authors/all',
   GET_ME: 'users/me',
+  ADD_COURSE: '/courses/add',
 };

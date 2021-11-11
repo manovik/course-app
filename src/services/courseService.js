@@ -1,14 +1,13 @@
+import axios from 'axios';
 import { v4 } from 'uuid';
-import { authorService } from 'services';
-import { courseAPI } from './courseAPI';
+
 import { ENDPOINTS } from './apiEndpoints';
 
-class CourseService {
-  constructor() {
+export class CourseService {
+  constructor(url) {
     this.courseService = [];
     this.generateUUID = v4;
-    this.authorService = authorService;
-    this.authors = [];
+    this.baseUrl = url;
   }
 
   createNewCourse = (courseInfo) => ({
@@ -19,7 +18,10 @@ class CourseService {
 
   add = async (newCourse) => {
     try {
-      const { data } = await courseAPI.post(ENDPOINTS.ADD_COURSE, newCourse);
+      const { data } = await axios.post(
+        `${this.baseUrl}/${ENDPOINTS.ADD_COURSE}`,
+        newCourse
+      );
       const { successful } = data;
       return successful;
     } catch (err) {
@@ -29,7 +31,9 @@ class CourseService {
 
   getAll = async () => {
     try {
-      const { data } = await courseAPI.get(ENDPOINTS.GET_COURSES);
+      const { data } = await axios.get(
+        `${this.baseUrl}/${ENDPOINTS.GET_COURSES}`
+      );
       const { successful, result } = data;
       if (successful) {
         this.courseService = result;
@@ -63,5 +67,3 @@ class CourseService {
     return [];
   };
 }
-
-export const courseService = new CourseService();

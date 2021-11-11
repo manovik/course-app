@@ -1,13 +1,12 @@
+import axios from 'axios';
 import { v4 } from 'uuid';
 
-import { courseAPI, ENDPOINTS } from 'services';
+import { ENDPOINTS } from './apiEndpoints';
 
-// imitation of some user service
-
-class AuthorService {
-  constructor() {
-    this.authorService = [];
+export class AuthorService {
+  constructor(url) {
     this.generateUUID = v4;
+    this.baseUrl = url;
   }
 
   createNewAuthor = (name) => ({
@@ -15,22 +14,15 @@ class AuthorService {
     name,
   });
 
-  add = (author) => {
-    this.authorService.push(author);
-  };
-
   getAll = async () => {
-    await courseAPI
-      .get(ENDPOINTS.GET_AUTHORS)
+    return await axios
+      .get(`${this.baseUrl}/${ENDPOINTS.GET_AUTHORS}`)
       .then(({ data }) => {
         const { result } = data;
-        this.authorService = result;
+        return result;
       })
       .catch((err) => {
         throw new Error(`Failed to fetch authors list!\n${err}`);
       });
-    return [...this.authorService];
   };
 }
-
-export const authorService = new AuthorService();
