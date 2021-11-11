@@ -22,9 +22,15 @@ const App = () => {
   const [errorMessages, setErrorMessages] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsError(false);
-    }, 6000);
+    let timerId;
+    if (isError) {
+      timerId = setTimeout(() => {
+        setIsError(false);
+      }, 6000);
+    }
+    return () => {
+      clearTimeout(timerId);
+    };
   }, [isError]);
 
   return (
