@@ -66,7 +66,7 @@ export const Courses = () => {
 
   useEffect(() => {
     mapAuthors();
-  }, [mapAuthors]);
+  });
 
   return (
     <div className='container'>
