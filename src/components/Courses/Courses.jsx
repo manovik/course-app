@@ -48,6 +48,7 @@ export const Courses = () => {
   const onSearch = (value) => {
     if (!value) {
       setCoursesToShow(courses);
+      mapAuthors();
       return;
     }
 
@@ -56,6 +57,7 @@ export const Courses = () => {
 
   const onClearInput = () => {
     setCoursesToShow(courses);
+    mapAuthors();
   };
 
   useEffect(() => {
