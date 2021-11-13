@@ -1,11 +1,11 @@
 import { courseService } from 'services';
-import { addCourseToStore, deleteCourseFromStore } from './actionCreators';
+import { addCoursesToStore, deleteCourseFromStore } from './actionCreators';
 
 export const addNewCourse = (newCourse) => async (dispatch) => {
   try {
     const result = await courseService.add(newCourse);
     if (result) {
-      dispatch(addCourseToStore(newCourse));
+      dispatch(addCoursesToStore([newCourse]));
     }
   } catch (err) {
     console.error(err);

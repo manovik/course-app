@@ -12,7 +12,7 @@ import { Button } from 'common/Button';
 import { authorService, courseService } from 'services';
 
 import { APP, ROLES } from 'appConstants';
-import { addCourseList } from 'store/courses/actionCreators';
+import { addCoursesToStore } from 'store/courses/actionCreators';
 import { addAuthors } from 'store/authors/actionCreators';
 import { getCourses } from 'selectors';
 import { useAuth } from 'context/authContext';
@@ -31,7 +31,7 @@ export const Courses = () => {
       dispatch(addAuthors(data));
     });
     await courseService.getAll().then((data) => {
-      dispatch(addCourseList(data));
+      dispatch(addCoursesToStore(data));
     });
   }, [dispatch]);
 

@@ -5,3 +5,4 @@ export { callAlert } from './callAlert';
 export { validateString } from './validateString';
 export { switchElementsInStates } from './switchElementsInStates';
 export { getIDs } from './getIDs';
+export { arrayToString } from './arrayToString';

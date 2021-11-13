@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'common/Button';
 import { Record } from 'common/Record';
 
-import { convertMinutesToTime, convertDate } from 'helpers';
+import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 import { APP, ROLES } from 'appConstants';
 
 import { deleteCourse } from 'store/courses/thunk';
@@ -27,7 +27,6 @@ export const CourseCard = ({ course }) => {
 
   const { id, title, description, creationDate, duration, authors } = course;
 
-  const authorsString = (a) => a.join(', ');
   const { role } = useAuth();
 
   const mapAuthors = useCallback(() => {
@@ -49,8 +48,8 @@ export const CourseCard = ({ course }) => {
         <div className='col-3 fs-4' style={{ paddingLeft: '1rem' }}>
           <Record
             caption='Authors'
-            text={authorsString(authorNames)}
-            title={authorsString(authorNames)}
+            text={arrayToString(authorNames)}
+            title={arrayToString(authorNames)}
           />
           <Record caption='Duration' text={convertMinutesToTime(duration)} />
           <Record caption='Created' text={convertDate(creationDate)} />

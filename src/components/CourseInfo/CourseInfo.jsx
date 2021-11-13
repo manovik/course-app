@@ -6,7 +6,7 @@ import { Record } from 'common/Record';
 
 import { courseService } from 'services';
 
-import { convertMinutesToTime, convertDate } from 'helpers';
+import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 
 import { initCourseInfo } from 'utils/courseStructure';
 
@@ -50,7 +50,10 @@ export const CourseInfo = () => {
               caption={'Created'}
               text={convertDate(courseInfo?.creationDate)}
             />
-            <Record caption={'Authors'} title={courseInfo?.authors}>
+            <Record
+              caption={'Authors'}
+              title={arrayToString(courseInfo?.authors)}
+            >
               {courseInfo?.authors}
             </Record>
           </div>
