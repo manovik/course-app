@@ -11,57 +11,67 @@ import { getUser } from 'selectors';
 
 export const useProvideAuth = () => {
   const pageLocation = useLocation();
-
   const history = useHistory();
   const dispatch = useDispatch();
   const userState = useSelector(getUser);
 
-  const saveData = (data) => {
-    localStorageApi.setLocalStorage(data.result);
-    dispatch(logUserIn(data.user));
-    dispatch(setUserToken(data.result));
-  };
+  const saveData = useCallback(
+    (data) => {
+      localStorageApi.setLocalStorage(data.result);
+      dispatch(logUserIn(data.user));
+      dispatch(setUserToken(data.result));
+    },
+    [dispatch]
+  );
 
-  const login = async (params) =>
-    await userService
-      .loginUser(params)
-      .then(({ data }) => {
-        saveData(data);
-      })
-      .catch((err) => {
-        throw err;
+  const getMyName = useCallback(
+    async (token) => {
+      userService.getCurrentUser(token).then(({ data }) => {
+        const { email, name, role } = data.result;
+        const user = name ? name : role;
+        dispatch(logUserIn({ email, name: user, role }));
       });
+    },
+    [dispatch]
+  );
 
-  const register = async (params) => {
+  const login = useCallback(
+    async (params) =>
+      userService
+        .loginUser(params)
+        .then(({ data }) => {
+          saveData(data);
+          getMyName(data.result);
+        })
+        .catch((err) => {
+          throw err;
+        }),
+    [saveData, getMyName]
+  );
+
+  const register = useCallback(async (params) => {
     return await userService.register(params).catch((err) => {
       throw err;
     });
-  };
+  }, []);
 
   const signOut = useCallback(() => {
     localStorageApi.clearLocalStorage();
     dispatch(logUserOut());
   }, [dispatch]);
 
-  const getMyName = useCallback(async (token) => {
-    return await userService.getCurrentUser(token);
-  }, []);
-
   useEffect(() => {
     const { storageToken } = localStorageApi.getFromLocalStorage();
-    if (storageToken) {
-      getMyName(storageToken).then(({ data }) => {
-        const { email, name } = data.result;
-        dispatch(logUserIn({ email, name }));
-        history.push(pageLocation.pathname);
-      });
+    if (storageToken && !userState.isAuth) {
+      getMyName(storageToken);
+      history.push(pageLocation.pathname);
     }
-    return signOut;
-  }, [getMyName, dispatch, signOut, history]);
+  }, [getMyName, signOut, history, pageLocation.pathname, userState.isAuth]);
 
   return {
     user: userState.name,
     isAuth: userState.isAuth,
+    role: userState.role,
     login,
     register,
     signOut,
