@@ -10,7 +10,7 @@ import { courseService } from 'services';
 import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { initCourseInfo } from 'utils/courseStructure';
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 import { getAuthors, getCourses } from 'selectors';
 
 export const CourseInfo = () => {

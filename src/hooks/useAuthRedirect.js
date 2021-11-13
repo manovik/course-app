@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 
 import { useAuth } from 'context/authContext';
 

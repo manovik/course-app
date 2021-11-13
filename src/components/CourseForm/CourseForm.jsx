@@ -17,7 +17,7 @@ import { reducer, reset } from './store/reducer';
 import { validateCourseFields, callAlert } from 'helpers';
 
 import { initCourse } from 'utils/courseStructure';
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 
 import { courseService } from 'services';
 

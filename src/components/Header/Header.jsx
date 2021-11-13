@@ -6,7 +6,7 @@ import { User } from './components/User';
 
 import { Button } from 'common/Button';
 
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 
 import { useAuth } from 'context/authContext';
 

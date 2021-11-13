@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 import { Button } from 'common/Button';
 import { Input } from 'common/Input';
 
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 
 import { useAuth } from 'context/authContext';
 

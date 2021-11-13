@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { v4 } from 'uuid';
 
-import { ENDPOINTS } from './apiEndpoints';
+import { ENDPOINTS } from 'appConstants';
 
 export class AuthorService {
   constructor(url) {

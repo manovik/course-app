@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Button } from 'common/Button';
 import { Input } from 'common/Input';
 
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 
 import { useAuth } from 'context/authContext';
 

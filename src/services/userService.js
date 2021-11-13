@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ENDPOINTS } from './apiEndpoints';
+import { ENDPOINTS } from 'appConstants';
 
 export class UserService {
   constructor(url) {

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from 'context/authContext';
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 
 export const PrivateRoute = ({ children, ...props }) => {
   const auth = useAuth();
