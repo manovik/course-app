@@ -3,8 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import { addCourse } from 'store/courses/actionCreators';
-
 import { InfoWrapper } from './components/InfoWrapper';
 
 import { Input } from 'common/Input';
@@ -20,6 +18,7 @@ import { initCourse } from 'utils/courseStructure';
 import { APP } from 'appConstants';
 
 import { courseService } from 'services';
+import { addNewCourse } from 'store/courses/thunk';
 
 export const CourseForm = ({ setIsLoading }) => {
   const history = useHistory();
@@ -45,12 +44,12 @@ export const CourseForm = ({ setIsLoading }) => {
     setIsLoading(true);
 
     const newCourseWithFullInfo = courseService.createNewCourse(courseToCreate);
-    addCourseToStore(addCourse(newCourseWithFullInfo));
-    setTimeout(() => {
-      setIsLoading(false);
-      dispatch({ type: ACTIONS.RESET });
-      history.push(APP.COURSES);
-    }, 150);
+    addCourseToStore(addNewCourse(newCourseWithFullInfo));
+
+    dispatch({ type: ACTIONS.RESET });
+    history.push(APP.COURSES);
+
+    setIsLoading(false);
   }, [courseToCreate, setIsLoading, addCourseToStore, history]);
 
   return (

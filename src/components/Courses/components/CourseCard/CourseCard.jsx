@@ -10,7 +10,8 @@ import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { APP, ROLES } from 'appConstants';
 
-import { removeCourse } from 'store/courses/actionCreators';
+import { deleteCourse } from 'store/courses/thunk';
+
 import { useAuth } from 'context/authContext';
 
 import './course-card.scss';
@@ -53,7 +54,7 @@ export const CourseCard = ({ course }) => {
                 <Button
                   buttonText='trash'
                   btnClassName='btn-outline-danger btn--common m-1'
-                  onClick={() => dispatch(removeCourse(id))}
+                  onClick={() => dispatch(deleteCourse(id))}
                 />
               </>
             )}

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { v4 } from 'uuid';
 
 import { ENDPOINTS } from 'appConstants';
+import { makeShortId } from 'helpers/makeShortId';
 export class CourseService {
   constructor(url) {
     this.courseService = [];
@@ -19,12 +20,30 @@ export class CourseService {
     try {
       const { data } = await axios.post(
         `${this.baseUrl}/${ENDPOINTS.ADD_COURSE}`,
-        newCourse
+        newCourse,
+        {
+          headers: {
+            Authorization: localStorage.getItem('u-token'),
+          },
+        }
       );
       const { successful } = data;
+      console.log('createNewCourse\n', data);
       return successful;
     } catch (err) {
       throw new Error('Failed to fetch courses!\n' + err);
+    }
+  };
+
+  delete = async (id) => {
+    try {
+      await axios.delete(`${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem('u-token'),
+        },
+      });
+    } catch (err) {
+      throw new Error(`Failed to delete course id: ${makeShortId(id)} .`);
     }
   };
 
