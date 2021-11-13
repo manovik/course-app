@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
 import { Courses } from 'components/Courses';
 import { Header } from 'components/Header';
 import { Login } from 'components/Login';
@@ -14,11 +15,19 @@ import { Loader } from 'common/Loader';
 import { ErrorTip } from 'common/ErrorTip';
 
 import { APP } from 'appConstants';
+import { getAllAuthors } from 'store/authors/thunk';
+import { getAllCourses } from 'store/courses/thunk';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllAuthors());
+    dispatch(getAllCourses());
+  }, [dispatch]);
 
   useEffect(() => {
     let timerId;

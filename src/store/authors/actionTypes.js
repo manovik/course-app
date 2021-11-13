@@ -1,2 +1,1 @@
 export const AUTHORS_ADD = 'AUTHORS_ADD';
-export const AUTHORS_ADD_LIST = 'AUTHORS_ADD_LIST';

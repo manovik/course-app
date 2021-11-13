@@ -22,3 +22,13 @@ export const deleteCourse = (id) => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const getAllCourses = () => async (dispatch) => {
+  try {
+    await courseService.getAll().then((data) => {
+      dispatch(addCoursesToStore(data));
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};

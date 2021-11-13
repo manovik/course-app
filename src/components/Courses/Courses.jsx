@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { CourseCard } from './components/CourseCard';
 import { SearchBar } from './components/SearchBar';
@@ -9,11 +9,8 @@ import { SearchBar } from './components/SearchBar';
 import { NothingToShow } from 'common/NothingToShow';
 import { Button } from 'common/Button';
 
-import { authorService, courseService } from 'services';
-
 import { APP, ROLES } from 'appConstants';
-import { addCoursesToStore } from 'store/courses/actionCreators';
-import { addAuthors } from 'store/authors/actionCreators';
+
 import { getCourses } from 'selectors';
 import { useAuth } from 'context/authContext';
 
@@ -23,17 +20,6 @@ export const Courses = () => {
   const { role } = useAuth();
 
   const courses = useSelector(getCourses);
-
-  const dispatch = useDispatch();
-
-  const fetchCourses = useCallback(async () => {
-    await authorService.getAll().then((data) => {
-      dispatch(addAuthors(data));
-    });
-    await courseService.getAll().then((data) => {
-      dispatch(addCoursesToStore(data));
-    });
-  }, [dispatch]);
 
   const searchCourses = (str) => {
     const rgx = RegExp(`${str}`, 'gi');
@@ -54,12 +40,6 @@ export const Courses = () => {
   const onClearInput = () => {
     setCoursesToShow(courses);
   };
-
-  useEffect(() => {
-    if (courses.length) return; // remove after implementing sending new course to api
-
-    fetchCourses();
-  }, [fetchCourses, courses.length]);
 
   useEffect(() => {
     setCoursesToShow(courses);
