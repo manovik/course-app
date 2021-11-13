@@ -2,6 +2,7 @@ export const baseUrl = 'http://localhost:3000';
 
 export const ENDPOINTS = {
   LOGIN: 'login',
+  LOGOUT: 'logout',
   REGISTER: 'register',
   COURSES: 'courses',
   GET_COURSES: 'courses/all',

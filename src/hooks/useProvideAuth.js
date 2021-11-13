@@ -6,8 +6,11 @@ import { userService } from 'services';
 
 import { localStorageApi } from 'helpers/localStorageApi';
 
-import { logUserIn, logUserOut, setUserToken } from 'store/user/actionCreators';
+import { logUserIn, setUserToken } from 'store/user/actionCreators';
+
 import { getUser } from 'selectors';
+
+import { logOut } from 'store/user/thunk';
 
 export const useProvideAuth = () => {
   const pageLocation = useLocation();
@@ -29,7 +32,7 @@ export const useProvideAuth = () => {
       userService.getCurrentUser(token).then(({ data }) => {
         const { email, name, role } = data.result;
         const user = name ? name : role;
-        dispatch(logUserIn({ email, name: user, role }));
+        dispatch(logUserIn({ email, name: user, role, token }));
       });
     },
     [dispatch]
@@ -56,9 +59,9 @@ export const useProvideAuth = () => {
   }, []);
 
   const signOut = useCallback(() => {
+    dispatch(logOut(userState.token));
     localStorageApi.clearLocalStorage();
-    dispatch(logUserOut());
-  }, [dispatch]);
+  }, [dispatch, userState]);
 
   useEffect(() => {
     const { storageToken } = localStorageApi.getFromLocalStorage();
