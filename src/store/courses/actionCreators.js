@@ -1,8 +1,11 @@
 import * as actions from './actionTypes';
 
-export const addCourse = (payload) => ({ type: actions.COURSES_ADD, payload });
+export const addCourseToStore = (payload) => ({
+  type: actions.COURSES_ADD,
+  payload,
+});
 
-export const removeCourse = (payload) => ({
+export const deleteCourseFromStore = (payload) => ({
   type: actions.COURSES_REMOVE,
   payload,
 });

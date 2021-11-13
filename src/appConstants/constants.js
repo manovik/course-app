@@ -3,10 +3,11 @@ export const baseUrl = 'http://localhost:3000';
 export const ENDPOINTS = {
   LOGIN: 'login',
   REGISTER: 'register',
+  COURSES: 'courses',
   GET_COURSES: 'courses/all',
   GET_AUTHORS: 'authors/all',
   GET_ME: 'users/me',
-  ADD_COURSE: '/courses/add',
+  ADD_COURSE: 'courses/add',
 };
 
 export const APP = {

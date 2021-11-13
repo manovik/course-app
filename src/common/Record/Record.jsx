@@ -31,7 +31,7 @@ Record.propTypes = {
 };
 
 Record.defaultProps = {
-  title: 'Title',
+  title: '',
   text: '',
   children: [],
 };
