@@ -28,7 +28,6 @@ export class CourseService {
         }
       );
       const { successful } = data;
-      console.log('createNewCourse\n', data);
       return successful;
     } catch (err) {
       throw new Error('Failed to fetch courses!\n' + err);
@@ -37,11 +36,15 @@ export class CourseService {
 
   delete = async (id) => {
     try {
-      await axios.delete(`${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem('u-token'),
-        },
-      });
+      const { data } = await axios.delete(
+        `${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem('u-token'),
+          },
+        }
+      );
+      return data;
     } catch (err) {
       throw new Error(`Failed to delete course id: ${makeShortId(id)} .`);
     }
@@ -68,7 +71,6 @@ export class CourseService {
         `${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`
       );
 
-      console.log(data);
       const { successful, result } = data;
       if (successful) {
         return result;

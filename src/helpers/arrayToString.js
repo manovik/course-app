@@ -1,1 +1,1 @@
-export const arrayToString = (a) => a.join(', ');
+export const arrayToString = (a = ['']) => a.join(', ');

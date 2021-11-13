@@ -14,10 +14,9 @@ export const addNewCourse = (newCourse) => async (dispatch) => {
 
 export const deleteCourse = (id) => async (dispatch) => {
   try {
-    const { successful, result } = await courseService.delete(id);
+    const { successful } = await courseService.delete(id);
     if (successful) {
       dispatch(deleteCourseFromStore(id));
-      console.log(result);
     }
   } catch (err) {
     console.error(err);
