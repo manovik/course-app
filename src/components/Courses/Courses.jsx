@@ -14,7 +14,7 @@ import { authorService, courseService } from 'services';
 import { APP, ROLES } from 'appConstants';
 import { addCourseList } from 'store/courses/actionCreators';
 import { addAuthors } from 'store/authors/actionCreators';
-import { getAuthors, getCourses } from 'selectors';
+import { getCourses } from 'selectors';
 import { useAuth } from 'context/authContext';
 
 export const Courses = () => {
@@ -23,7 +23,7 @@ export const Courses = () => {
   const { role } = useAuth();
 
   const courses = useSelector(getCourses);
-  const authors = useSelector(getAuthors);
+
   const dispatch = useDispatch();
 
   const fetchCourses = useCallback(async () => {
@@ -35,11 +35,6 @@ export const Courses = () => {
     });
   }, [dispatch]);
 
-  const mapAuthors = useCallback(() => {
-    const a = courseService.getMappedCoursesOnAuthors(courses, authors);
-    setCoursesToShow(a);
-  }, [courses, authors]);
-
   const searchCourses = (str) => {
     const rgx = RegExp(`${str}`, 'gi');
     return coursesToShow.filter((course) => {
@@ -50,7 +45,6 @@ export const Courses = () => {
   const onSearch = (value) => {
     if (!value) {
       setCoursesToShow(courses);
-      mapAuthors();
       return;
     }
 
@@ -59,7 +53,6 @@ export const Courses = () => {
 
   const onClearInput = () => {
     setCoursesToShow(courses);
-    mapAuthors();
   };
 
   useEffect(() => {
@@ -69,8 +62,8 @@ export const Courses = () => {
   }, [fetchCourses, courses.length]);
 
   useEffect(() => {
-    mapAuthors();
-  }, [mapAuthors]);
+    setCoursesToShow(courses);
+  }, [setCoursesToShow, courses]);
 
   return (
     <div className='container'>

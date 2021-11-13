@@ -62,26 +62,32 @@ export class CourseService {
     }
   };
 
-  getAuthorsByIds = (authorsIdArray, allAuthors) => {
-    const authors = [];
-    for (const id of authorsIdArray) {
-      authors.push(allAuthors.find((a) => a.id === id).name || 'Unknown');
-    }
+  getById = async (id) => {
+    try {
+      const { data } = await axios.get(
+        `${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`
+      );
 
-    return authors;
+      console.log(data);
+      const { successful, result } = data;
+      if (successful) {
+        return result;
+      }
+    } catch (err) {
+      throw new Error(`Failed to fetch course by id ${makeShortId(id)}`);
+    }
   };
 
-  getMappedCoursesOnAuthors = (courses, allAuthors) => {
-    if (courses?.length) {
-      return courses.map((course) => {
-        const authors = this.getAuthorsByIds(course.authors, allAuthors);
+  getAuthorsByIds = (authorsIdArray = [], allAuthors = []) => {
+    try {
+      const authors = [];
+      for (const id of authorsIdArray) {
+        authors.push(allAuthors.find((a) => a?.id === id).name || 'Unknown');
+      }
 
-        return {
-          ...course,
-          authors,
-        };
-      });
+      return authors;
+    } catch (err) {
+      console.error(err);
     }
-    return [];
   };
 }

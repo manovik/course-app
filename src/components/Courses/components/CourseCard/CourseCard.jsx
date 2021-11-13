@@ -1,27 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from 'common/Button';
 import { Record } from 'common/Record';
 
 import { convertMinutesToTime, convertDate } from 'helpers';
-
 import { APP, ROLES } from 'appConstants';
 
 import { deleteCourse } from 'store/courses/thunk';
+import { getAuthors } from 'selectors';
 
 import { useAuth } from 'context/authContext';
+
+import { courseService } from 'services';
 
 import './course-card.scss';
 
 export const CourseCard = ({ course }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [authorNames, setAuthorNames] = useState([]);
+
+  const storeAuthors = useSelector(getAuthors);
+
   const { id, title, description, creationDate, duration, authors } = course;
-  const authorsString = authors.join(', ');
+
+  const authorsString = (a) => a.join(', ');
   const { role } = useAuth();
+
+  const mapAuthors = useCallback(() => {
+    const mappedAuthors = courseService.getAuthorsByIds(authors, storeAuthors);
+    return mappedAuthors;
+  }, [authors, storeAuthors]);
+
+  useEffect(() => {
+    setAuthorNames(mapAuthors());
+  }, [setAuthorNames, mapAuthors]);
 
   return (
     <article className='card mb-3 shadow'>
@@ -33,8 +49,8 @@ export const CourseCard = ({ course }) => {
         <div className='col-3 fs-4' style={{ paddingLeft: '1rem' }}>
           <Record
             caption='Authors'
-            text={authorsString}
-            title={authorsString}
+            text={authorsString(authorNames)}
+            title={authorsString(authorNames)}
           />
           <Record caption='Duration' text={convertMinutesToTime(duration)} />
           <Record caption='Created' text={convertDate(creationDate)} />

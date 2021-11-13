@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 
 import { Record } from 'common/Record';
@@ -10,27 +9,27 @@ import { courseService } from 'services';
 import { convertMinutesToTime, convertDate } from 'helpers';
 
 import { initCourseInfo } from 'utils/courseStructure';
+
 import { APP } from 'appConstants';
-import { getAuthors, getCourses } from 'selectors';
+
+import { getAuthors } from 'selectors';
 
 export const CourseInfo = () => {
   const [courseInfo, setCourseInfo] = useState(initCourseInfo);
 
   const { courseId } = useParams();
 
-  const courses = useSelector(getCourses);
   const authors = useSelector(getAuthors);
 
   useEffect(() => {
-    const course = courses.find((c) => c.id === courseId);
-    if (course) {
-      const [mappedCourse] = courseService.getMappedCoursesOnAuthors(
-        [course],
+    courseService.getById(courseId).then((course) => {
+      const mappedAuthors = courseService.getAuthorsByIds(
+        course.authors,
         authors
       );
-      setCourseInfo(mappedCourse);
-    }
-  }, [courseId, courses, authors]);
+      setCourseInfo({ ...course, authors: mappedAuthors });
+    });
+  }, [authors, courseId]);
 
   return (
     <div className='container'>
@@ -51,7 +50,7 @@ export const CourseInfo = () => {
               caption={'Created'}
               text={convertDate(courseInfo?.creationDate)}
             />
-            <Record caption={'Authors'} title={courseInfo?.authors.join(', ')}>
+            <Record caption={'Authors'} title={courseInfo?.authors}>
               {courseInfo?.authors}
             </Record>
           </div>
