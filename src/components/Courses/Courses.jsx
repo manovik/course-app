@@ -11,14 +11,16 @@ import { Button } from 'common/Button';
 
 import { authorService, courseService } from 'services';
 
-import { APP } from 'utils/appRoutes';
+import { APP, ROLES } from 'appConstants';
 import { addCourseList } from 'store/courses/actionCreators';
 import { addAuthors } from 'store/authors/actionCreators';
 import { getAuthors, getCourses } from 'selectors';
+import { useAuth } from 'context/authContext';
 
 export const Courses = () => {
   const history = useHistory();
   const [coursesToShow, setCoursesToShow] = useState([]);
+  const { role } = useAuth();
 
   const courses = useSelector(getCourses);
   const authors = useSelector(getAuthors);
@@ -78,11 +80,13 @@ export const Courses = () => {
             searchHandler={onSearch}
             clearInputHandler={onClearInput}
           />
-          <Button
-            buttonText='Add new course'
-            btnClassName='btn-outline-success btn-wide fs-4'
-            onClick={() => history.push(APP.COURSES_ADD)}
-          />
+          {role === ROLES.ADMIN && (
+            <Button
+              buttonText='Add new course'
+              btnClassName='btn-outline-success btn-wide fs-4'
+              onClick={() => history.push(APP.COURSES_ADD)}
+            />
+          )}
         </div>
         {(coursesToShow?.length &&
           coursesToShow.map((course) => (

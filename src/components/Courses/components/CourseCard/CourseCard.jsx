@@ -8,9 +8,10 @@ import { Record } from 'common/Record';
 
 import { convertMinutesToTime, convertDate } from 'helpers';
 
-import { APP } from 'utils/appRoutes';
+import { APP, ROLES } from 'appConstants';
 
 import { removeCourse } from 'store/courses/actionCreators';
+import { useAuth } from 'context/authContext';
 
 import './course-card.scss';
 
@@ -19,6 +20,7 @@ export const CourseCard = ({ course }) => {
   const dispatch = useDispatch();
   const { id, title, description, creationDate, duration, authors } = course;
   const authorsString = authors.join(', ');
+  const { role } = useAuth();
 
   return (
     <article className='card mb-3 shadow'>
@@ -41,16 +43,20 @@ export const CourseCard = ({ course }) => {
               btnClassName='btn-outline-primary btn-wide fs-5 m-1'
               onClick={() => history.push(`${APP.COURSES}/${id}`)}
             />
-            <Button
-              buttonText='edit'
-              btnClassName='btn-outline-warning btn--common m-1'
-              onClick={() => console.log('edit')}
-            />
-            <Button
-              buttonText='trash'
-              btnClassName='btn-outline-danger btn--common m-1'
-              onClick={() => dispatch(removeCourse(id))}
-            />
+            {role === ROLES.ADMIN && (
+              <>
+                <Button
+                  buttonText='edit'
+                  btnClassName='btn-outline-warning btn--common m-1'
+                  onClick={() => console.log('edit')}
+                />
+                <Button
+                  buttonText='trash'
+                  btnClassName='btn-outline-danger btn--common m-1'
+                  onClick={() => dispatch(removeCourse(id))}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -3,4 +3,5 @@ export const initialUserState = {
   name: '',
   email: '',
   token: '',
+  role: '',
 };
