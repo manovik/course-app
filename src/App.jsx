@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Courses } from 'components/Courses';
@@ -9,11 +8,12 @@ import { Registration } from 'components/Registration';
 import { CourseInfo } from 'components/CourseInfo';
 import { CourseForm } from 'components/CourseForm';
 import { PrivateRoute } from 'components/PrivateRoute';
+import { AdminRoute } from 'components/AdminRoute';
 
 import { Loader } from 'common/Loader';
 import { ErrorTip } from 'common/ErrorTip';
 
-import { APP } from 'utils/appRoutes';
+import { APP } from 'appConstants';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -61,9 +61,9 @@ const App = () => {
           <PrivateRoute exact path={APP.COURSES}>
             <Courses />
           </PrivateRoute>
-          <PrivateRoute exact path={APP.COURSES_ADD}>
+          <AdminRoute exact path={APP.COURSES_ADD}>
             <CourseForm setIsLoading={setIsLoading} />
-          </PrivateRoute>
+          </AdminRoute>
           <PrivateRoute exact path={APP.COURSES_ID}>
             <CourseInfo />
           </PrivateRoute>
