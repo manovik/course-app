@@ -17,7 +17,6 @@ import { validateCourseFields, callAlert } from 'helpers';
 import { initCourse } from 'utils/courseStructure';
 import { APP } from 'appConstants';
 
-import { courseService } from 'services';
 import { addNewCourse } from 'store/courses/thunk';
 
 export const CourseForm = ({ setIsLoading }) => {
@@ -43,13 +42,11 @@ export const CourseForm = ({ setIsLoading }) => {
     }
     setIsLoading(true);
 
-    const newCourseWithFullInfo = courseService.createNewCourse(courseToCreate);
-    addCourseToStore(addNewCourse(newCourseWithFullInfo));
+    addCourseToStore(addNewCourse(courseToCreate));
 
     dispatch({ type: ACTIONS.RESET });
-    history.push(APP.COURSES);
-
     setIsLoading(false);
+    history.push(APP.COURSES);
   }, [courseToCreate, setIsLoading, addCourseToStore, history]);
 
   return (

@@ -1,34 +1,31 @@
 import axios from 'axios';
-import { v4 } from 'uuid';
 
 import { ENDPOINTS } from 'appConstants';
 import { makeShortId } from 'helpers/makeShortId';
 export class CourseService {
   constructor(url) {
     this.courseService = [];
-    this.generateUUID = v4;
     this.baseUrl = url;
   }
 
   createNewCourse = (courseInfo) => ({
     ...courseInfo,
-    id: this.generateUUID(),
     creationDate: new Date().toLocaleDateString('en-US'),
   });
 
   add = async (newCourse) => {
+    const courseInfo = this.createNewCourse(newCourse);
     try {
       const { data } = await axios.post(
         `${this.baseUrl}/${ENDPOINTS.ADD_COURSE}`,
-        newCourse,
+        courseInfo,
         {
           headers: {
             Authorization: localStorage.getItem('u-token'),
           },
         }
       );
-      const { successful } = data;
-      return successful;
+      return data;
     } catch (err) {
       throw new Error('Failed to fetch courses!\n' + err);
     }
