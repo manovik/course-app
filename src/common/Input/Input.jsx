@@ -10,6 +10,7 @@ export const Input = ({
   className,
   type,
   reference,
+  value,
 }) => {
   return (
     <>
@@ -22,6 +23,7 @@ export const Input = ({
         autoComplete={type === 'password' ? 'new-password' : ''}
         placeholder={placeholderText}
         onChange={onChange}
+        value={value}
       />
     </>
   );

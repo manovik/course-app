@@ -30,7 +30,8 @@ export const CourseInfo = () => {
           course.authors,
           authors
         );
-        setCourseInfo({ ...course, authors: mappedAuthors });
+        const namesArray = mappedAuthors.map((a) => a.name);
+        setCourseInfo({ ...course, authors: namesArray });
       })
       .catch((err) => history.push('/*'));
   }, [authors, courseId, history]);

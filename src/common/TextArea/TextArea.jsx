@@ -8,6 +8,7 @@ export const TextArea = ({
   placeholderText,
   onChange,
   className,
+  value,
 }) => {
   return (
     <>
@@ -17,6 +18,7 @@ export const TextArea = ({
         id={htmlId}
         placeholder={placeholderText}
         onChange={onChange}
+        value={value}
       ></textarea>
     </>
   );

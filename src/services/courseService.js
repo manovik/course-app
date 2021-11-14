@@ -47,6 +47,24 @@ export class CourseService {
     }
   };
 
+  update = async (courseInfo) => {
+    try {
+      const { id } = courseInfo;
+      const { data } = await axios.put(
+        `${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`,
+        courseInfo,
+        {
+          headers: {
+            Authorization: localStorage.getItem('u-token'),
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      throw new Error('Failed to fetch courses!\n' + err);
+    }
+  };
+
   getAll = async () => {
     try {
       const { data } = await axios.get(

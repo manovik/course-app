@@ -31,7 +31,8 @@ export const CourseCard = ({ course }) => {
 
   const mapAuthors = useCallback(() => {
     const mappedAuthors = authorService.getAuthorsByIds(authors, storeAuthors);
-    return mappedAuthors;
+    const namesArray = mappedAuthors.map((a) => a.name);
+    return namesArray;
   }, [authors, storeAuthors]);
 
   useEffect(() => {
@@ -64,7 +65,7 @@ export const CourseCard = ({ course }) => {
                 <Button
                   buttonText='edit'
                   btnClassName='btn-outline-warning btn--common m-1'
-                  onClick={() => console.log('edit')}
+                  onClick={() => history.push(APP.COURSES_ADD, course)}
                 />
                 <Button
                   buttonText='trash'

@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -17,12 +17,12 @@ import { validateCourseFields, callAlert } from 'helpers';
 import { initCourse } from 'utils/courseStructure';
 import { APP } from 'appConstants';
 
-import { addNewCourse } from 'store/courses/thunk';
+import { addNewCourse, updateCourse } from 'store/courses/thunk';
 
 export const CourseForm = ({ setIsLoading }) => {
   const history = useHistory();
 
-  const [courseToCreate, dispatch] = useReducer(reducer, initCourse, reset);
+  const [courseFormStore, dispatch] = useReducer(reducer, initCourse, reset);
 
   const onChangeHandler = useCallback(
     (actionType) => (e) =>
@@ -32,22 +32,33 @@ export const CourseForm = ({ setIsLoading }) => {
 
   const memoDispatch = useCallback(dispatch, [dispatch]);
 
-  const addCourseToStore = useDispatch();
+  const globalDispatch = useDispatch();
 
-  const createNewCourse = useCallback(async () => {
-    const checkFields = validateCourseFields(courseToCreate);
+  const createUpdateCourseHandler = useCallback(async () => {
+    const checkFields = validateCourseFields(courseFormStore);
     if (checkFields.length) {
       callAlert(checkFields);
       return;
     }
     setIsLoading(true);
 
-    addCourseToStore(addNewCourse(courseToCreate));
+    if (history.location?.state) {
+      globalDispatch(
+        updateCourse({ ...courseFormStore, id: history.location?.state.id })
+      );
+    } else {
+      globalDispatch(addNewCourse(courseFormStore));
+    }
 
     dispatch({ type: ACTIONS.RESET });
     setIsLoading(false);
     history.push(APP.COURSES);
-  }, [courseToCreate, setIsLoading, addCourseToStore, history]);
+  }, [courseFormStore, setIsLoading, globalDispatch, history]);
+
+  useEffect(() => {
+    const state = history.location?.state;
+    console.log(state);
+  }, []);
 
   return (
     <div className='container'>
@@ -61,13 +72,16 @@ export const CourseForm = ({ setIsLoading }) => {
               onChange={onChangeHandler(ACTIONS.SET_TITLE)}
               className='form-control mt-2 fs-4'
               type='text'
+              value={history.location?.state?.title || courseFormStore.title}
             />
           </div>
           <div className='btn-group'>
             <Button
-              buttonText='Create course'
+              buttonText={`${
+                history.location?.state ? 'Update' : 'Create'
+              } course`}
               btnClassName='btn-outline-success btn-wide fs-4'
-              onClick={createNewCourse}
+              onClick={createUpdateCourseHandler}
             />
             <Button
               buttonText='Back'
@@ -83,9 +97,13 @@ export const CourseForm = ({ setIsLoading }) => {
             placeholderText='Enter description'
             onChange={onChangeHandler(ACTIONS.SET_DESCR)}
             className='form-control mt-2 mb-2 fs-4'
+            value={
+              history.location?.state?.description ||
+              courseFormStore.description
+            }
           />
         </div>
-        <InfoWrapper dispatch={memoDispatch} />
+        <InfoWrapper dispatch={memoDispatch} store={courseFormStore} />
       </section>
     </div>
   );
