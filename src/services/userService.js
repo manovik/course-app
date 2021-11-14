@@ -5,9 +5,9 @@ export class UserService {
   constructor(url) {
     this.baseUrl = url;
   }
+
   loginUser = async (data) =>
     await axios.post(`${this.baseUrl}/${ENDPOINTS.LOGIN}`, data);
-
   logOut = async (token) => {
     try {
       const { data } = await axios.delete(
@@ -27,10 +27,16 @@ export class UserService {
   register = async (data) =>
     await axios.post(`${this.baseUrl}/${ENDPOINTS.REGISTER}`, data);
 
-  getCurrentUser = async (token) =>
-    await axios.get(`${this.baseUrl}/${ENDPOINTS.GET_ME}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+  getCurrentUser = async (token) => {
+    try {
+      const data = await axios.get(`${this.baseUrl}/${ENDPOINTS.GET_ME}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
 }

@@ -6,11 +6,12 @@ import { userService } from 'services';
 
 import { localStorageApi } from 'helpers/localStorageApi';
 
-import { logUserIn, setUserToken } from 'store/user/actionCreators';
+import { logUserIn } from 'store/user/actionCreators';
 
 import { getUser } from 'selectors';
 
-import { logOut } from 'store/user/thunk';
+import { getCurrentUser, logOut } from 'store/user/thunk';
+import { APP } from 'appConstants';
 
 export const useProvideAuth = () => {
   const pageLocation = useLocation();
@@ -22,18 +23,6 @@ export const useProvideAuth = () => {
     (data) => {
       localStorageApi.setLocalStorage(data.result);
       dispatch(logUserIn(data.user));
-      dispatch(setUserToken(data.result));
-    },
-    [dispatch]
-  );
-
-  const getMyName = useCallback(
-    async (token) => {
-      userService.getCurrentUser(token).then(({ data }) => {
-        const { email, name, role } = data.result;
-        const user = name ? name : role;
-        dispatch(logUserIn({ email, name: user, role, token }));
-      });
     },
     [dispatch]
   );
@@ -44,17 +33,17 @@ export const useProvideAuth = () => {
         .loginUser(params)
         .then(({ data }) => {
           saveData(data);
-          getMyName(data.result);
+          dispatch(getCurrentUser(data.result));
         })
         .catch((err) => {
-          throw err;
+          console.warn(err);
         }),
-    [saveData, getMyName]
+    [saveData, dispatch]
   );
 
   const register = useCallback(async (params) => {
     return await userService.register(params).catch((err) => {
-      throw err;
+      console.warn(err);
     });
   }, []);
 
@@ -66,10 +55,15 @@ export const useProvideAuth = () => {
   useEffect(() => {
     const { storageToken } = localStorageApi.getFromLocalStorage();
     if (storageToken && !userState.isAuth) {
-      getMyName(storageToken);
-      history.push(pageLocation.pathname);
+      try {
+        dispatch(getCurrentUser(storageToken));
+        pageLocation.pathname !== APP.ROOT &&
+          history.push(pageLocation.pathname);
+      } catch (err) {
+        console.warn(err);
+      }
     }
-  }, [getMyName, signOut, history, pageLocation.pathname, userState.isAuth]);
+  }, [dispatch, signOut, history, userState, pageLocation]);
 
   return {
     user: userState.name,

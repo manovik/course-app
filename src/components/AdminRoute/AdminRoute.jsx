@@ -9,23 +9,20 @@ import { APP, ROLES } from 'appConstants';
 export const AdminRoute = ({ children, ...props }) => {
   const user = useSelector(getUser);
 
-  return (
-    <Route
-      {...props}
-      render={({ location }) =>
-        user.role === ROLES.ADMIN ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: APP.COURSES,
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
+  const getLocation = ({ location }) => {
+    return user.role === ROLES.ADMIN ? (
+      children
+    ) : (
+      <Redirect
+        to={{
+          pathname: APP.COURSES,
+          state: { from: location },
+        }}
+      />
+    );
+  };
+
+  return <Route {...props} render={(a) => getLocation(a)} />;
 };
 
 AdminRoute.propTypes = {

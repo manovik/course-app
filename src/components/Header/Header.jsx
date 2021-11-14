@@ -13,7 +13,7 @@ import { useAuth } from 'context/authContext';
 import './header.scss';
 
 export const Header = () => {
-  const { user, signOut, isAuth } = useAuth();
+  const { user, signOut, isAuth, role } = useAuth();
 
   return (
     <header className='header shadow p-3 mb-5'>
@@ -27,7 +27,7 @@ export const Header = () => {
           {isAuth && (
             <>
               <div className='col-auto p-4'>
-                <User name={user} />
+                <User name={user || role} />
               </div>
               <div className='col-auto'>
                 <Button
