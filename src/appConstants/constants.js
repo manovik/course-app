@@ -9,6 +9,7 @@ export const ENDPOINTS = {
   GET_AUTHORS: 'authors/all',
   GET_ME: 'users/me',
   ADD_COURSE: 'courses/add',
+  ADD_AUTHOR: 'authors/add',
 };
 
 export const APP = {

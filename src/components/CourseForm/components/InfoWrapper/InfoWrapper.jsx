@@ -28,13 +28,19 @@ export const InfoWrapper = ({ dispatch }) => {
     });
   };
 
-  const addNewAuthor = (author) => {
+  const addNewAuthor = async (author) => {
     if (!author) return;
-
-    const newAuthor = authorService.createNewAuthor(author);
-    // TODO: author service add new author
-    authorsDispatch(addAuthor(newAuthor));
-    setAuthors((prevList) => [...prevList, newAuthor]);
+    try {
+      const { successful, result: newAuthor } = await authorService.addAuthor(
+        author
+      );
+      if (successful) {
+        authorsDispatch(addAuthor(newAuthor));
+        setAuthors((prevList) => [...prevList, newAuthor]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const addAuthorToCourse = switchElementsInStates(
