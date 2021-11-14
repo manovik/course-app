@@ -63,7 +63,7 @@ export const useProvideAuth = () => {
         console.warn(err);
       }
     }
-  }, [dispatch, signOut, history, userState, pageLocation]);
+  }, [dispatch, signOut, history, userState]);
 
   return {
     user: userState.name,

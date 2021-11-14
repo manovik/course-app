@@ -20,17 +20,17 @@ import { APP } from 'appConstants';
 import { addNewCourse, updateCourse } from 'store/courses/thunk';
 
 export const CourseForm = ({ setIsLoading }) => {
-  const history = useHistory();
-
   const [courseFormStore, dispatch] = useReducer(reducer, initCourse, reset);
+
+  const memoDispatch = useCallback(dispatch, [dispatch]);
 
   const onChangeHandler = useCallback(
     (actionType) => (e) =>
-      dispatch({ type: actionType, payload: e.target.value }),
-    [dispatch]
+      memoDispatch({ type: actionType, payload: e.target.value }),
+    [memoDispatch]
   );
 
-  const memoDispatch = useCallback(dispatch, [dispatch]);
+  const history = useHistory();
 
   const globalDispatch = useDispatch();
 
@@ -50,15 +50,14 @@ export const CourseForm = ({ setIsLoading }) => {
       globalDispatch(addNewCourse(courseFormStore));
     }
 
-    dispatch({ type: ACTIONS.RESET });
+    memoDispatch({ type: ACTIONS.RESET });
     setIsLoading(false);
     history.push(APP.COURSES);
-  }, [courseFormStore, setIsLoading, globalDispatch, history]);
+  }, [courseFormStore, setIsLoading, globalDispatch, history, memoDispatch]);
 
   useEffect(() => {
-    const state = history.location?.state;
-    console.log(state);
-  }, []);
+    memoDispatch({ type: ACTIONS.FULL_UPD, payload: history.location?.state });
+  }, [memoDispatch, history]);
 
   return (
     <div className='container'>
@@ -72,7 +71,7 @@ export const CourseForm = ({ setIsLoading }) => {
               onChange={onChangeHandler(ACTIONS.SET_TITLE)}
               className='form-control mt-2 fs-4'
               type='text'
-              value={history.location?.state?.title || courseFormStore.title}
+              value={courseFormStore.title}
             />
           </div>
           <div className='btn-group'>
@@ -97,10 +96,7 @@ export const CourseForm = ({ setIsLoading }) => {
             placeholderText='Enter description'
             onChange={onChangeHandler(ACTIONS.SET_DESCR)}
             className='form-control mt-2 mb-2 fs-4'
-            value={
-              history.location?.state?.description ||
-              courseFormStore.description
-            }
+            value={courseFormStore.description}
           />
         </div>
         <InfoWrapper dispatch={memoDispatch} store={courseFormStore} />

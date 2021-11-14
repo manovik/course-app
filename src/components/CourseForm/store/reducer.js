@@ -28,6 +28,11 @@ export const reducer = (state, { type, payload }) => {
         ...state,
         authors: payload,
       };
+    case ACTIONS.FULL_UPD:
+      return {
+        ...state,
+        ...payload,
+      };
     case ACTIONS.RESET:
       return reset();
     default:

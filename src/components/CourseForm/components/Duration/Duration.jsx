@@ -8,11 +8,15 @@ import { convertMinutesToTime } from 'helpers';
 
 import { ACTIONS } from 'components/CourseForm/store/actions';
 
-export const Duration = ({ dispatch, value }) => {
+export const Duration = ({ dispatch, store }) => {
   const [hours, setHours] = useState('00:00 hours');
 
   const changeHandler = (e) => {
     const { value } = e.target;
+    if (value < 0) {
+      e.target.value = 0;
+      return;
+    }
 
     dispatch({ type: ACTIONS.SET_DURATION, payload: +value });
     setHours(convertMinutesToTime(value));
@@ -28,7 +32,7 @@ export const Duration = ({ dispatch, value }) => {
         onChange={changeHandler}
         className={'input-form fs-5 mt-3'}
         type={'number'}
-        value={value}
+        value={store.duration}
       />
 
       <p className='fs-2'>

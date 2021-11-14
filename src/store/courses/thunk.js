@@ -20,7 +20,7 @@ export const updateCourse = (newCourse) => async (dispatch) => {
   try {
     const { result, successful } = await courseService.update(newCourse);
     if (successful) {
-      dispatch(updateCourses([result]));
+      dispatch(updateCourses(result));
     }
   } catch (err) {
     console.error(err);

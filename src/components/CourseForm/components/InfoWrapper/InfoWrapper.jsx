@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,7 +27,7 @@ export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
   const authorsDispatch = useDispatch();
   const storeAuthors = useSelector(getAuthors);
 
-  const getAvailableAuthors = async () => {
+  const getAvailableAuthors = useCallback(async () => {
     if (historyState) {
       const available = storeAuthors.filter((a) => {
         return !historyState?.authors.includes(a.id);
@@ -36,30 +36,33 @@ export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
       return;
     }
     setAuthors(storeAuthors);
-  };
+  }, [historyState, storeAuthors]);
 
-  const getSelectedAuthors = () => {
+  const getSelectedAuthors = useCallback(() => {
     const mappedAuthors = authorService.getAuthorsByIds(
       historyState?.authors,
       storeAuthors
     );
     setSelectedAuthors(mappedAuthors);
-  };
+  }, [historyState, storeAuthors]);
 
-  const addNewAuthor = async (author) => {
-    if (!author) return;
-    try {
-      const { successful, result: newAuthor } = await authorService.addAuthor(
-        author
-      );
-      if (successful) {
-        authorsDispatch(addAuthor(newAuthor));
-        setAuthors((prevList) => [...prevList, newAuthor]);
+  const addNewAuthor = useCallback(
+    async (author) => {
+      if (!author) return;
+      try {
+        const { successful, result: newAuthor } = await authorService.addAuthor(
+          author
+        );
+        if (successful) {
+          authorsDispatch(addAuthor(newAuthor));
+          setAuthors((prevList) => [...prevList, newAuthor]);
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    },
+    [authorsDispatch]
+  );
 
   const addAuthorToCourse = switchElementsInStates(
     authors,
@@ -75,12 +78,20 @@ export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
     setAuthors
   );
 
+  const memoAddAuthorToCourse = useCallback(addAuthorToCourse, [
+    addAuthorToCourse,
+  ]);
+
+  const memoRemoveAuthorFromCourse = useCallback(removeAuthorFromCourse, [
+    removeAuthorFromCourse,
+  ]);
+
   useEffect(() => {
     if (historyState) {
       getSelectedAuthors();
     }
     getAvailableAuthors();
-  }, []);
+  }, [historyState, getSelectedAuthors, getAvailableAuthors]);
 
   useEffect(() => {
     const authorsIdArray = getIDs(selectedAuthors);
@@ -93,14 +104,11 @@ export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
   return (
     <GridTemplate>
       <AddAuthor clickHandler={addNewAuthor} />
-      <Authors authors={authors} clickHandler={addAuthorToCourse} />
-      <Duration
-        dispatch={dispatch}
-        value={historyState?.duration || courseLocalStore?.duration}
-      />
+      <Authors authors={authors} clickHandler={memoAddAuthorToCourse} />
+      <Duration dispatch={dispatch} store={courseLocalStore} />
       <CourseAuthors
         authors={selectedAuthors}
-        clickHandler={removeAuthorFromCourse}
+        clickHandler={memoRemoveAuthorFromCourse}
       />
     </GridTemplate>
   );

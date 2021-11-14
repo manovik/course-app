@@ -19,6 +19,7 @@ export const APP = {
   COURSES_ADD: '/courses/add',
   COURSES_ID: '/courses/:courseId',
   REGISTRATION: '/registration',
+  ANY: '/*',
 };
 
 export const ROLES = {
