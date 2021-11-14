@@ -35,4 +35,17 @@ export class AuthorService {
         throw new Error(`Failed to fetch authors list!\n${err}`);
       });
   };
+
+  getAuthorsByIds = (authorsIdArray = [], allAuthors = []) => {
+    try {
+      const authors = [];
+      for (const id of authorsIdArray) {
+        authors.push(allAuthors.find((a) => a?.id === id)?.name || 'Unknown');
+      }
+
+      return authors;
+    } catch (err) {
+      console.error(err);
+    }
+  };
 }

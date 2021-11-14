@@ -14,7 +14,7 @@ import { getAuthors } from 'selectors';
 
 import { useAuth } from 'context/authContext';
 
-import { courseService } from 'services';
+import { authorService } from 'services';
 
 import './course-card.scss';
 
@@ -30,7 +30,7 @@ export const CourseCard = ({ course }) => {
   const { role } = useAuth();
 
   const mapAuthors = useCallback(() => {
-    const mappedAuthors = courseService.getAuthorsByIds(authors, storeAuthors);
+    const mappedAuthors = authorService.getAuthorsByIds(authors, storeAuthors);
     return mappedAuthors;
   }, [authors, storeAuthors]);
 
