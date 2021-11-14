@@ -71,7 +71,10 @@ const App = () => {
           <PrivateRoute exact path={APP.COURSES}>
             <Courses />
           </PrivateRoute>
-          <AdminRoute exact path={APP.COURSES_ADD}>
+          <AdminRoute exact path={`${APP.COURSES_ADD}`}>
+            <CourseForm setIsLoading={setIsLoading} />
+          </AdminRoute>
+          <AdminRoute exact path={`${APP.COURSE_UPDATE}/:course`}>
             <CourseForm setIsLoading={setIsLoading} />
           </AdminRoute>
           <PrivateRoute exact path={APP.COURSES_ID}>

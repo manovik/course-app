@@ -65,7 +65,9 @@ export const CourseCard = ({ course }) => {
                 <Button
                   buttonText='edit'
                   btnClassName='btn-outline-warning btn--common m-1'
-                  onClick={() => history.push(APP.COURSES_ADD, course)}
+                  onClick={() =>
+                    history.push(`${APP.COURSE_UPDATE}/${id}`, course)
+                  }
                 />
                 <Button
                   buttonText='trash'

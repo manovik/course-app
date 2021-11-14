@@ -18,6 +18,7 @@ export const APP = {
   COURSES: '/courses',
   COURSES_ADD: '/courses/add',
   COURSES_ID: '/courses/:courseId',
+  COURSE_UPDATE: '/update',
   REGISTRATION: '/registration',
   ANY: '/*',
 };
