@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Record } from 'common/Record';
@@ -16,20 +16,24 @@ import { getAuthors } from 'selectors';
 
 export const CourseInfo = () => {
   const [courseInfo, setCourseInfo] = useState(initCourseInfo);
+  const history = useHistory();
 
   const { courseId } = useParams();
 
   const authors = useSelector(getAuthors);
 
   useEffect(() => {
-    courseService.getById(courseId).then((course) => {
-      const mappedAuthors = courseService.getAuthorsByIds(
-        course.authors,
-        authors
-      );
-      setCourseInfo({ ...course, authors: mappedAuthors });
-    });
-  }, [authors, courseId]);
+    courseService
+      .getById(courseId)
+      .then((course) => {
+        const mappedAuthors = courseService.getAuthorsByIds(
+          course.authors,
+          authors
+        );
+        setCourseInfo({ ...course, authors: mappedAuthors });
+      })
+      .catch((err) => history.push('/*'));
+  }, [authors, courseId, history]);
 
   return (
     <div className='container'>

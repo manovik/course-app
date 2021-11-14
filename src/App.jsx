@@ -17,6 +17,7 @@ import { ErrorTip } from 'common/ErrorTip';
 import { APP } from 'appConstants';
 import { getAllAuthors } from 'store/authors/thunk';
 import { getAllCourses } from 'store/courses/thunk';
+import { NotFound } from 'common/NotFound';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,6 +77,7 @@ const App = () => {
           <PrivateRoute exact path={APP.COURSES_ID}>
             <CourseInfo />
           </PrivateRoute>
+          <Route path='/*' component={NotFound} />
         </Switch>
       </div>
     </div>
