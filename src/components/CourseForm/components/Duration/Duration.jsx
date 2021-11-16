@@ -18,7 +18,7 @@ export const Duration = ({ dispatch, store }) => {
       return;
     }
 
-    dispatch({ type: ACTIONS.SET_DURATION, payload: +value });
+    dispatch({ type: ACTIONS.SET_DURATION, payload: value });
     setHours(convertMinutesToTime(value));
   };
 
