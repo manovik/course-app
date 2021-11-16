@@ -1,6 +1,5 @@
 import React, { useReducer, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { InfoWrapper } from './components/InfoWrapper';
@@ -18,8 +17,9 @@ import { initCourse } from 'utils/courseStructure';
 import { APP } from 'appConstants';
 
 import { addNewCourse, updateCourse } from 'store/courses/thunk';
+import { setIsLoading, setIsNotLoading } from 'store/appState/actionCreators';
 
-export const CourseForm = ({ setIsLoading }) => {
+export const CourseForm = () => {
   const [courseFormStore, dispatch] = useReducer(reducer, initCourse, reset);
 
   const memoDispatch = useCallback(dispatch, [dispatch]);
@@ -40,7 +40,7 @@ export const CourseForm = ({ setIsLoading }) => {
       callAlert(checkFields);
       return;
     }
-    setIsLoading(true);
+    globalDispatch(setIsLoading());
 
     if (history.location?.state) {
       globalDispatch(
@@ -51,9 +51,9 @@ export const CourseForm = ({ setIsLoading }) => {
     }
 
     memoDispatch({ type: ACTIONS.RESET });
-    setIsLoading(false);
+    globalDispatch(setIsNotLoading());
     history.push(APP.COURSES);
-  }, [courseFormStore, setIsLoading, globalDispatch, history, memoDispatch]);
+  }, [courseFormStore, globalDispatch, history, memoDispatch]);
 
   useEffect(() => {
     memoDispatch({ type: ACTIONS.FULL_UPD, payload: history.location?.state });
@@ -103,8 +103,4 @@ export const CourseForm = ({ setIsLoading }) => {
       </section>
     </div>
   );
-};
-
-CourseForm.propTypes = {
-  setIsLoading: PropTypes.func.isRequired,
 };

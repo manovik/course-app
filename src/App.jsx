@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
@@ -18,12 +18,13 @@ import { APP } from 'appConstants';
 import { getAllAuthors } from 'store/authors/thunk';
 import { getAllCourses } from 'store/courses/thunk';
 import { NotFound } from 'common/NotFound';
+import { useSelector } from 'react-redux';
+import { getAppState } from 'selectors/selectors';
+import { clearErrors } from 'store/appState/actionCreators';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [errorMessages, setErrorMessages] = useState([]);
   const dispatch = useDispatch();
+  const appState = useSelector(getAppState);
 
   useEffect(() => {
     dispatch(getAllAuthors());
@@ -32,50 +33,42 @@ const App = () => {
 
   useEffect(() => {
     let timerId;
-    if (isError) {
+    if (appState.errors.length) {
       timerId = setTimeout(() => {
-        setIsError(false);
+        dispatch(clearErrors());
       }, 6000);
     }
     return () => {
       clearTimeout(timerId);
     };
-  }, [isError]);
+  }, [appState, dispatch]);
 
   return (
     <div className='wrapper'>
       <Header />
-      {isLoading && <Loader />}
+      {appState.isLoading && <Loader />}
       <div className='content-wrapper'>
-        {isError && <ErrorTip errorMessages={errorMessages} />}
+        {appState.errors.length && <ErrorTip errorMessages={appState.errors} />}
         <Switch>
           <Route exact path={APP.ROOT}>
             <Redirect to={APP.COURSES} />
           </Route>
 
           <Route path={APP.LOGIN}>
-            <Login
-              setIsError={setIsError}
-              setIsLoading={setIsLoading}
-              setErrorMessages={setErrorMessages}
-            />
+            <Login />
           </Route>
           <Route path={APP.REGISTRATION}>
-            <Registration
-              setIsLoading={setIsLoading}
-              setIsError={setIsError}
-              setErrorMessages={setErrorMessages}
-            />
+            <Registration />
           </Route>
 
           <PrivateRoute exact path={APP.COURSES}>
             <Courses />
           </PrivateRoute>
           <AdminRoute exact path={`${APP.COURSES_ADD}`}>
-            <CourseForm setIsLoading={setIsLoading} />
+            <CourseForm />
           </AdminRoute>
           <AdminRoute exact path={`${APP.COURSE_UPDATE}/:course`}>
-            <CourseForm setIsLoading={setIsLoading} />
+            <CourseForm />
           </AdminRoute>
           <PrivateRoute exact path={APP.COURSES_ID}>
             <CourseInfo />

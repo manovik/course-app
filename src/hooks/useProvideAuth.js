@@ -7,10 +7,16 @@ import { userService } from 'services';
 import { localStorageApi } from 'helpers/localStorageApi';
 
 import { logUserIn } from 'store/user/actionCreators';
+import {
+  setErrorMessages,
+  setIsLoading,
+  setIsNotLoading,
+} from 'store/appState/actionCreators';
 
 import { getUser } from 'selectors';
 
 import { getCurrentUser, logOut } from 'store/user/thunk';
+
 import { APP } from 'appConstants';
 
 export const useProvideAuth = () => {
@@ -28,24 +34,41 @@ export const useProvideAuth = () => {
   );
 
   const login = useCallback(
-    async (params) =>
+    async (params) => {
+      dispatch(setIsLoading());
       userService
         .loginUser(params)
         .then(({ data }) => {
           saveData(data);
           dispatch(getCurrentUser(data.result));
+          dispatch(setIsNotLoading());
         })
         .catch((err) => {
+          dispatch(setIsNotLoading());
           console.warn(err);
-        }),
+          dispatch(setErrorMessages([err.response.data?.result]));
+        });
+    },
     [saveData, dispatch]
   );
 
-  const register = useCallback(async (params) => {
-    return await userService.register(params).catch((err) => {
-      console.warn(err);
-    });
-  }, []);
+  const register = useCallback(
+    async (params) => {
+      dispatch(setIsLoading());
+      userService
+        .register(params)
+        .then(() => {
+          dispatch(setIsNotLoading());
+        })
+        .catch((err) => {
+          dispatch(setIsNotLoading());
+          console.warn({ err });
+          dispatch(setErrorMessages(err.response.data?.errors));
+          return err.response;
+        });
+    },
+    [dispatch]
+  );
 
   const signOut = useCallback(() => {
     dispatch(logOut(userState.token));

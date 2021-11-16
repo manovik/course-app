@@ -8,6 +8,7 @@ export class UserService {
 
   loginUser = async (data) =>
     await axios.post(`${this.baseUrl}/${ENDPOINTS.LOGIN}`, data);
+
   logOut = async (token) => {
     try {
       const { data } = await axios.delete(

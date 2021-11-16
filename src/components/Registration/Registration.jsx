@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { PropTypes } from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 
 import { Button } from 'common/Button';
@@ -11,11 +10,7 @@ import { useAuth } from 'context/authContext';
 
 import { useAuthRedirect } from 'hooks/useAuthRedirect';
 
-export const Registration = ({
-  setIsLoading,
-  setIsError,
-  setErrorMessages,
-}) => {
+export const Registration = () => {
   const history = useHistory();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -25,21 +20,20 @@ export const Registration = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-
     await register({
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: passRef.current.value,
     })
-      .then(() => {
-        history.push(APP.LOGIN);
-        setIsLoading(false);
+      .then(({ data }) => {
+        if (data.successful) {
+          history.push(APP.LOGIN);
+        } else {
+          throw data.errors;
+        }
       })
       .catch((err) => {
-        setIsLoading(false);
-        setIsError(true);
-        setErrorMessages(err?.response?.data?.errors || [err?.message]);
+        console.warn(err);
       });
   };
 
@@ -57,6 +51,7 @@ export const Registration = ({
             className={'form-control mt-3 mb-5 fs-4'}
             type={'text'}
             reference={nameRef}
+            required={true}
           />
           <Input
             htmlId={'email'}
@@ -65,6 +60,7 @@ export const Registration = ({
             className={'form-control mt-3 mb-5 fs-4'}
             type={'email'}
             reference={emailRef}
+            required={true}
           />
           <Input
             htmlId={'password'}
@@ -73,12 +69,12 @@ export const Registration = ({
             className={'form-control mt-3 fs-4'}
             type={'password'}
             reference={passRef}
+            required={true}
           />
           <div className='d-flex justify-content-center mt-5'>
             <Button
               buttonText='Registration'
               btnClassName='btn-primary btn-wide fs-4'
-              onClick={handleSubmit}
               type='submit'
             />
           </div>
@@ -89,10 +85,4 @@ export const Registration = ({
       </div>
     </div>
   );
-};
-
-Registration.propTypes = {
-  setIsLoading: PropTypes.func.isRequired,
-  setIsError: PropTypes.func.isRequired,
-  setErrorMessages: PropTypes.func.isRequired,
 };

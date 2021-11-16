@@ -11,6 +11,7 @@ export const Input = ({
   type,
   reference,
   value,
+  required,
 }) => {
   return (
     <>
@@ -24,6 +25,7 @@ export const Input = ({
         placeholder={placeholderText}
         onChange={onChange}
         value={value}
+        required={required}
       />
     </>
   );
@@ -37,10 +39,12 @@ Input.propTypes = {
   onChange: PropTypes.func,
   type: PropTypes.string,
   reference: PropTypes.object,
+  required: PropTypes.bool,
 };
 
 Input.defaultProps = {
   onChange: () => undefined,
   type: 'text',
   reference: null,
+  required: false,
 };

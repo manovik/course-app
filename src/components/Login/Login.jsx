@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
 
 import { Button } from 'common/Button';
 import { Input } from 'common/Input';
@@ -11,7 +10,7 @@ import { useAuth } from 'context/authContext';
 
 import { useAuthRedirect } from 'hooks/useAuthRedirect';
 
-export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
+export const Login = () => {
   const emailRef = useRef(null);
   const passRef = useRef(null);
   const { login } = useAuth();
@@ -20,27 +19,15 @@ export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-
     await login({
       email: emailRef.current.value,
       password: passRef.current.value,
     })
       .then(() => {
-        setIsLoading(false);
         history.push(APP.COURSES);
       })
       .catch((err) => {
-        setIsLoading(false);
-        setIsError(true);
-        const { result } = err?.response?.data;
-        if (result) {
-          setErrorMessages([result]);
-          return;
-        }
-        setErrorMessages([
-          'Invalid email or password. Please, check your credentials!',
-        ]);
+        console.warn(err);
       });
   };
 
@@ -58,6 +45,7 @@ export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
             className={'form-control mt-3 mb-5 fs-4'}
             type={'email'}
             reference={emailRef}
+            required
           />
           <Input
             htmlId={'password'}
@@ -66,6 +54,7 @@ export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
             className={'form-control mt-3 fs-4'}
             type={'password'}
             reference={passRef}
+            required
           />
           <div className='d-flex justify-content-center mt-5'>
             <Button
@@ -82,10 +71,4 @@ export const Login = ({ setIsLoading, setIsError, setErrorMessages }) => {
       </div>
     </div>
   );
-};
-
-Login.propTypes = {
-  setIsLoading: PropTypes.func.isRequired,
-  setIsError: PropTypes.func.isRequired,
-  setErrorMessages: PropTypes.func.isRequired,
 };
