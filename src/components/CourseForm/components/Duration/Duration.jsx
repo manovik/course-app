@@ -45,4 +45,5 @@ export const Duration = ({ dispatch, store }) => {
 
 Duration.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired,
 };

@@ -13,9 +13,8 @@ export const getCurrentUser = (token) => async (dispatch) => {
 
 export const logIn = (userData) => async (dispatch) => {
   try {
-    await userService.loginUser(userData).then((data) => {
-      dispatch(logUserIn(data));
-    });
+    const data = await userService.loginUser(userData);
+    dispatch(logUserIn(data));
   } catch (err) {
     console.error(err);
   }
@@ -23,9 +22,8 @@ export const logIn = (userData) => async (dispatch) => {
 
 export const logOut = (token) => async (dispatch) => {
   try {
-    await userService.logOut(token).then(() => {
-      dispatch(logUserOut());
-    });
+    await userService.logOut(token);
+    dispatch(logUserOut());
   } catch (err) {
     console.error(err);
   }

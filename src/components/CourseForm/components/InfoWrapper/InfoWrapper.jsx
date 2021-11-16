@@ -116,4 +116,5 @@ export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
 
 InfoWrapper.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired,
 };
