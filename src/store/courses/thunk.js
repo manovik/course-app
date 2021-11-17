@@ -1,4 +1,4 @@
-import { courseService } from 'services';
+import { coursesAPI } from 'services';
 import {
   addCoursesToStore,
   deleteCourseFromStore,
@@ -7,7 +7,7 @@ import {
 
 export const addNewCourse = (newCourse) => async (dispatch) => {
   try {
-    const { result, successful } = await courseService.add(newCourse);
+    const { result, successful } = await coursesAPI.addCourse(newCourse);
     if (successful) {
       dispatch(addCoursesToStore([result]));
     }
@@ -18,7 +18,7 @@ export const addNewCourse = (newCourse) => async (dispatch) => {
 
 export const updateCourse = (newCourse) => async (dispatch) => {
   try {
-    const { result, successful } = await courseService.update(newCourse);
+    const { result, successful } = await coursesAPI.updateCourse(newCourse);
     if (successful) {
       dispatch(updateCourses(result));
     }
@@ -29,7 +29,7 @@ export const updateCourse = (newCourse) => async (dispatch) => {
 
 export const deleteCourse = (id) => async (dispatch) => {
   try {
-    const { successful } = await courseService.delete(id);
+    const { successful } = await coursesAPI.deleteCourse(id);
     if (successful) {
       dispatch(deleteCourseFromStore(id));
     }
@@ -40,7 +40,7 @@ export const deleteCourse = (id) => async (dispatch) => {
 
 export const getAllCourses = () => async (dispatch) => {
   try {
-    await courseService.getAll().then((data) => {
+    await coursesAPI.getAllCourses().then((data) => {
       dispatch(addCoursesToStore(data));
     });
   } catch (err) {

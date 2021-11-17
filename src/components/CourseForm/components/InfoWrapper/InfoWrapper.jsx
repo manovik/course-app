@@ -12,7 +12,7 @@ import { CourseAuthors } from '../CourseAuthors';
 
 import { GridTemplate } from 'common/GridTemplate';
 
-import { authorService } from 'services';
+import { coursesAPI } from 'services';
 import { addAuthor } from 'store/authors/actionCreators';
 
 import { getIDs, switchElementsInStates } from 'helpers';
@@ -39,7 +39,7 @@ export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
   }, [historyState, storeAuthors]);
 
   const getSelectedAuthors = useCallback(() => {
-    const mappedAuthors = authorService.getAuthorsByIds(
+    const mappedAuthors = coursesAPI.getAuthorsByIds(
       historyState?.authors,
       storeAuthors
     );
@@ -50,7 +50,7 @@ export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
     async (author) => {
       if (!author) return;
       try {
-        const { successful, result: newAuthor } = await authorService.addAuthor(
+        const { successful, result: newAuthor } = await coursesAPI.addAuthor(
           author
         );
         if (successful) {

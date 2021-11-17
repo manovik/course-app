@@ -2,11 +2,59 @@ import axios from 'axios';
 
 import { ENDPOINTS } from 'appConstants';
 import { makeShortId } from 'helpers/makeShortId';
-export class CourseService {
+
+export class CoursesAPI {
   constructor(url) {
-    this.courseService = [];
     this.baseUrl = url;
   }
+
+  // authors
+
+  addAuthor = async (author) => {
+    try {
+      const { data } = await axios.post(
+        `${this.baseUrl}/${ENDPOINTS.ADD_AUTHOR}`,
+        { name: author },
+        {
+          headers: {
+            Authorization: localStorage.getItem('u-token'),
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      throw new Error(`Failed to fetch authors list!\n${err}`);
+    }
+  };
+
+  getAllAuthors = async () => {
+    return await axios
+      .get(`${this.baseUrl}/${ENDPOINTS.GET_AUTHORS}`)
+      .then(({ data }) => {
+        const { result } = data;
+        return result;
+      })
+      .catch((err) => {
+        throw new Error(`Failed to fetch authors list!\n${err}`);
+      });
+  };
+
+  getAuthorsByIds = (authorsIdArray = [], allAuthors = []) => {
+    try {
+      const authors = [];
+      for (const id of authorsIdArray) {
+        authors.push(
+          allAuthors.find((a) => a?.id === id) || { id, name: 'Unknown' }
+        );
+      }
+
+      return authors;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // courses
 
   createNewCourse = (courseInfo) => ({
     ...courseInfo,
@@ -14,7 +62,7 @@ export class CourseService {
     creationDate: new Date().toLocaleDateString('en-US'),
   });
 
-  add = async (newCourse) => {
+  addCourse = async (newCourse) => {
     const courseInfo = this.createNewCourse(newCourse);
     try {
       const { data } = await axios.post(
@@ -32,7 +80,7 @@ export class CourseService {
     }
   };
 
-  delete = async (id) => {
+  deleteCourse = async (id) => {
     try {
       const { data } = await axios.delete(
         `${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`,
@@ -48,7 +96,7 @@ export class CourseService {
     }
   };
 
-  update = async (courseInfo) => {
+  updateCourse = async (courseInfo) => {
     try {
       const { id, duration } = courseInfo;
       const { data } = await axios.put(
@@ -66,22 +114,21 @@ export class CourseService {
     }
   };
 
-  getAll = async () => {
+  getAllCourses = async () => {
     try {
       const { data } = await axios.get(
         `${this.baseUrl}/${ENDPOINTS.GET_COURSES}`
       );
       const { successful, result } = data;
       if (successful) {
-        this.courseService = result;
+        return result;
       }
-      return this.courseService;
     } catch (err) {
       throw new Error('Failed to fetch courses!');
     }
   };
 
-  getById = async (id) => {
+  getCourseById = async (id) => {
     try {
       const { data } = await axios.get(
         `${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`
@@ -93,6 +140,43 @@ export class CourseService {
       }
     } catch (err) {
       throw new Error(`Failed to fetch course by id ${makeShortId(id)}`);
+    }
+  };
+
+  // user
+
+  loginUser = async (data) =>
+    await axios.post(`${this.baseUrl}/${ENDPOINTS.LOGIN}`, data);
+
+  logOut = async (token) => {
+    try {
+      const { data } = await axios.delete(
+        `${this.baseUrl}/${ENDPOINTS.LOGOUT}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  register = async (data) =>
+    await axios.post(`${this.baseUrl}/${ENDPOINTS.REGISTER}`, data);
+
+  getCurrentUser = async (token) => {
+    try {
+      const data = await axios.get(`${this.baseUrl}/${ENDPOINTS.GET_ME}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      console.error(err);
     }
   };
 }

@@ -1,8 +1,4 @@
-import { AuthorService } from './authorService';
-import { CourseService } from './courseService';
-import { UserService } from './userService';
+import { CoursesAPI } from './coursesApi';
 import { baseUrl } from 'appConstants';
 
-export const courseService = new CourseService(baseUrl);
-export const authorService = new AuthorService(baseUrl);
-export const userService = new UserService(baseUrl);
+export const coursesAPI = new CoursesAPI(baseUrl);

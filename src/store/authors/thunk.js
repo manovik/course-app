@@ -1,9 +1,9 @@
-import { authorService } from 'services';
+import { coursesAPI } from 'services';
 import { addAuthors } from './actionCreators';
 
 export const getAllAuthors = () => async (dispatch) => {
   try {
-    await authorService.getAll().then((data) => {
+    await coursesAPI.getAllAuthors().then((data) => {
       dispatch(addAuthors(data));
     });
   } catch (err) {

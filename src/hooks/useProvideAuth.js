@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { userService } from 'services';
+import { coursesAPI } from 'services';
 
 import { localStorageApi } from 'helpers/localStorageApi';
 
@@ -36,7 +36,7 @@ export const useProvideAuth = () => {
   const login = useCallback(
     async (params) => {
       dispatch(setIsLoading());
-      userService
+      coursesAPI
         .loginUser(params)
         .then(({ data }) => {
           saveData(data);
@@ -55,7 +55,7 @@ export const useProvideAuth = () => {
   const register = useCallback(
     async (params) => {
       dispatch(setIsLoading());
-      userService
+      coursesAPI
         .register(params)
         .then(() => {
           dispatch(setIsNotLoading());

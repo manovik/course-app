@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Record } from 'common/Record';
 
-import { authorService, courseService } from 'services';
+import { coursesAPI } from 'services';
 
 import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 
@@ -21,10 +21,10 @@ export const CourseInfo = () => {
   const authors = useSelector(getAuthors);
 
   useEffect(() => {
-    courseService
-      .getById(courseId)
+    coursesAPI
+      .getCourseById(courseId)
       .then((course) => {
-        const mappedAuthors = authorService.getAuthorsByIds(
+        const mappedAuthors = coursesAPI.getAuthorsByIds(
           course.authors,
           authors
         );
