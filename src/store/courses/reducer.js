@@ -10,8 +10,7 @@ export const coursesReducer = (state = [], action) => {
       return courses;
     case actions.COURSES_UPDATE:
       const { id } = payload;
-      const coursesList = state.filter((c) => c.id !== id);
-      return [payload, ...coursesList];
+      return state.map((c) => (c.id === id ? { ...c, ...payload } : c));
     default:
       return state;
   }
