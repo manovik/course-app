@@ -10,6 +10,7 @@ export class CourseService {
 
   createNewCourse = (courseInfo) => ({
     ...courseInfo,
+    duration: +courseInfo.duration,
     creationDate: new Date().toLocaleDateString('en-US'),
   });
 
@@ -27,7 +28,7 @@ export class CourseService {
       );
       return data;
     } catch (err) {
-      throw new Error('Failed to fetch courses!\n' + err);
+      throw new Error('Failed to add new course!\n' + err);
     }
   };
 
@@ -49,10 +50,10 @@ export class CourseService {
 
   update = async (courseInfo) => {
     try {
-      const { id } = courseInfo;
+      const { id, duration } = courseInfo;
       const { data } = await axios.put(
         `${this.baseUrl}/${ENDPOINTS.COURSES}/${id}`,
-        courseInfo,
+        { ...courseInfo, duration: +duration },
         {
           headers: {
             Authorization: localStorage.getItem('u-token'),
@@ -61,7 +62,7 @@ export class CourseService {
       );
       return data;
     } catch (err) {
-      throw new Error('Failed to fetch courses!\n' + err);
+      throw new Error('Failed to update course!\n' + err);
     }
   };
 
@@ -76,7 +77,7 @@ export class CourseService {
       }
       return this.courseService;
     } catch (err) {
-      throw new Error('Failed to fetch courses');
+      throw new Error('Failed to fetch courses!');
     }
   };
 
