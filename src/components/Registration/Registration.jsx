@@ -8,7 +8,7 @@ import { APP } from 'appConstants';
 
 import { useAuth } from 'context/authContext';
 
-import { useAuthRedirect } from 'hooks/useAuthRedirect';
+import { useAuthRedirect } from 'hooks';
 
 export const Registration = () => {
   const history = useHistory();
