@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-import { getUser } from 'selectors';
+import { getUser } from 'store/selectors';
 import { APP, ROLES } from 'appConstants';
 
 export const AdminRoute = ({ children, ...props }) => {

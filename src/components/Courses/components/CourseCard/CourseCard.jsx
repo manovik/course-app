@@ -10,7 +10,7 @@ import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 import { APP, ROLES } from 'appConstants';
 
 import { deleteCourse } from 'store/courses/thunk';
-import { getAuthors } from 'selectors';
+import { getAuthors } from 'store/selectors';
 
 import { useAuth } from 'context/authContext';
 

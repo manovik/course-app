@@ -19,7 +19,7 @@ import { getAllAuthors } from 'store/authors/thunk';
 import { getAllCourses } from 'store/courses/thunk';
 import { NotFound } from 'common/NotFound';
 import { useSelector } from 'react-redux';
-import { getAppState } from 'selectors/selectors';
+import { getAppState } from 'store/selectors/selectors';
 import { clearErrors } from 'store/appState/actionCreators';
 
 const App = () => {

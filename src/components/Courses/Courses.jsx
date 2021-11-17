@@ -11,7 +11,7 @@ import { Button } from 'common/Button';
 
 import { APP, ROLES } from 'appConstants';
 
-import { getCourses } from 'selectors';
+import { getCourses } from 'store/selectors';
 import { useAuth } from 'context/authContext';
 
 export const Courses = () => {

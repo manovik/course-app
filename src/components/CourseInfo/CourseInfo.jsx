@@ -10,7 +10,7 @@ import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 
 import { APP, initCourseInfo } from 'appConstants';
 
-import { getAuthors } from 'selectors';
+import { getAuthors } from 'store/selectors';
 
 export const CourseInfo = () => {
   const [courseInfo, setCourseInfo] = useState(initCourseInfo);

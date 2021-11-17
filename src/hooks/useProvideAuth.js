@@ -13,7 +13,7 @@ import {
   setIsNotLoading,
 } from 'store/appState/actionCreators';
 
-import { getUser } from 'selectors';
+import { getUser } from 'store/selectors';
 
 import { getCurrentUser, logOut } from 'store/user/thunk';
 

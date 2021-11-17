@@ -16,7 +16,7 @@ import { authorService } from 'services';
 import { addAuthor } from 'store/authors/actionCreators';
 
 import { getIDs, switchElementsInStates } from 'helpers';
-import { getAuthors } from 'selectors';
+import { getAuthors } from 'store/selectors';
 
 export const InfoWrapper = ({ dispatch, store: courseLocalStore }) => {
   const [authors, setAuthors] = useState([]);
