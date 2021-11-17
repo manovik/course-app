@@ -78,15 +78,10 @@ export const useProvideAuth = () => {
   useEffect(() => {
     const { storageToken } = localStorageApi.getFromLocalStorage();
     if (storageToken && !userState.isAuth) {
-      try {
-        dispatch(getCurrentUser(storageToken));
-        pageLocation.pathname !== APP.ROOT &&
-          history.push(pageLocation.pathname);
-      } catch (err) {
-        console.warn(err);
-      }
+      dispatch(getCurrentUser(storageToken));
+      pageLocation.pathname !== APP.ROOT && history.push(pageLocation.pathname);
     }
-  }, [dispatch, signOut, history, userState, pageLocation.pathname]);
+  }, [dispatch, history, userState.isAuth]);
 
   return {
     user: userState.name,
