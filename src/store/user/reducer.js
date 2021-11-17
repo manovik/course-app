@@ -1,5 +1,5 @@
 import * as actions from './actionTypes';
-import { initialUserState } from 'utils/initialUserState';
+import { initialUserState } from './initialUserState';
 
 export const userReducer = (state = initialUserState, action) => {
   const { payload, type } = action;

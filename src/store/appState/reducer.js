@@ -1,4 +1,4 @@
-import { appInitState } from 'utils/appInitState';
+import { appInitState } from './appInitState';
 import * as actions from './actionTypes';
 
 export const appState = (state = appInitState, action) => {
