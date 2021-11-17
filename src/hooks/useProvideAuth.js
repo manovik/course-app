@@ -59,6 +59,7 @@ export const useProvideAuth = () => {
         .register(params)
         .then(() => {
           dispatch(setIsNotLoading());
+          history.push(APP.LOGIN);
         })
         .catch((err) => {
           dispatch(setIsNotLoading());
@@ -67,7 +68,7 @@ export const useProvideAuth = () => {
           return err.response;
         });
     },
-    [dispatch]
+    [dispatch, history]
   );
 
   const signOut = useCallback(() => {
