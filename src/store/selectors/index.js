@@ -1,1 +1,1 @@
-export { getCourses, getAuthors, getUser } from './selectors';
+export { getCourses, getAuthors, getUser, getAppState } from './selectors';
