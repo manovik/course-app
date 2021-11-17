@@ -8,9 +8,7 @@ import { authorService, courseService } from 'services';
 
 import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 
-import { initCourseInfo } from 'utils/courseStructure';
-
-import { APP } from 'appConstants';
+import { APP, initCourseInfo } from 'appConstants';
 
 import { getAuthors } from 'selectors';
 

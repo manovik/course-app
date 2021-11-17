@@ -13,8 +13,7 @@ import { reducer, reset } from './store/reducer';
 
 import { validateCourseFields, callAlert } from 'helpers';
 
-import { initCourse } from 'utils/courseStructure';
-import { APP } from 'appConstants';
+import { APP, initCourse } from 'appConstants';
 
 import { addNewCourse, updateCourse } from 'store/courses/thunk';
 import { setIsLoading, setIsNotLoading } from 'store/appState/actionCreators';

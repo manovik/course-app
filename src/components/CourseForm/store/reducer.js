@@ -1,6 +1,6 @@
 import { ACTIONS } from './actions';
 
-import { initCourse } from 'utils/courseStructure';
+import { initCourse } from 'appConstants';
 
 export const reset = () => {
   return initCourse;
