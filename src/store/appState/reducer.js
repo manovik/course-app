@@ -11,6 +11,8 @@ export const appState = (state = appInitState, action) => {
       return { ...state, errors: action.payload };
     case actions.CLEAR_ERRORS:
       return { ...state, errors: [] };
+    case actions.APP_IS_LOADED:
+      return { ...state, firstAppLoad: false };
     default:
       return state;
   }

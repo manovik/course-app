@@ -16,3 +16,7 @@ export const setErrorMessages = (payload) => ({
 export const clearErrors = () => ({
   type: actions.CLEAR_ERRORS,
 });
+
+export const setAppIsLoaded = () => ({
+  type: actions.APP_IS_LOADED,
+});

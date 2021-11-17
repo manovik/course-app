@@ -20,16 +20,21 @@ import { getAllCourses } from 'store/courses/thunk';
 import { NotFound } from 'common/NotFound';
 import { useSelector } from 'react-redux';
 import { getAppState } from 'store/selectors';
-import { clearErrors } from 'store/appState/actionCreators';
+import { clearErrors, setAppIsLoaded } from 'store/appState/actionCreators';
+import { useAuth } from 'context/authContext';
 
 const App = () => {
   const dispatch = useDispatch();
   const appState = useSelector(getAppState);
+  const { isAuth } = useAuth();
 
   useEffect(() => {
-    dispatch(getAllAuthors());
-    dispatch(getAllCourses());
-  }, [dispatch]);
+    if (isAuth && appState.firstAppLoad) {
+      dispatch(getAllAuthors());
+      dispatch(getAllCourses());
+      dispatch(setAppIsLoaded());
+    }
+  }, [dispatch, appState.firstAppLoad, isAuth]);
 
   useEffect(() => {
     let timerId;
