@@ -40,7 +40,7 @@ export const useProvideAuth = () => {
         .loginUser(params)
         .then(({ data }) => {
           saveData(data);
-          dispatch(getCurrentUser(data.result));
+          dispatch(getCurrentUser(data.result, history));
           dispatch(setIsNotLoading());
         })
         .catch((err) => {
@@ -49,7 +49,7 @@ export const useProvideAuth = () => {
           dispatch(setErrorMessages([err.response.data?.result]));
         });
     },
-    [saveData, dispatch]
+    [saveData, dispatch, history]
   );
 
   const register = useCallback(
@@ -76,13 +76,17 @@ export const useProvideAuth = () => {
     localStorageApi.clearLocalStorage();
   }, [dispatch, userState]);
 
-  useEffect(() => {
+  const checkTokenAuth = useCallback(() => {
     const { storageToken } = localStorageApi.getFromLocalStorage();
     if (storageToken && !userState.isAuth) {
-      dispatch(getCurrentUser(storageToken));
+      dispatch(getCurrentUser(storageToken, history));
       pageLocation.pathname !== APP.ROOT && history.push(pageLocation.pathname);
     }
-  }, [dispatch, history, userState.isAuth]);
+  }, [dispatch, pageLocation.pathname, history, userState.isAuth]);
+
+  useEffect(() => {
+    checkTokenAuth();
+  }, [checkTokenAuth]);
 
   return {
     user: userState.name,
