@@ -11,13 +11,13 @@ import { Button } from 'common/Button';
 
 import { APP, ROLES } from 'appConstants';
 
-import { getCourses } from 'store/selectors';
-import { useAuth } from 'context/authContext';
+import { getCourses, getUser } from 'store/selectors';
 
 export const Courses = () => {
   const history = useHistory();
   const [coursesToShow, setCoursesToShow] = useState([]);
-  const { role } = useAuth();
+
+  const { role } = useSelector(getUser);
 
   const courses = useSelector(getCourses);
 

@@ -1,16 +1,15 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-import { useAuth } from 'context/authContext';
 import { APP } from 'appConstants';
+import { getUser } from 'store/selectors';
 
 export const PrivateRoute = ({ children, ...props }) => {
-  const auth = useAuth();
+  const { isAuth } = useSelector(getUser);
   return (
-    <Route {...props}>
-      {auth.isAuth ? children : <Redirect to={APP.LOGIN} />}
-    </Route>
+    <Route {...props}>{isAuth ? children : <Redirect to={APP.LOGIN} />}</Route>
   );
 };
 

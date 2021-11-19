@@ -89,9 +89,6 @@ export const useProvideAuth = () => {
   }, [checkTokenAuth]);
 
   return {
-    user: userState.name,
-    isAuth: userState.isAuth,
-    role: userState.role,
     login,
     register,
     signOut,

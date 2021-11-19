@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { APP } from 'appConstants';
 
-import { useAuth } from 'context/authContext';
+import { getUser } from 'store/selectors';
+import { useSelector } from 'react-redux';
 
 export const useAuthRedirect = () => {
-  const { isAuth } = useAuth();
+  const { isAuth } = useSelector(getUser);
   const history = useHistory();
 
   useEffect(() => {

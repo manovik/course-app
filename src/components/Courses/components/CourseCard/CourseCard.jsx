@@ -10,9 +10,7 @@ import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 import { APP, ROLES } from 'appConstants';
 
 import { deleteCourse } from 'store/courses/thunk';
-import { getAuthors } from 'store/selectors';
-
-import { useAuth } from 'context/authContext';
+import { getAuthors, getUser } from 'store/selectors';
 
 import { coursesAPI } from 'services';
 
@@ -27,7 +25,7 @@ export const CourseCard = ({ course }) => {
 
   const { id, title, description, creationDate, duration, authors } = course;
 
-  const { role } = useAuth();
+  const { role } = useSelector(getUser);
 
   const mapAuthors = useCallback(() => {
     const mappedAuthors = coursesAPI.getAuthorsByIds(authors, storeAuthors);
