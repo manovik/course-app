@@ -1,7 +1,14 @@
 import './record.scss';
 import { PropTypes } from 'prop-types';
 
-export const Record = ({ caption, text, title, children }) => (
+export const Record = ({
+  caption,
+  text,
+  title,
+  dataTestId,
+  mulipleTestId,
+  children,
+}) => (
   <>
     <p className='d-flex'>
       <span className='fw-bold'>{caption}:</span>&nbsp;
@@ -13,12 +20,15 @@ export const Record = ({ caption, text, title, children }) => (
           textOverflow: 'ellipsis',
         }}
         title={title}
+        data-testid={dataTestId}
       >
         {text}
       </span>
     </p>
     {children?.map((ch, i) => (
-      <p key={ch.replace(/\s/g, i)}>{ch}</p>
+      <p key={ch.replace(/\s/g, i)} data-testid={mulipleTestId}>
+        {ch}
+      </p>
     ))}
   </>
 );

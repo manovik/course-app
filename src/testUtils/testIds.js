@@ -1,4 +1,11 @@
 export const testIds = {
-  HEADER: 'header',
-  USER_NAME: 'userName',
+  HEADER: 'HEADER',
+  USER_NAME: 'USER_NAME',
+  COURSE_CARD: {
+    TITLE: 'TITLE',
+    DESCRIPTION: 'DESCRIPTION',
+    AUTHORS: 'AUTHORS',
+    DURATION: 'DURATION',
+    CREATION_DATE: 'CREATION_DATE',
+  },
 };

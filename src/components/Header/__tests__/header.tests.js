@@ -3,10 +3,22 @@ import { testIds } from 'testUtils';
 import { Header } from '../Header';
 import { Wrapper, state } from 'testUtils';
 
+jest.mock('context/authContext', () => ({
+  useAuth: () => ({
+    signOut: jest.fn(),
+  }),
+}));
+
+const store = {
+  getState: () => state,
+  subscribe: jest.fn(),
+  dispatch: jest.fn(),
+};
+
 describe('Testing Header', () => {
   let renderResult = () =>
     render(
-      <Wrapper>
+      <Wrapper store={store}>
         <Header></Header>
       </Wrapper>
     );
