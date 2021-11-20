@@ -52,7 +52,9 @@ const App = () => {
       <Header />
       {appState.isLoading && <Loader />}
       <div className='content-wrapper'>
-        {appState.errors.length && <ErrorTip errorMessages={appState.errors} />}
+        {!!appState.errors.length && (
+          <ErrorTip errorMessages={appState.errors} />
+        )}
         <Switch>
           <Route exact path={APP.ROOT}>
             <Redirect to={APP.COURSES} />

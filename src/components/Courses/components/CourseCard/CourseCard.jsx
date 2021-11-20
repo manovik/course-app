@@ -39,7 +39,10 @@ export const CourseCard = ({ course }) => {
   }, [setAuthorNames, mapAuthors]);
 
   return (
-    <article className='card mb-3 shadow'>
+    <article
+      className='card mb-3 shadow'
+      data-testid={testIds.COURSE_CARD.CARD}
+    >
       <div className='row card-body p-4'>
         <div className='col'>
           <h3 className='title' data-testid={testIds.COURSE_CARD.TITLE}>

@@ -1,13 +1,14 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Button } from '../Button';
+import { testIds } from 'testUtils';
 
 export const Author = ({ authorName, children, className }) => {
   const initClass = 'd-flex justify-content-between ';
   const compClass = className ? initClass + className : initClass;
 
   return (
-    <div className={compClass}>
+    <div className={compClass} data-testid={testIds.AUTHOR_ITEM}>
       <span>{authorName}</span>
       {children}
     </div>

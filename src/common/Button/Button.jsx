@@ -14,12 +14,19 @@ const getButtonCaption = (text) => {
   }
 };
 
-export const Button = ({ buttonText, btnClassName, type, onClick }) => {
+export const Button = ({
+  buttonText,
+  btnClassName,
+  type,
+  onClick,
+  dataTestId,
+}) => {
   return (
     <button
       className={'btn ' + btnClassName}
       type={type ? type : 'button'}
       onClick={onClick}
+      data-testid={dataTestId}
     >
       {getButtonCaption(buttonText)}
     </button>

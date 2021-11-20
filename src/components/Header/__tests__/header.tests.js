@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
-import { testIds } from 'testUtils';
 import { Header } from '../Header';
-import { Wrapper, state } from 'testUtils';
+import { Wrapper, state, testIds } from 'testUtils';
 
 jest.mock('context/authContext', () => ({
   useAuth: () => ({
