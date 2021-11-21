@@ -40,7 +40,7 @@ describe('Testing CourseCard', () => {
       expect(el.textContent).toBe(state.courses[0].description);
     });
 
-    it('should have duration', () => {
+    it('should have duration in correct format', () => {
       const el = getByTestId(testIds.COURSE_CARD.DURATION);
 
       expect(el.textContent).toBe(

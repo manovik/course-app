@@ -45,7 +45,7 @@ export const AddAuthor = ({ clickHandler }) => {
           'btn-outline-primary col-sm-3 align-self-center fs-5 mt-3'
         }
         onClick={clickBtnHandler}
-        dataTestId={testIds.ADD_AUTHOR_BTN}
+        dataTestId={testIds.CREATE_AUTHOR_BTN}
       />
     </>
   );
