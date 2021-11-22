@@ -10,13 +10,12 @@ import { convertMinutesToTime, convertDate, arrayToString } from 'helpers';
 import { APP, ROLES } from 'appConstants';
 
 import { deleteCourse } from 'store/courses/thunk';
-import { getAuthors } from 'store/selectors';
-
-import { useAuth } from 'context/authContext';
+import { getAuthors, getUser } from 'store/selectors';
 
 import { coursesAPI } from 'services';
 
 import './course-card.scss';
+import { testIds } from 'testUtils';
 
 export const CourseCard = ({ course }) => {
   const history = useHistory();
@@ -27,7 +26,7 @@ export const CourseCard = ({ course }) => {
 
   const { id, title, description, creationDate, duration, authors } = course;
 
-  const { role } = useAuth();
+  const { role } = useSelector(getUser);
 
   const mapAuthors = useCallback(() => {
     const mappedAuthors = coursesAPI.getAuthorsByIds(authors, storeAuthors);
@@ -40,20 +39,39 @@ export const CourseCard = ({ course }) => {
   }, [setAuthorNames, mapAuthors]);
 
   return (
-    <article className='card mb-3 shadow'>
+    <article
+      className='card mb-3 shadow'
+      data-testid={testIds.COURSE_CARD.CARD}
+    >
       <div className='row card-body p-4'>
         <div className='col'>
-          <h3 className='title'>{title}</h3>
-          <p className='fw-3 fs-4'>{description}</p>
+          <h3 className='title' data-testid={testIds.COURSE_CARD.TITLE}>
+            {title}
+          </h3>
+          <p
+            className='fw-3 fs-4'
+            data-testid={testIds.COURSE_CARD.DESCRIPTION}
+          >
+            {description}
+          </p>
         </div>
         <div className='col-3 fs-4' style={{ paddingLeft: '1rem' }}>
           <Record
             caption='Authors'
             text={arrayToString(authorNames)}
             title={arrayToString(authorNames)}
+            dataTestId={testIds.COURSE_CARD.AUTHORS}
           />
-          <Record caption='Duration' text={convertMinutesToTime(duration)} />
-          <Record caption='Created' text={convertDate(creationDate)} />
+          <Record
+            caption='Duration'
+            text={convertMinutesToTime(duration)}
+            dataTestId={testIds.COURSE_CARD.DURATION}
+          />
+          <Record
+            caption='Created'
+            text={convertDate(creationDate)}
+            dataTestId={testIds.COURSE_CARD.CREATION_DATE}
+          />
           <div className='d-flex flex-wrap'>
             <Button
               buttonText='Show Course'

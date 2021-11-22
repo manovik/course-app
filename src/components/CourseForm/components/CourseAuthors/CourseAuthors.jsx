@@ -4,15 +4,23 @@ import { Author } from 'common/Author';
 import { Button } from 'common/Button';
 
 import { PropTypes } from 'prop-types';
+import { testIds } from 'testUtils';
 
 export const CourseAuthors = ({ authors, clickHandler }) => {
   const getAuthor = (aut) => {
     return (
-      <Author key={aut.id} authorName={aut.name} className='m-2'>
+      <Author
+        key={aut.id}
+        authorName={aut.name}
+        className='m-2'
+        dataAuthorId={aut.id}
+        dataTestId={testIds.AUTHOR_ADDED_ITEM}
+      >
         <Button
           buttonText='Delete author'
           btnClassName='btn-outline-danger fs-5'
           onClick={() => clickHandler(aut)}
+          dataTestId={testIds.DELETE_AUTHOR_BTN}
         />
       </Author>
     );
@@ -29,7 +37,12 @@ export const CourseAuthors = ({ authors, clickHandler }) => {
   return (
     <>
       <GridTitle title='Course authors' />
-      <div className='w-75 mx-auto'>{renderAuthors()}</div>
+      <div
+        className='w-75 mx-auto'
+        data-testid={testIds.ADDED_AUTHORS_CONTAINER}
+      >
+        {renderAuthors()}
+      </div>
     </>
   );
 };

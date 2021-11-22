@@ -2,6 +2,7 @@ import React from 'react';
 import './button.scss';
 import PropTypes from 'prop-types';
 import { icons } from './icons';
+import { testIds } from 'testUtils';
 
 const getButtonCaption = (text) => {
   switch (text) {
@@ -14,12 +15,19 @@ const getButtonCaption = (text) => {
   }
 };
 
-export const Button = ({ buttonText, btnClassName, type, onClick }) => {
+export const Button = ({
+  buttonText,
+  btnClassName,
+  type,
+  onClick,
+  dataTestId,
+}) => {
   return (
     <button
       className={'btn ' + btnClassName}
       type={type ? type : 'button'}
       onClick={onClick}
+      data-testid={dataTestId}
     >
       {getButtonCaption(buttonText)}
     </button>
@@ -34,6 +42,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  dataTestId: testIds.BUTTON_TEST_ID,
   buttonText: 'Button',
   btnClassName: 'btn-outline-secondary',
   type: 'button',

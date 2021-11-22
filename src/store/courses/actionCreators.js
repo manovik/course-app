@@ -5,6 +5,10 @@ export const addCoursesToStore = (payload) => ({
   payload: payload,
 });
 
+export const getCourses = () => ({
+  type: actions.COURSES_GET,
+});
+
 export const deleteCourseFromStore = (payload) => ({
   type: actions.COURSES_REMOVE,
   payload,

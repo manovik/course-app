@@ -6,6 +6,7 @@ import { Button } from 'common/Button';
 import { GridTitle } from 'common/GridTitle';
 
 import { validateString } from 'helpers';
+import { testIds } from 'testUtils';
 
 export const AddAuthor = ({ clickHandler }) => {
   const inputRef = useRef(null);
@@ -44,6 +45,7 @@ export const AddAuthor = ({ clickHandler }) => {
           'btn-outline-primary col-sm-3 align-self-center fs-5 mt-3'
         }
         onClick={clickBtnHandler}
+        dataTestId={testIds.CREATE_AUTHOR_BTN}
       />
     </>
   );

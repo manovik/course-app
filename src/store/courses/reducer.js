@@ -11,6 +11,8 @@ export const coursesReducer = (state = [], action) => {
     case actions.COURSES_UPDATE:
       const { id } = payload;
       return state.map((c) => (c.id === id ? { ...c, ...payload } : c));
+    case actions.COURSES_GET:
+      return [...state];
     default:
       return state;
   }

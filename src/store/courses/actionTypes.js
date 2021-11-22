@@ -1,3 +1,4 @@
 export const COURSES_ADD = 'COURSES_ADD';
+export const COURSES_GET = 'COURSES_GET';
 export const COURSES_UPDATE = 'COURSES_UPDATE';
 export const COURSES_REMOVE = 'COURSES_REMOVE';

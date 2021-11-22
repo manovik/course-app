@@ -18,6 +18,8 @@ import { APP, initCourse } from 'appConstants';
 import { addNewCourse, updateCourse } from 'store/courses/thunk';
 import { setIsLoading, setIsNotLoading } from 'store/appState/actionCreators';
 
+import { testIds } from 'testUtils';
+
 export const CourseForm = () => {
   const [courseFormStore, dispatch] = useReducer(reducer, initCourse, reset);
 
@@ -60,7 +62,7 @@ export const CourseForm = () => {
 
   return (
     <div className='container'>
-      <section className='fs-4'>
+      <section className='fs-4' data-testid={testIds.COURSE_FORM}>
         <div className='d-flex justify-content-between'>
           <div className='w-25 mb-2'>
             <Input

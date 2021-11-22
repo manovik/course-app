@@ -19,14 +19,13 @@ import { getAllAuthors } from 'store/authors/thunk';
 import { getAllCourses } from 'store/courses/thunk';
 import { NotFound } from 'common/NotFound';
 import { useSelector } from 'react-redux';
-import { getAppState } from 'store/selectors';
+import { getAppState, getUser } from 'store/selectors';
 import { clearErrors, setAppIsLoaded } from 'store/appState/actionCreators';
-import { useAuth } from 'context/authContext';
 
 const App = () => {
   const dispatch = useDispatch();
   const appState = useSelector(getAppState);
-  const { isAuth } = useAuth();
+  const { isAuth } = useSelector(getUser);
 
   useEffect(() => {
     if (isAuth && appState.firstAppLoad) {
@@ -53,7 +52,9 @@ const App = () => {
       <Header />
       {appState.isLoading && <Loader />}
       <div className='content-wrapper'>
-        {appState.errors.length && <ErrorTip errorMessages={appState.errors} />}
+        {!!appState.errors.length && (
+          <ErrorTip errorMessages={appState.errors} />
+        )}
         <Switch>
           <Route exact path={APP.ROOT}>
             <Redirect to={APP.COURSES} />

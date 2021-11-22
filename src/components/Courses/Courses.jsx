@@ -11,13 +11,14 @@ import { Button } from 'common/Button';
 
 import { APP, ROLES } from 'appConstants';
 
-import { getCourses } from 'store/selectors';
-import { useAuth } from 'context/authContext';
+import { getCourses, getUser } from 'store/selectors';
+import { testIds } from 'testUtils';
 
 export const Courses = () => {
   const history = useHistory();
   const [coursesToShow, setCoursesToShow] = useState([]);
-  const { role } = useAuth();
+
+  const { role } = useSelector(getUser);
 
   const courses = useSelector(getCourses);
 
@@ -58,13 +59,17 @@ export const Courses = () => {
               buttonText='Add new course'
               btnClassName='btn-outline-success btn-wide fs-4'
               onClick={() => history.push(APP.COURSES_ADD)}
+              dataTestId={testIds.ADD_BTN}
             />
           )}
         </div>
-        {(coursesToShow?.length &&
-          coursesToShow.map((course) => (
-            <CourseCard key={course.id} course={course} />
-          ))) || <NothingToShow />}
+        <div data-testid={testIds.COURSE_WRAPPER}>
+          {!!coursesToShow?.length &&
+            coursesToShow.map((course) => (
+              <CourseCard key={course.id} course={course} />
+            ))}
+        </div>
+        {!!coursesToShow?.length || <NothingToShow />}
       </section>
     </div>
   );
