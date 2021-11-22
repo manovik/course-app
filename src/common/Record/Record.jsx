@@ -1,5 +1,6 @@
 import './record.scss';
 import { PropTypes } from 'prop-types';
+import { testIds } from 'testUtils';
 
 export const Record = ({
   caption,
@@ -34,6 +35,7 @@ export const Record = ({
 );
 
 Record.propTypes = {
+  dataTestId: PropTypes.string,
   caption: PropTypes.string.isRequired,
   title: PropTypes.string,
   text: PropTypes.string,
@@ -41,6 +43,7 @@ Record.propTypes = {
 };
 
 Record.defaultProps = {
+  dataTestId: testIds.RECORD_TEST_ID,
   title: '',
   text: '',
   children: [],

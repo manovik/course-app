@@ -19,4 +19,6 @@ export const testIds = {
     CREATION_DATE: 'CREATION_DATE',
   },
   ADD_BTN: 'ADD_BTN',
+  BUTTON_TEST_ID: 'BUTTON_TEST_ID',
+  RECORD_TEST_ID: 'RECORD_TEST_ID',
 };

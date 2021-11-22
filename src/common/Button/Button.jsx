@@ -2,6 +2,7 @@ import React from 'react';
 import './button.scss';
 import PropTypes from 'prop-types';
 import { icons } from './icons';
+import { testIds } from 'testUtils';
 
 const getButtonCaption = (text) => {
   switch (text) {
@@ -41,6 +42,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  dataTestId: testIds.BUTTON_TEST_ID,
   buttonText: 'Button',
   btnClassName: 'btn-outline-secondary',
   type: 'button',
